@@ -91,7 +91,7 @@
 <h3>Implement pipes :x:</h3>
 <h3>Handle environment variables :x:</h3>
 <h3>Handle $? (echo $?) which should display the last exit code :x:</h3>
-<h3>Handle ctrl-C, ctrl-D and ctrl-\ the way it works in bash</h3>
+<h3>Handle ctrl-C, ctrl-D and ctrl-\ the way it works in bash:</h3>
 	<h3>ctrl + c displays a new prompt :x:</h3>
 	<h3>ctrl + d exits the shell :x:</h3>
 	<h3>ctrl + \ does nothing :x:</h3>
