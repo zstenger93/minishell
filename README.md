@@ -22,6 +22,7 @@
 
 
 <h2>Used previously</2>
+
 | Function				| Manual Page		| From lib			| Description
 | :--					| :--				| :--				| :--
 | **printf**			| `man 3 printf`	| `<stdio.h>`		| write output to stdout
@@ -94,25 +95,25 @@ Getting a headache from deciding who does what :white_check_mark:</h3>
 <h3>Working relative or absolute PATH :x:</h3>
 <h3>Handle ' and " so shell won't interpret with it's content :x:</h3>
 <h3>Working redirections as:</h3>
-	< redirect output :x:
-	> redirect input :x:
-	<< (heredoc) but doesn't have to update the history :x:
-	>> should redirect in append mode to the file :x:
+	<h3>< redirect output :x:</h3>
+	<h3>> redirect input :x:</h3>
+	<h3><< (heredoc) but doesn't have to update the history :x:</h3>
+	<h3>>> should redirect in append mode to the file :x:</h3>
 <h3>Implement pipes :x:</h3>
 <h3>Handle environment variables :x:</h3>
 <h3>Handle $? (echo $?) which should display the last exit code :x:</h3>
 <h3>Handle ctrl-C, ctrl-D and ctrl-\ the way it works in bash</h3>
-	ctrl + c displays a new prompt :x:
-	ctrl + d exits the shell :x:
-	ctrl + \ does nothing :x:
+	<h3>ctrl + c displays a new prompt :x:</h3>
+	<h3>ctrl + d exits the shell :x:</h3>
+	<h3>ctrl + \ does nothing :x:</h3>
 <h3>Implement the followiung builtins:</h3>
-	echo with option -n :x:
-	cd with relative or absolute path :x:
-	pwd :x:
-	export :x:
-	unset :x:
-	env :x:
-	exit :x:
+	<h3>echo with option -n :x:</h3>
+	<h3>cd with relative or absolute path :x:</h3>
+	<h3>pwd :x:</h3>
+	<h3>export :x:</h3>
+	<h3>unset :x:</h3>
+	<h3>env :x:</h3>
+	<h3>exit :x:</h3>
 	
 <h3>Bonus? :sweat_smile: :gun:</h3>
 
