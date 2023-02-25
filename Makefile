@@ -10,34 +10,36 @@ LIBFT			= libft/libft.a
 
 MAIN			= main/minishell
 
-ENV_PATH		= 0input_check/env_path/ \
-				  0input_check/env_path/ \
+ENV_PATH		= main/parser/env_path/ \
+				  main/parser/env_path/ \
 
-INPUT			= 0input_check/input/ \
-				  0input_check/input/ \
+INPUT			= main/parser/input/ \
+				  main/parser/input/ \
 
-COMMANDS		= 1process_input/commands/builtins \
-				  1process_input/commands/builtins \
+COMMANDS		= main/executor/commands/builtins \
+				  main/executor/commands/builtins \
 
-INIT			= 1process_input/init/ \
-				  1process_input/init/ \
+INIT			= main/executor/init/ \
+				  main/executor/init/ \
 
-SIGNALS			= 1process_input/signals/ \
-				  1process_input/signals/ \
+SIGNALS			= main/executor/signals/ \
+				  main/executor/signals/ \
 
-EXECUTE			= 1process_input/execute/ \
-				  1process_input/execute/ \
+EXECUTE			= main/executor/execute/ \
+				  main/executor/execute/ \
 
-INPUT_CHECK		= $(ENV_PATH) $(INPUT)
+SUBHSHELL		= main/subshell/ \
 
-PROCESS_INPUT	= $(COMMANDS) $(INIT) $(SIGNALS) $(EXECUTE)
+PARSER			= $(ENV_PATH) $(INPUT)
 
-CLEANUP			= cleanup/free/ \
-				  cleanup/free_at_error/ \
+EXECUTOR		= $(COMMANDS) $(INIT) $(SIGNALS) $(EXECUTE)
+
+CLEANUP_TOOLS	= cleanup_tools/free/ \
+				  cleanup_tools/free_at_error/ \
 
 UTILS			= utils/ \
 
-SOURCE			= $(MAIN) $(INPUT_CHECK) $(PROCESS_INPUT) $(CLEANUP) $(UTILS)
+SOURCE			= $(MAIN) $(PARSER) $(EXECUTOR) $(CLEANUP_TOOLS) $(UTILS)
 
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
 OBJ				= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SOURCE)))
@@ -102,6 +104,7 @@ re: fclean all
 	@echo "$(RED)Files have been cleaned and project has been rebuilt!$(DEF_COLOR)"
 
 run: all
+	clear
 	@./$(NAME)
 
 v: all
