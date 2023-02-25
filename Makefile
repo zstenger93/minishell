@@ -67,11 +67,8 @@ $(NAME):
 	@echo " ░░           ░         ░          ░                ░       ░░      ░░"
 	@echo " ░                                                           ░       ░"
 
-
-#FILL THIS UP WITH THE DIRECTORIES
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_DIR)/
+	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(DN)
 
 $(LIBFT):
