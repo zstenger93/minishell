@@ -7,17 +7,6 @@
 <img src="https://www.freeiconspng.com/uploads/hd-pepe-png-transparent-background-4.png" width="350" alt="Hd Pepe Png Transparent Background" />
 
 
-
-
-
-
-
-
-
-
-
-
-
 <div align=center>
 
 
@@ -42,8 +31,8 @@
 | **pipe**				| `man pipe`		| `<unistd.h>`		| create pipe
 | **strerror**			| `man strerror`	| `<string.h>`		| return string describing error number
 | **errno**				| `man errno`		| `<errno.h>`		| number of last error
-| **access**			|					|					|
-| **perror**			|					|					|
+| **access**			| `man access`		| `<unistd.h>`		| checks the access permissions
+| **perror**			| `man perror`		| `<stdio.h>`		| look up the error message string corresponding to an error
 
 <h2>New Functions</h2>
 
@@ -62,28 +51,28 @@
 | **opendir**			| `man opendir`		| `<dirent.h>`		| open a directory
 | **readdir**			| `man readdir`		| `<dirent.h>`		| read a directory
 | **closedir**			| `man closedir`	| `<dirent.h>`		| close a directory
-| **isatty**			| `man isatty`		|					|
-| **ttyname**			| `man ttyname`		|					|
-| **ttyslot**			| `man ttyslot`		|					|
-| **ioctl**				| `man ioctl`		|					|
-| **unlink**			| `man unlink`		|					|
-| **sigaction**			| `man sigaction`	|					|
-| **sigemptyset**		| `man sigemptyset`	|					|
-| **sigaddset**			| `man sigaddset`	|					|
-| **tcsetattr**			| `man tcsetattr`	|					|
-| **tcgetattr**			| `man tcgetattr`	|					|
-| **tgetent**			| `man tgetent`		|					|
-| **tgetflag**			| `man tgetflag`	|					|
-| **tgetnum**			| `man tgetnum`		|					|
-| **tgetstr**			| `man tgetstr`		|					|
-| **tgoto**				| `man tgoto`		|					|
-| **tputs**				| `man tputs`		|					|
-| **readline**			| `man readline`	|					|
-| **rl_clear_history**	| `man rl_clear_history`|					|
-| **rl_on_new_line**	| `man rl_on_new_line`|					|
-| **rl_replace_line**	| `man rl_replace_line`	|					|
-| **rl_redisplay**		| `man rl_redisplay`|					|
-| **add_history**		| `man add_history`	|					|
+| **isatty**			| `man isatty`		| `<unistd.h>`		| determines if the file descriptor fd refers to a valid terminal
+| **ttyname**			| `man ttyname`		| `<unistd.h>`		| gets the related device name of a file descriptor for which isatty() is true
+| **ttyslot**			| `man ttyslot`		| `<unistd.h>`		| returns the name stored in a static buffer which will be overwritten on subsequent calls
+| **ioctl**				| `man ioctl`		| `<sys/ioctl.h>`	| manipulates the underlying device parameters of special files
+| **unlink**			| `man unlink`		| `<unistd.h>`		| deletes a name from the filesystem
+| **sigaction**			| `man sigaction`	| `<signal.h>`		| assigns an action for a signal specified by sig
+| **sigemptyset**		| `man sigemptyset`	| `<signal.h>`		| initializes a signal set to be empty
+| **sigaddset**			| `man sigaddset`	| `<signal.h>`		| adds the specified signal signo to the signal set
+| **tcsetattr**			| `man tcsetattr`	| `<termios.h>`		| setting the termios structure
+| **tcgetattr**			| `man tcgetattr`	| `<termios.h>`		| getting the termios structure
+| **tgetent**			| `man tgetent`		| `<curses.h>` `<term.h>`| loads the entry for name
+| **tgetflag**			| `man tgetflag`	| `<curses.h>` `<term.h>`| gets the boolean entry for id, or zero if it is not available
+| **tgetnum**			| `man tgetnum`		| `<curses.h>` `<term.h>`| gets the numeric entry for id, or -1 if it is not available
+| **tgetstr**			| `man tgetstr`		| `<curses.h>` `<term.h>`| returns the string entry for id, or zero if it is not available
+| **tgoto**				| `man tgoto`		| `<curses.h>` `<term.h>`| instantiates the parameters into the given capability
+| **tputs**				| `man tputs`		| `<curses.h>` `<term.h>`| applies  padding  information  to the string str and outputs it
+| **readline**			| 					| `<stdio.h>` `<readline/readline.h>` `<readline/history.h>`| will read a line from the terminal and return it, using prompt as a prompt
+| **rl_clear_history**	| 					| `<stdio.h>` `<readline/readline.h>` `<readline/history.h>`| Clear the history list by deleting all of the entries
+| **rl_on_new_line**	| 					| `<stdio.h>` `<readline/readline.h>` `<readline/history.h>`| Tell the update functions that we have moved onto a new (empty) line, usually after outputting a newline
+| **rl_replace_line**	| 					| `<stdio.h>` `<readline/readline.h>` `<readline/history.h>`| Replace the contents of rl_line_buffer with text
+| **rl_redisplay**		| 					| `<stdio.h>` `<readline/readline.h>` `<readline/history.h>`| Change what’s displayed on the screen to reflect the current contents of rl_line_buffer
+| **add_history**		|					| `<stdio.h>` `<readline/readline.h>` `<readline/history.h>`| Saving the line into the history
 
 
 <h1 align=center>TO DO</h1>
