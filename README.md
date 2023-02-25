@@ -62,32 +62,32 @@
 | **opendir**			| `man opendir`		| `<dirent.h>`		| open a directory
 | **readdir**			| `man readdir`		| `<dirent.h>`		| read a directory
 | **closedir**			| `man closedir`	| `<dirent.h>`		| close a directory
-| **isatty**			|					|					|
-| **ttyname**			|					|					|
-| **ttyslot**			|					|					|
-| **ioctl**				|					|					|
-| **unlink**			|					|					|
-| **sigaction**			|					|					|
-| **sigemptyset**		|					|					|
-| **sigaddset**			|					|					|
-| **tcsetattr**			|					|					|
-| **tcgetattr**			|					|					|
-| **tgetent**			|					|					|
-| **tgetflag**			|					|					|
-| **tgetnum**			|					|					|
-| **tgetstr**			|					|					|
-| **tgoto**				|					|					|
-| **tputs**				|					|					|
-| **readline**			|					|					|
-| **rl_clear_history**	|					|					|
-| **rl_on_new_line**	|					|					|
-| **rl_replace_line**	|					|					|
-| **rl_redisplay**		|					|					|
-| **add_history**		|					|					|
+| **isatty**			| `man isatty`		|					|
+| **ttyname**			| `man ttyname`		|					|
+| **ttyslot**			| `man ttyslot`		|					|
+| **ioctl**				| `man ioctl`		|					|
+| **unlink**			| `man unlink`		|					|
+| **sigaction**			| `man sigaction`	|					|
+| **sigemptyset**		| `man sigemptyset`	|					|
+| **sigaddset**			| `man sigaddset`	|					|
+| **tcsetattr**			| `man tcsetattr`	|					|
+| **tcgetattr**			| `man tcgetattr`	|					|
+| **tgetent**			| `man tgetent`		|					|
+| **tgetflag**			| `man tgetflag`	|					|
+| **tgetnum**			| `man tgetnum`		|					|
+| **tgetstr**			| `man tgetstr`		|					|
+| **tgoto**				| `man tgoto`		|					|
+| **tputs**				| `man tputs`		|					|
+| **readline**			| `man readline`	|					|
+| **rl_clear_history**	| `man rl_clear_history`|					|
+| **rl_on_new_line**	| `man rl_on_new_line`|					|
+| **rl_replace_line**	| `man rl_replace_line`	|					|
+| **rl_redisplay**		| `man rl_redisplay`|					|
+| **add_history**		| `man add_history`	|					|
 
 
-<h1 align=center>Mandatory</h1>
-<h2 align=center>TO DO</h2>
+<h1 align=center>TO DO</h1>
+<h2 align=center>Mandatory</h2>
 
 <h3>Getting a headache from deciding who does what :white_check_mark:</h3>
 <h3>Using one global variable :x:</h3>
