@@ -21,7 +21,7 @@
 <div align=center>
 
 
-<h2>Used previously</2>
+<h2>Used previously</h2>
 
 | Function				| Manual Page		| From lib			| Description
 | :--					| :--				| :--				| :--
@@ -86,10 +86,10 @@
 | **add_history**		|					|					|
 
 
-
+<h1 align=center>Mandatory</h1>
 <h2 align=center>TO DO</h2>
-<h3>
-Getting a headache from deciding who does what :white_check_mark:</h3>
+
+<h3>Getting a headache from deciding who does what :white_check_mark:</h3>
 <h3>Using one global variable :x:</h3>
 <h3>Have a working history :x:</h3>
 <h3>Working relative or absolute PATH :x:</h3>
@@ -114,8 +114,8 @@ Getting a headache from deciding who does what :white_check_mark:</h3>
 	<h3>unset :x:</h3>
 	<h3>env :x:</h3>
 	<h3>exit :x:</h3>
-	
-<h3>Bonus? :sweat_smile: :gun:</h3>
+
+<h2>Bonus? :sweat_smile: :gun:</h2>
 
 <h3>implement && and || for priorities :x:</h3>
 <h3>wildcards * should work for the current working directory :x:</h3>
