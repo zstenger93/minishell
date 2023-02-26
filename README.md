@@ -99,9 +99,9 @@
 	<h3>echo with option -n :x:</h3>
 	<h3>cd with relative or absolute path :x:</h3>
 	<h3>pwd :x:</h3>
-	<h3>export :x:</h3>
+	<h3>export :white_check_mark:</h3>
 	<h3>unset :x:</h3>
-	<h3>env :x:</h3>
+	<h3>env :white_check_mark:</h3>
 	<h3>exit :x:</h3>
 
 <h2>Bonus? :sweat_smile: :gun:</h2>
