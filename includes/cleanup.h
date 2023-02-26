@@ -14,5 +14,6 @@
 # define CLEANUP_H
 
 void	free_array(void **array);
+void	free_char_array(char **array);
 
 #endif

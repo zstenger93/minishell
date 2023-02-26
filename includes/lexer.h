@@ -2,6 +2,7 @@
 #ifndef LEXER_H
 # define LEXER_H
 
+// << >> < > | '' ""
 typedef enum s_token
 {
 	HEREDOC;
@@ -13,9 +14,10 @@ typedef enum s_token
 	DQUOTE;
 }	t_token;
 
+//line -> current line from readline
 typedef struct s_lexer
 {
-	char	*line;
+
 	t_token	token;
 }
 

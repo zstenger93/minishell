@@ -41,6 +41,7 @@ int main(int argc, char **argv, char **env)
 	exit(EXIT_SUCCESS);
 }
 
+//env is unused, take it out idiot
 void	shell_loop(char **env_path, char **env)
 {
 	t_path	path;
@@ -80,7 +81,7 @@ void	terminal_prompt(char *type)
 	}
 }
 
-char	**copy_env(char **path)
+char	**copy_env(char **env)
 {
 	size_t i;
 	int len;
@@ -88,17 +89,17 @@ char	**copy_env(char **path)
 	
 	i = 0;
 	len = 0;
-	while (path[len] != NULL)
+	while (env[len] != NULL)
 		len++;
 	copy = ft_calloc(sizeof(char *), len + 1);
 	if (!copy)
 		return (NULL);
-	while (path[i] != NULL)
+	while (env[i] != NULL)
 	{
-		copy[i] = ft_strdup(path[i]);
+		copy[i] = ft_strdup(env[i]);
 		if (copy[i] == NULL)
 		{
-			// free_array(copy);
+			free_char_array(copy);
 			return(copy);
 		}
 		i++;
@@ -108,7 +109,8 @@ char	**copy_env(char **path)
 
 void	print_env(char **env_path, char *line)
 {
-	int i;
+	int		i;
+	char	**split;
 
 	i = 0;
 	if (ft_strncmp(line, "env", 3) == 0)
@@ -123,7 +125,7 @@ void	print_env(char **env_path, char *line)
 	{
 		while (env_path[i] != NULL)
 		{
-			char **split = ft_split(env_path[i], '=');
+			split = ft_split(env_path[i], '=');
 			printf("declare -x %s=\"%s\"\n", split[0], split[1]);
 			free_char_array(split);
 			i++;
