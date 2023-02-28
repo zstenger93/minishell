@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:34:36 by zstenger          #+#    #+#             */
-/*   Updated: 2023/02/26 18:58:49 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:12:59 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,47 @@ int main(int argc, char **argv, char **env)
 		printf("%s\n", path.paths[i]);
 		i++;
 	}
-	shell_loop(shell.envp, env);
+	shell_loop(shell.envp);
 	free_char_array(shell.envp);
 	free_char_array(path.paths);
 	exit(EXIT_SUCCESS);
 }
 
-//env is unused, take it out idiot
-void	shell_loop(char **env_path, char **env)
+void	shell_loop(char **env_path)
 {
-	t_path	path;
+	t_path		path;
+	t_prompt	prompt;
 
 	terminal_prompt("startup");
 	while (TRUE)
 	{
-		char *line = readline("");
-		if (ft_strncmp(line, "env", 3) == 0 || ft_strncmp(line, "export", 6) == 0)
-			print_env(env_path, line);
-		if (ft_strncmp(line, "exit", 4) == 0)
-		{
-			free(line);
-			break ;
-		}
-		if(line[0] != '\0')
-			add_history(line);
-		else
-			printf("\n");
-		free(line);
+		prompt.line = readline("minishell");
+		env_xprt_xt(env_path, prompt.line);
+		free(prompt.line);
 		terminal_prompt("in_loop");
 	}
 	clear_history();
+	rl_clear_history();
+}
+
+
+void	env_xprt_xt(char **env_path, char *prompt)
+{
+	if (ft_strncmp(prompt, "env", 3) == 0 || ft_strncmp(prompt, "export", 6) == 0)
+		print_env(env_path, prompt);
+	if (ft_strncmp(prompt, "exit", 4) == 0)
+	{
+		free(prompt);
+		ft_putendl_fd("exit", STDOUT_FILENO);
+		//cleanup function
+		clear_history();
+		rl_clear_history();
+		exit(EXIT_SUCCESS);
+	}
+	if(prompt[0] != '\0')
+		add_history(prompt);
+	else
+		printf("\n");
 }
 
 void	terminal_prompt(char *type)
@@ -73,10 +84,10 @@ void	terminal_prompt(char *type)
 		ft_printf(BOLD GREEN "➜  " CYAN "minishell" YELLOW " ✗ " C_END);
 	else if (ft_strncmp(type, "in_loop", 7) == 0)
 	{
-		//0. ➜ at start			valid prompt -> green, bad promt -> red
-		//1. username			cyan
-		//2. current folder		blue
-		//3. ✗ or % at the end	yellow
+		//0. ➜ at start				valid prompt -> green, bad promt -> red
+		//1. get username			cyan
+		//2. get current folder		blue
+		//3. ✗ or % at the end		yellow
 		ft_printf(BOLD GREEN "➜  " CYAN "minishell" YELLOW " ✗ " C_END);
 	}
 }
@@ -145,19 +156,4 @@ char	*get_env(char **env)
 		i++;
 	}
 	return (NULL);
-}
-
-void	free_char_array(char **array)
-{
-	int	i;
-
-	if (array == NULL)
-		return ;
-	i = 0;
-	while (array[i] != NULL)
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
 }

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/02/26 18:36:13 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/02/27 14:24:11 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 # define TRUE 1
 # define FALSE 0
 
-//fix promt to origi
-# define HERE_DOC "\033[1;34mheredoc> \033[0m"
+# define HERE_DOC "\033[1;34mpipe heredoc> \033[0m"
 
 //OWN HEADERS
+# include "lexer.h"
 # include "error.h"
 # include "colors.h"
 # include "cleanup.h"
@@ -43,7 +43,7 @@ typedef struct s_minishell
 
 typedef struct s_prompt
 {
-	char			*prompt_line;
+	char			*line;
 
 }	t_prompt;
 
@@ -55,9 +55,10 @@ typedef struct s_path
 }	t_path;
 
 void	terminal_prompt(char *type);
-void	shell_loop(char **env_path, char **env);
+void	shell_loop(char **env_path);
 char	**copy_env(char **env);
 void	print_env(char **env_path, char *line);
 char	*get_env(char **env);
+void	env_xprt_xt(char **env_path, char *prompt);
 
 #endif
