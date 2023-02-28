@@ -30,6 +30,6 @@ typedef struct s_lexer
 }	t_lexer;
 
 int		lexer(char *prompt_line);
-char	count_quote(const char *s, int c);
+char	count_quotes(char *s, int sq, int dq);
 
 #endif

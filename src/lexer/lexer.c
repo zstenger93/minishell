@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:17:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/02/28 15:43:31 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/02/28 16:21:34 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	lexer(char *prompt_line)
 {
 	t_prompt	line;
-	
-	if (count_quote(prompt_line, DQUOTE) != 0 || count_quote(prompt_line, SQUOTE) != 0)
-		return(printf("%d\n%d\n", count_quote(prompt_line, DQUOTE), count_quote(prompt_line, SQUOTE)), 0);
+
+	if(count_quotes(prompt_line, SQUOTE, DQUOTE) == 0)
+		return(printf("odd amount of quotes\n"), 0);
 	line.sliced = ft_split(prompt_line, ' ');
 	int i = 0;
 	while (line.sliced[i] != NULL)
@@ -34,18 +34,25 @@ int	lexer(char *prompt_line)
 	return(0);
 }
 
-char	count_quote(const char *s, int c)
+char	count_quotes(char *s, int sq, int dq)
 {
-	int		count;
+	int		scount;
+	int		qcount;
 	int	i;
 
 	i = 0;
-	count = 0;
+	scount = 0;
+	qcount = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == c)
-			count++;
+		if (s[i] == sq)
+			scount++;
+		else if (s[i] == dq)
+			qcount++;
 		i++;
 	}
-	return (count);
+	printf("%d\n%d\n", qcount, scount);
+	if ((qcount % 2) == 0 && (scount % 2) == 0)
+		return(1);
+	return (0);
 }
