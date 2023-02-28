@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/02/27 14:24:11 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:10:47 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ typedef struct s_minishell
 
 typedef struct s_prompt
 {
-	char			*line;
+	char	*line;
+	char	**sliced;
 
 }	t_prompt;
 

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:34:36 by zstenger          #+#    #+#             */
-/*   Updated: 2023/02/27 15:12:59 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:57:49 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int main(int argc, char **argv, char **env)
 	t_path		path;
 	t_minishell	shell;
 
-	if (argc != 1)
-		how_to_use();
+	how_to_use(argc);
 	shell.envp = copy_env(env);
 	path.paths = ft_split(get_env(shell.envp), ':');
 	int i = 0;
@@ -49,8 +48,9 @@ void	shell_loop(char **env_path)
 	terminal_prompt("startup");
 	while (TRUE)
 	{
-		prompt.line = readline("minishell");
+		prompt.line = readline("");
 		env_xprt_xt(env_path, prompt.line);
+		lexer(prompt.line);
 		free(prompt.line);
 		terminal_prompt("in_loop");
 	}

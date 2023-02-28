@@ -11,36 +11,17 @@ LIBFT			= libft/libft.a
 
 MAIN			= main/minishell
 
-ENV_PATH		= main/parser/env_path/ \
-				  main/parser/env_path/ \
-
-INPUT			= main/parser/input/ \
-				  main/parser/input/ \
-
-BUILTINS		= builtins \
-				  builtins \
-
-INIT			= main/executor/init/ \
-				  main/executor/init/ \
-
-SIGNALS			= main/executor/signals/ \
-				  main/executor/signals/ \
-
-EXECUTE			= main/executor/execute/ \
-				  main/executor/execute/ \
-
-SUBHSHELL		= main/subshell/ \
+LEXER			= lexer/lexer
 
 PARSER			= $(ENV_PATH) $(INPUT)
 
 EXECUTOR		= $(BUILTINS) $(INIT) $(SIGNALS) $(EXECUTE)
 
 CLEANUP_TOOLS	= cleanup_tools/free_at_error/free_at_error \
-# cleanup_tools/free/ \
 
 GENERAL_UTILS	= general_utils/error \
 
-SOURCE			= $(MAIN) $(GENERAL_UTILS) $(CLEANUP_TOOLS)
+SOURCE			= $(MAIN) $(LEXER) $(GENERAL_UTILS) $(CLEANUP_TOOLS)
 # $(PARSER) $(EXECUTOR)
 
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
