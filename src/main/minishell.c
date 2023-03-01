@@ -63,7 +63,7 @@ void	env_xprt_xt(char **env_path, char *prompt)
 {
 	if (ft_strncmp(prompt, "env", 3) == 0 || ft_strncmp(prompt, "export", 6) == 0)
 		print_env(env_path, prompt);
-	if (ft_strncmp(prompt, "exit", 4) == 0)
+	if (ft_strncmp(prompt, "command exit", 12) == 0)
 	{
 		free(prompt);
 		ft_putendl_fd("exit", STDOUT_FILENO);
