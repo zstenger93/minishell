@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/02/28 13:10:47 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:19:39 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,16 @@
 //full env list saved in envp
 typedef struct s_minishell
 {
+	char				*user;
 	char				**envp;
 	struct s_minishell	*next;
-}	t_minishell; 
+}	t_minishell;
+
+typedef struct s_envp
+{
+	char	*content;
+	struct s_envp *next;
+}	t_envp;
 
 typedef struct s_prompt
 {
@@ -61,5 +68,8 @@ char	**copy_env(char **env);
 void	print_env(char **env_path, char *line);
 char	*get_env(char **env);
 void	env_xprt_xt(char **env_path, char *prompt);
+
+void	mini_pwd(char **env);
+char	*get_user(char **env);
 
 #endif
