@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:34:36 by zstenger          #+#    #+#             */
-/*   Updated: 2023/02/28 13:57:49 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/02 09:46:21 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	shell_loop(char **env_path)
 	clear_history();
 	rl_clear_history();
 }
-
 
 void	env_xprt_xt(char **env_path, char *prompt)
 {
