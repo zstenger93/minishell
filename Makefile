@@ -11,6 +11,8 @@ LIBFT			= libft/libft.a
 
 MAIN			= main/minishell
 
+BUILTINS		= builtins/env/linked_list
+
 LEXER			= lexer/lexer
 
 PARSER			= $(ENV_PATH) $(INPUT)
@@ -21,7 +23,7 @@ CLEANUP_TOOLS	= cleanup_tools/free_at_error/free_at_error \
 
 GENERAL_UTILS	= general_utils/error \
 
-SOURCE			= $(MAIN) $(LEXER) $(GENERAL_UTILS) $(CLEANUP_TOOLS)
+SOURCE			= $(MAIN) $(BUILTINS) $(LEXER) $(GENERAL_UTILS) $(CLEANUP_TOOLS)
 # $(PARSER) $(EXECUTOR)
 
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
@@ -36,7 +38,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
 	@echo ""
-	@echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)The Mr. Minishell Community$(DEF_COLOR)"
+	@echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)
 	@$(CC) $(OBJ) $(INCL_RDL_LIB) $(LIBFT) -lreadline -o minishell $(DN)
 	@echo "$(PURPLE)                       $(NAME) $(DEF_COLOR)$(GREEN)Compiling done.$(DEF_COLOR)"

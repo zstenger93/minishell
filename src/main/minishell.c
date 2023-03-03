@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:34:36 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/02 16:30:29 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:35:32 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,24 @@ int main(int argc, char **argv, char **env)
 {
 	t_path		path;
 	t_minishell	shell;
+	t_minishell	*hell;
 
 	how_to_use(argc);
+	hell->env = create_env(env);
+
+	// printf("%s=%s\n", hell->env->start, hell->env->content);
+	// printf("%s=%s\n", hell->env->next->start, hell->env->next->content);
+	
+
 	shell.envp = copy_env(env);
 	path.paths = ft_split(get_env(shell.envp), ':');
 	shell.user = get_user(shell.envp);
-	int i = 0;
-	while (path.paths[i] != NULL)
-	{
-		printf("%s\n", path.paths[i]);
-		i++;
-	}
+	// int i = 0;
+	// while (path.paths[i] != NULL)
+	// {
+	// 	printf("%s\n", path.paths[i]);
+	// 	i++;
+	// }
 	shell_loop(shell.envp);
 	free_char_array(shell.envp);
 	free_char_array(path.paths);
