@@ -2,14 +2,6 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-# define HEREDOC	"<<"
-# define APPEND		">>"
-# define INPUT		"<"
-# define OUTPUT		">"
-# define PIPE		"|"
-# define SQUOTE		39
-# define DQUOTE		34
-
 // << >> < > | '' ""
 // typedef enum s_token
 // {

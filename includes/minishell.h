@@ -6,24 +6,12 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/03 14:18:56 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:48:57 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# define TRUE 1
-# define FALSE 0
-
-# define HERE_DOC "\033[1;34mpipe heredoc> \033[0m"
-
-//OWN HEADERS
-# include "lexer.h"
-# include "error.h"
-# include "colors.h"
-# include "cleanup.h"
-# include "../libft/includes/libft.h"
 
 //STANDARD HEADERS
 # include <readline/readline.h>
@@ -34,7 +22,18 @@
 # include <fcntl.h>
 # include <string.h>
 
-	
+//OWN HEADERS
+# include "defines.h"
+# include "builtins.h"
+# include "executor.h"
+# include "parser.h"
+# include "expander.h"
+# include "general_utils.h"
+# include "lexer.h"
+# include "error.h"
+# include "colors.h"
+# include "cleanup.h"
+# include "../libft/includes/libft.h"
 
 typedef struct s_envp
 {
