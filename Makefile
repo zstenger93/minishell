@@ -3,28 +3,35 @@ CC				= cc
 CFLAGS			= -Wall -Werror -Wextra
 DN				= > /dev/null
 RM				= rm -rf
-
 SRC_DIR			= src/
 OBJ_DIR			= obj/
-
 LIBFT			= libft/libft.a
 
-MAIN			= main/minishell
+MAIN			= main/minishell \
+				  main/shell_loop \
+				  main/prompt \
 
-BUILTINS		= builtins/env/linked_list
+BUILTINS		= builtins/env/linked_list \
+				  builtins/env/env \
+				  builtins/pwd/pwd \
+				  builtins/exit/exit \
+#   builtins/cd/
+#   builtins/echo/
+#   builtins/export/
+#   builtins/unset/
 
-LEXER			= lexer/lexer
+LEXER			= lexer/lexer \
 
-PARSER			= $(ENV_PATH) $(INPUT)
+PARSER			= 
 
-EXECUTOR		= $(BUILTINS) $(INIT) $(SIGNALS) $(EXECUTE)
+EXECUTOR		= 
 
 CLEANUP_TOOLS	= cleanup_tools/free_at_error/free_at_error \
+				  cleanup_tools/free/free \
 
 GENERAL_UTILS	= general_utils/error \
 
 SOURCE			= $(MAIN) $(BUILTINS) $(LEXER) $(GENERAL_UTILS) $(CLEANUP_TOOLS)
-# $(PARSER) $(EXECUTOR)
 
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
 OBJ				= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SOURCE)))

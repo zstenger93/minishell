@@ -6,21 +6,12 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/05 13:48:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/05 14:50:08 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-//STANDARD HEADERS
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <string.h>
 
 //OWN HEADERS
 # include "defines.h"
@@ -34,6 +25,15 @@
 # include "colors.h"
 # include "cleanup.h"
 # include "../libft/includes/libft.h"
+
+//STANDARD HEADERS
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <string.h>
 
 typedef struct s_envp
 {

@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 17:08:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/05 14:36:40 by zstenger         ###   ########.fr       */
+/*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
+/*   Updated: 2023/03/05 14:52:12 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	free_array(void **array)
+void	shell_loop(char **env_path)
 {
-	int	i;
+	t_path		path;
+	t_prompt	prompt;
 
-	if (array == NULL)
-		return ;
-	i = 0;
-	while (array[i] != NULL)
+	terminal_prompt("startup");
+	while (TRUE)
 	{
-		free(array[i]);
-		i++;
+		prompt.line = readline("");
+		env_xprt_xt(env_path, prompt.line);
+		if (ft_strncmp(prompt.line, "pwd", 3) == 0)
+			mini_pwd(env_path);
+		lexer(prompt.line);
+		free(prompt.line);
+		terminal_prompt("in_loop");
 	}
-	free(array);
-}
-void	free_char_array(char **array)
-{
-	int	i;
-
-	if (array == NULL)
-		return ;
-	i = 0;
-	while (array[i] != NULL)
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
+	clear_history();
+	rl_clear_history();
 }
