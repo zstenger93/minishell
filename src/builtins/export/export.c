@@ -12,6 +12,30 @@
 
 #include "../../../includes/minishell.h"
 
+//check if the second trim is needed or not
+void	export(t_shell *shell)
+{
+	t_env	*new;
+	char	*var;
+
+	if (shell->prompt[0] == ' ' || shell->prompt[0] == '\t')
+		shell->prompt = ft_strtrim(shell->prompt, "\t ");
+	else if (ft_strncmp(shell->prompt, "export", 6) == 0
+		&& ft_strlen(shell->prompt) == 6)
+		print_export(shell);
+	else if (ft_strncmp(shell->prompt, "export ", 7) == 0
+		&& ft_pf_strchr(shell->prompt, '=') == NULL)
+		return ;
+	else if (ft_strncmp(shell->prompt, "export ", 7) == 0
+		&& ft_pf_strchr(shell->prompt, '=') != NULL)
+	{
+		var = get_variable(shell->prompt);
+		new = init_env_node(var);
+		free(var);
+		export_new_env(shell->env_head, new);
+	}
+}
+
 void	export_new_env(t_env *head, t_env *new)
 {
 	t_env	*curr;
@@ -23,29 +47,6 @@ void	export_new_env(t_env *head, t_env *new)
 	tmp = curr->next;
 	curr->next = new;
 	new->next = tmp;
-}
-
-//skip whitespaces & tabs
-//change the export print
-void	export(t_shell *shell)
-{
-	t_env	*new;
-	char	*var;
-
-	if (ft_strncmp(shell->prompt, "export", 6) == 0
-		&& ft_strlen(shell->prompt) == 6)
-		print_env_vars(shell->env_head);
-	else if (ft_strncmp(shell->prompt, "export ", 6) == 0
-		&& ft_pf_strchr(shell->prompt, '=') == NULL)
-		return ;
-	else if (ft_strncmp(shell->prompt, "export ", 6) == 0
-		&& ft_pf_strchr(shell->prompt, '=') != NULL)
-	{
-		var = get_variable(shell->prompt);
-		new = init_env_node(var);
-		free(var);
-		export_new_env(shell->env_head, new);
-	}
 }
 
 char	*get_variable(char *prompt)
@@ -62,4 +63,16 @@ char	*get_variable(char *prompt)
 	free(trimmed);
 	free_char_array(split);
 	return (variable);
+}
+
+void	print_export(t_shell *shell)
+{
+	t_env	*curr;
+
+	curr = shell->env_head;
+	while (curr->next != NULL)
+	{
+		printf("declare -x %s=\"%s\"\n", curr->var_name, curr->content);
+		curr = curr->next;		
+	}
 }

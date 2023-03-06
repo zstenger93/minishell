@@ -40,10 +40,17 @@ SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(LEXER) $(GENERAL_UTILS) $(CLEANUP_TOOLS
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
 OBJ				= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SOURCE)))
 
+OS = $(shell uname)
+
 #READLINE HEADER HERE
-INCL_RDL_HEADER	= -I /Users/zstenger/.brew/opt/readline/include
 #READLINE LIB HERE
-INCL_RDL_LIB	= -lreadline -L /Users/zstenger/.brew/opt/readline/lib 
+ifeq ($(OS), Linux)
+INCL_RDL_HEADER	= -I /home/linuxbrew/.linuxbrew/opt/readline/include/readline
+INCL_RDL_LIB	= -lreadline -L /home/linuxbrew/.linuxbrew/opt/readline/lib
+else
+INCL_RDL_HEADER	= -I /Users/zstenger/.brew/opt/readline/include
+INCL_RDL_LIB	= -lreadline -L /Users/zstenger/.brew/opt/readline/lib
+endif
 
 all: $(NAME)
 

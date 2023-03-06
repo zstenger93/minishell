@@ -12,20 +12,6 @@
 
 #include "../../../includes/minishell.h"
 
-// void	free_array(void **array)
-// {
-// 	int	i;
-
-// 	if (array == NULL)
-// 		return ;
-// 	i = 0;
-// 	while (array[i] != NULL)
-// 	{
-// 		free(array[i]);
-// 		i++;
-// 	}
-// 	free(array);
-// }
 void	free_char_array(char **array)
 {
 	int	i;
@@ -53,4 +39,13 @@ void	free_env(t_env *head)
 		free(head);
 		head = next;
 	}
+}
+
+void	free_at_exit(t_shell *shell)
+{
+	free(shell->terminal_prompt);
+	free(shell->prev_prompt);
+	free(shell->prompt);
+	free_env(shell->env_head);
+	free_char_array(shell->cmd_paths);
 }

@@ -11,3 +11,20 @@
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+void    pwd(t_shell *shell)
+{
+    t_env   *curr;
+
+    curr = shell->env_head;
+    while (curr->next != NULL)
+    {
+        if (ft_strncmp(curr->var_name, "PWD", 3) == 0)
+		{
+            printf("%s\n", curr->content);
+			return ;
+		}
+        else
+            curr = curr->next;
+    }
+}

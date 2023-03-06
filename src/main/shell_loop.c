@@ -19,9 +19,7 @@ void	shell_loop(t_shell *shell)
 	{
 		terminal_prompt(shell);
 		shell->prompt = readline(shell->terminal_prompt);
-		temp_exit(shell);
-		if (ft_strncmp(shell->prompt, "export", 6) == 0)
-			export(shell);
+		builtins(shell);
 		if (add_history_if(shell->prompt, shell->prev_prompt) == TRUE)
 			shell->prev_prompt = shell->prompt;
 		else
@@ -41,4 +39,16 @@ void	temp_exit(t_shell *shell)
 		free_char_array(shell->cmd_paths);
 		exit(EXIT_SUCCESS);
 	}
+}
+
+void	builtins(t_shell *shell)
+{
+	if (ft_strncmp(shell->prompt, "export", 6) == 0)
+		export(shell);
+	else if (ft_strncmp(shell->prompt, "env", 3) == 0)
+		env(shell);
+	else if (ft_strncmp(shell->prompt, "pwd", 3) == 0)
+		pwd(shell);
+	else if (ft_strncmp(shell->prompt, "exit", 4) == 0)
+		exit_shell(shell);
 }

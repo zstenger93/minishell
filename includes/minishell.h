@@ -26,9 +26,16 @@
 # include "cleanup.h"
 # include "../libft/includes/libft.h"
 
-//STANDARD HEADERS
-# include <readline/readline.h>
+//READLINE
+#if defined(__APPLE__)
 # include <readline/history.h>
+# include <readline/readline.h>
+#else
+# include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/readline.h>
+# include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/history.h>
+#endif
+
+//STANDARD HEADERS
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -63,7 +70,11 @@ void	shell_loop(t_shell *shell);
 char	*get_curr_dir(void);
 void	terminal_prompt(t_shell *shell);
 
+//BUILTINS
+void	builtins(t_shell *shell);
+
 //BUILTIN ENV
+void    env(t_shell *shell);
 char	*get_path(char **env);
 t_env	*init_env(char **env);
 t_env	*init_env_node(char *str);
@@ -73,13 +84,21 @@ void	add_back_env_node(t_env	*head, t_env *new);
 //BUILTIN EXPORT
 void	export(t_shell *shell);
 char	*get_variable(char *prompt);
+void	print_export(t_shell *shell);
 void	export_new_env(t_env *head, t_env *new);
+
+//BUILTIN PWD
+void    pwd(t_shell *shell);
+
+//BUILTIN EXIT
+void    exit_shell(t_shell *shell);
 
 //INITIALIZE
 void	init_shell(t_shell *shell, char **env);
 
 //CLEANUP TOOLS
 void	free_env(t_env *head);
+void	free_at_exit(t_shell *shell);
 void	free_char_array(char **array);
 
 void	ft_print_2d_char_array(char **array_2d);

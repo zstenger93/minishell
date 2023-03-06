@@ -11,3 +11,15 @@
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+void    env(t_shell *shell)
+{
+    t_env   *curr;
+
+    curr = shell->env_head;
+    while (curr->next != NULL)
+    {
+        printf("%s=%s\n", curr->var_name, curr->content);
+        curr = curr->next;
+    }
+}
