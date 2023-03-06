@@ -10,15 +10,19 @@ LIBFT			= libft/libft.a
 MAIN			= main/minishell \
 				  main/shell_loop \
 				  main/prompt \
+				  main/main_utils \
 
-BUILTINS		= builtins/env/linked_list \
+BUILTINS		= builtins/env/env_utils \
 				  builtins/env/env \
 				  builtins/pwd/pwd \
 				  builtins/exit/exit \
+				  builtins/export/export \
 #   builtins/cd/
 #   builtins/echo/
 #   builtins/export/
 #   builtins/unset/
+
+INIT 			= init/init \
 
 LEXER			= lexer/lexer \
 
@@ -31,7 +35,7 @@ CLEANUP_TOOLS	= cleanup_tools/free_at_error/free_at_error \
 
 GENERAL_UTILS	= general_utils/error \
 
-SOURCE			= $(MAIN) $(BUILTINS) $(LEXER) $(GENERAL_UTILS) $(CLEANUP_TOOLS)
+SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(LEXER) $(GENERAL_UTILS) $(CLEANUP_TOOLS)
 
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
 OBJ				= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SOURCE)))

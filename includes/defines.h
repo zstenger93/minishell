@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:45:33 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/05 13:47:27 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:07:15 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,10 @@
 //HEREDOC TYPE
 # define HD_PIPE "\033[1;34mpipe heredoc> \033[0m"
 # define HERE_DOC "\033[1;34mheredoc> \033[0m"
+
+//PROMPT
+# define ARROW_SIGN "\033[1;32m➜  \033[38;5;75m"
+# define SPACE_SIGN "\033[1;96m "
+# define X_SIGN "\033[1;33m ✗ \033[0m"
 
 #endif

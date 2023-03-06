@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/05 14:50:08 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:02:37 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,51 +35,53 @@
 # include <fcntl.h>
 # include <string.h>
 
-typedef struct s_envp
+typedef struct s_env
 {
-	char			*start;
+	struct s_env	*next;
 	char			*content;
-	struct s_envp	*next;
-}	t_envp;
+	char			*var_name;
+}	t_env;
 
-typedef struct s_minishell
+typedef struct s_shell
 {
-	char				*user;
-	char				**envp;
-	t_envp				*env;
-	struct s_minishell	*next;
-}	t_minishell;
+	char	*prompt;
+	t_env	*env_head;
+	char	*user_name;
+	char	**cmd_paths;
+	char	*prev_prompt;
+	char	*terminal_prompt;
+}	t_shell;
 
-typedef struct s_prompt
-{
-	char	*line;
-	char	**sliced;
+//MAIN UTILS
+bool	add_history_if(char *prompt, char *prev_prompt);
 
-}	t_prompt;
+//SHELL_LOOP
+void	temp_exit(t_shell *shell);
+void	shell_loop(t_shell *shell);
 
-//paths to commands from PATH saved in paths
-typedef struct s_path
-{
-	char			**paths;
-	struct s_path	*next;
-}	t_path;
+//PROMPT
+char	*get_curr_dir(void);
+void	terminal_prompt(t_shell *shell);
 
-void	terminal_prompt(char *type);
-void	shell_loop(char **env_path);
-char	**copy_env(char **env);
-void	print_env(char **env_path, char *line);
-char	*get_env(char **env);
-void	env_xprt_xt(char **env_path, char *prompt);
+//BUILTIN ENV
+char	*get_path(char **env);
+t_env	*init_env(char **env);
+t_env	*init_env_node(char *str);
+void	print_env_vars(t_env *head);
+void	add_back_env_node(t_env	*head, t_env *new);
 
-void	mini_pwd(char **env);
-char	*get_user(char **env);
+//BUILTIN EXPORT
+void	export(t_shell *shell);
+char	*get_variable(char *prompt);
+void	export_new_env(t_env *head, t_env *new);
 
+//INITIALIZE
+void	init_shell(t_shell *shell, char **env);
 
-t_envp	*create_env(char **env);
-t_envp	*new_node(char *envp, char *start, char *content);
-// void	add_node_to_list(t_envp **env, t_envp *new);
-void	add_node_to_list(t_envp *env, t_envp *new);
+//CLEANUP TOOLS
+void	free_env(t_env *head);
+void	free_char_array(char **array);
 
-t_envp	*last_node(t_envp *env);
+void	ft_print_2d_char_array(char **array_2d);
 
 #endif

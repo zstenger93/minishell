@@ -6,28 +6,39 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/05 14:52:12 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:47:27 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	shell_loop(char **env_path)
+//shell->prev_prompt can be extracted from struct
+void	shell_loop(t_shell *shell)
 {
-	t_path		path;
-	t_prompt	prompt;
-
-	terminal_prompt("startup");
 	while (TRUE)
 	{
-		prompt.line = readline("");
-		env_xprt_xt(env_path, prompt.line);
-		if (ft_strncmp(prompt.line, "pwd", 3) == 0)
-			mini_pwd(env_path);
-		lexer(prompt.line);
-		free(prompt.line);
-		terminal_prompt("in_loop");
+		terminal_prompt(shell);
+		shell->prompt = readline(shell->terminal_prompt);
+		temp_exit(shell);
+		if (ft_strncmp(shell->prompt, "export", 6) == 0)
+			export(shell);
+		if (add_history_if(shell->prompt, shell->prev_prompt) == TRUE)
+			shell->prev_prompt = shell->prompt;
+		else
+			free(shell->prompt);
 	}
-	clear_history();
-	rl_clear_history();
+}
+
+void	temp_exit(t_shell *shell)
+{
+	if (ft_strncmp(shell->prompt, "exit", 4) == 0
+		&& ft_strlen(shell->prompt) == 4)
+	{
+		free(shell->terminal_prompt);
+		free(shell->prev_prompt);
+		free(shell->prompt);
+		free_env(shell->env_head);
+		free_char_array(shell->cmd_paths);
+		exit(EXIT_SUCCESS);
+	}
 }
