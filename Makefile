@@ -6,6 +6,7 @@ RM				= rm -rf
 SRC_DIR			= src/
 OBJ_DIR			= obj/
 LIBFT			= libft/libft.a
+OS				= $(shell uname)
 
 MAIN			= main/minishell \
 				  main/shell_loop \
@@ -19,7 +20,6 @@ BUILTINS		= builtins/env/env_utils \
 				  builtins/export/export \
 #   builtins/cd/
 #   builtins/echo/
-#   builtins/export/
 #   builtins/unset/
 
 INIT 			= init/init \
@@ -40,10 +40,6 @@ SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(LEXER) $(GENERAL_UTILS) $(CLEANUP_TOOLS
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
 OBJ				= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SOURCE)))
 
-OS = $(shell uname)
-
-#READLINE HEADER HERE
-#READLINE LIB HERE
 ifeq ($(OS), Linux)
 INCL_RDL_HEADER	= -I /home/linuxbrew/.linuxbrew/opt/readline/include/readline
 INCL_RDL_LIB	= -lreadline -L /home/linuxbrew/.linuxbrew/opt/readline/lib
@@ -108,8 +104,8 @@ run: all
 	clear
 	@./$(NAME)
 
-v: all
-	valgrind --read-var-info=yes --leak-check=full --track-origins=yes ./$(NAME)
+v:
+	valgrind --read-var-info=yes --leak-check=full --track-origins=yes ./minishell
 
 DEF_COLOR = \033[0;39m
 RED = \033[1;4;91m
