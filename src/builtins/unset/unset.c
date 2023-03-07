@@ -36,8 +36,8 @@ void	free_env_var(t_env *env)
 
 void	delete_env_var(t_env *head, t_env *del)
 {
-	t_env	*curr;
 	t_env	*tmp;
+	t_env	*curr;
 
 	curr = head;
 	while (curr != NULL)
@@ -55,9 +55,9 @@ void	delete_env_var(t_env *head, t_env *del)
 
 void	unset_all_vars(t_shell *shell)
 {
-	char	**split;
 	int		i;
 	t_env	*env;
+	char	**split;
 
 	i = 1;
 	split = ft_split(shell->trimmed_prompt, ' ');

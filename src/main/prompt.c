@@ -15,10 +15,10 @@
 void	terminal_prompt(t_shell *shell)
 {
 	char	*half;
+	char	*full;
 	char	*username;
 	char	*curr_dir;
 	char	*directory;
-	char	*full;
 
 	if (shell->terminal_prompt != NULL)
 		free(shell->terminal_prompt);
@@ -27,18 +27,18 @@ void	terminal_prompt(t_shell *shell)
 	directory = ft_nm_strjoin(SPACE_SIGN, curr_dir);
 	half = ft_nm_strjoin(username, directory);
 	full = ft_nm_strjoin(half, X_SIGN);
+	free(directory);
 	free(username);
 	free(curr_dir);
-	free(directory);
 	free(half);
 	shell->terminal_prompt = full;
 }
 
 char	*get_curr_dir(void)
 {
+	int		i;
 	char	*pwd;
 	char	**split;
-	int		i;
 
 	i = 0;
 	pwd = getenv("PWD");

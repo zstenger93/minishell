@@ -32,11 +32,11 @@ char	*get_variable(char *prompt)
 
 char	*get_env_content(char *full, char *var_name)
 {
-	int		content_len;
-	int		var_name_len;
-	char	*content;
 	int		i;
 	int		j;
+	char	*content;
+	int		content_len;
+	int		var_name_len;
 
 	var_name_len = ft_strlen(var_name);
 	if (var_name_len == ft_strlen(full))

@@ -39,20 +39,20 @@ void	exit_code(t_shell *shell)
 	code_str = (char *)malloc(sizeof(char) * (len + 1));
 	strcpy(code_str, shell->trimmed_prompt + i);
 	code = ft_atoi(code_str);
-	free(code_str);
 	free_at_exit(shell);
+	free(code_str);
 	exit(code);
 }
 
 int	is_wrong_command(char *s, char c)
 {
-	int	count;
 	int	boo;
+	int	count;
 	int	index;
 
+	boo = 0;
 	index = 0;
 	count = 0;
-	boo = 0;
 	while (s[index] != '\0')
 	{
 		if (s[index] == c)

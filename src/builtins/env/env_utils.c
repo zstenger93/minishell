@@ -40,8 +40,8 @@ void	add_back_env_node(t_env	*head, t_env *new)
 
 t_env	*init_env(char **env)
 {
-	t_env	*head;
 	int		i;
+	t_env	*head;
 
 	i = 0;
 	head = init_env_node(env[i++]);

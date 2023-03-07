@@ -45,9 +45,9 @@ void	free_at_exit(t_shell *shell)
 {
 	if (shell->trimmed_prompt != NULL)
 		free(shell->trimmed_prompt);
+	free_char_array(shell->cmd_paths);
 	free(shell->terminal_prompt);
+	free_env(shell->env_head);
 	free(shell->prev_prompt);
 	free(shell->prompt);
-	free_env(shell->env_head);
-	free_char_array(shell->cmd_paths);
 }

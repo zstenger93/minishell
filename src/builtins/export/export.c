@@ -28,9 +28,9 @@ void	export(t_shell *shell)
 
 void	export_new_variables(t_shell *shell)
 {
-	char	**split_prompt;
 	int		i;
 	char	**split_var;
+	char	**split_prompt;
 
 	i = 1;
 	split_prompt = ft_split(shell->trimmed_prompt, ' ');

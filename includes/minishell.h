@@ -117,7 +117,6 @@ void	free_env(t_env *head);
 void	free_at_exit(t_shell *shell);
 void	free_char_array(char **array);
 
-
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 int	ft_print_2d_char_array(char **array_2d);

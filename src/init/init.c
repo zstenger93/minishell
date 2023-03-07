@@ -18,19 +18,19 @@ void	init_shell(t_shell *shell, char **env)
 		init_missing_environment(shell, env);
 	else
 		shell->env_head = init_env(env);
-	shell->cmd_paths = ft_split(get_path(env), ':');
 	shell->prev_prompt = NULL;
 	shell->trimmed_prompt = NULL;
 	shell->terminal_prompt = NULL;
 	shell->user_name = getenv("USER");
+	shell->cmd_paths = ft_split(get_path(env), ':');
 }
 
 void	init_missing_environment(t_shell *shell, char **env)
 {
-	char	*get_path;
-	char	**env_copy;
 	char	*user;
+	char	*get_path;
 	char	*username;
+	char	**env_copy;
 
 	get_path = NULL;
 	get_path = getcwd(get_path, 0);
