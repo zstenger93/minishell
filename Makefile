@@ -18,6 +18,7 @@ BUILTINS		= builtins/env/env_utils \
 				  builtins/pwd/pwd \
 				  builtins/exit/exit \
 				  builtins/export/export \
+				  builtins/export/export_utils \
 				  builtins/unset/unset \
 #   builtins/cd/
 #   builtins/echo/

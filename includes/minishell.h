@@ -61,10 +61,11 @@ typedef struct s_shell
 }	t_shell;
 
 //MAIN UTILS
+int		cmd(t_shell *shell, char *str, int s);
 bool	add_history_if(char *prompt, char *prev_prompt);
 
 //SHELL_LOOP
-// void	temp_exit(t_shell *shell);
+void	read_line(t_shell *shell);
 void	shell_loop(t_shell *shell);
 
 //PROMPT
@@ -116,6 +117,9 @@ void	free_env(t_env *head);
 void	free_at_exit(t_shell *shell);
 void	free_char_array(char **array);
 
-void	ft_print_2d_char_array(char **array_2d);
+
+//what does the philosopher pigeon say?
+//TO BE OR NOT TO BE
+int	ft_print_2d_char_array(char **array_2d);
 
 #endif

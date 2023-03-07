@@ -53,3 +53,10 @@ void	ft_print_2d_char_array(char **array_2d)
 	while (array_2d[i] != NULL)
 		printf("%s\n", array_2d[i++]);
 }
+
+int	cmd(t_shell *shell, char *str, int s)
+{
+	if (ft_strncmp(shell->trimmed_prompt, str, s) == 0)
+		return (1);
+	return (0);
+}

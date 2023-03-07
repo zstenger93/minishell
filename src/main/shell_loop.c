@@ -18,8 +18,7 @@ void	shell_loop(t_shell *shell)
 	while (TRUE)
 	{
 		terminal_prompt(shell);
-		shell->prompt = readline(shell->terminal_prompt);
-		shell->trimmed_prompt = ft_strtrim(shell->prompt, "\t ");
+		read_line(shell);
 		builtins(shell);
 		if (add_history_if(shell->prompt, shell->prev_prompt) == TRUE)
 			shell->prev_prompt = shell->prompt;
@@ -29,16 +28,22 @@ void	shell_loop(t_shell *shell)
 	}
 }
 
+void	read_line(t_shell *shell)
+{
+	shell->prompt = readline(shell->terminal_prompt);
+	shell->trimmed_prompt = ft_strtrim(shell->prompt, "\t ");
+}
+
 void	builtins(t_shell *shell)
 {
-	if (ft_strncmp(shell->trimmed_prompt, "export", 6) == 0)
+	if (cmd(shell, "export", 6) == TRUE)
 		export(shell);
-	else if (ft_strncmp(shell->trimmed_prompt, "env", 3) == 0)
+	else if (cmd(shell, "env", 3) == TRUE)
 		env(shell);
-	else if (ft_strncmp(shell->trimmed_prompt, "pwd", 3) == 0)
+	else if (cmd(shell, "pwd", 3) == TRUE)
 		pwd(shell);
-	else if (ft_strncmp(shell->trimmed_prompt, "exit", 4) == 0)
+	else if (cmd(shell, "exit", 4) == TRUE)
 		exit_shell(shell);
-	else if (ft_strncmp(shell->trimmed_prompt, "unset", 5) == 0)
+	else if (cmd(shell, "unset", 5) == TRUE)
 		unset(shell);
 }

@@ -14,7 +14,7 @@
 
 void	init_shell(t_shell *shell, char **env)
 {
-	if (getenv("PWD") == NULL)
+	if (getenv("USER") == NULL)
 		init_missing_environment(shell, env);
 	else
 		shell->env_head = init_env(env);

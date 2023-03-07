@@ -19,7 +19,7 @@ void	env(t_shell *shell)
 	curr = shell->env_head;
 	while (curr != NULL)
 	{
-		if (ft_strlen(curr->content) == 0)
+		if (curr->content == NULL)
 			;
 		else
 			printf("%s=%s\n", curr->var_name, curr->content);
