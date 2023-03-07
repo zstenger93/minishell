@@ -14,16 +14,9 @@
 
 void	exit_shell(t_shell *shell)
 {
-	int		i;
-	int		len;
-	int		code;
-	char	*code_str;
 
-	if (nb_delimited_words(shell->trimmed_prompt, ' ') > 2)
-	{
-		printf("exit: too many arguments\n");
+	if (is_wrong_command(shell->trimmed_prompt, ' ') > 2)
 		return ;
-	}
 	if (ft_strcmp(shell->trimmed_prompt, "exit") == 1
 		&& ft_strncmp(shell->trimmed_prompt, "exit ", 5) != 0)
 	{
@@ -31,19 +24,27 @@ void	exit_shell(t_shell *shell)
 		exit(EXIT_SUCCESS);
 	}
 	else if (ft_strncmp(shell->trimmed_prompt, "exit ", 5) == 0)
-	{
-		i = 5;
-		len = ft_strlen(shell->trimmed_prompt + i);
-		code_str = (char *)malloc(sizeof(char) * (len + 1));
-		strcpy(code_str, shell->trimmed_prompt + i);
-		code = ft_atoi(code_str);
-		free(code_str);
-		free_at_exit(shell);
-		exit(code);
-	}
+		exit_code(shell);
 }
 
-int	nb_delimited_words(char *s, char c)
+void	exit_code(t_shell *shell)
+{
+	int		i;
+	int		len;
+	int		code;
+	char	*code_str;
+
+	i = 5;
+	len = ft_strlen(shell->trimmed_prompt + i);
+	code_str = (char *)malloc(sizeof(char) * (len + 1));
+	strcpy(code_str, shell->trimmed_prompt + i);
+	code = ft_atoi(code_str);
+	free(code_str);
+	free_at_exit(shell);
+	exit(code);
+}
+
+int	is_wrong_command(char *s, char c)
 {
 	int	count;
 	int	boo;
@@ -63,5 +64,7 @@ int	nb_delimited_words(char *s, char c)
 		}
 		index++;
 	}
+	if (count > 2)
+		printf("exit: too many arguments\n");
 	return (count);
 }

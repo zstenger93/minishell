@@ -14,16 +14,16 @@
 # define MINISHELL_H
 
 //OWN HEADERS
-# include "defines.h"
-# include "builtins.h"
-# include "executor.h"
-# include "parser.h"
-# include "expander.h"
-# include "general_utils.h"
 # include "lexer.h"
 # include "error.h"
+# include "parser.h"
 # include "colors.h"
+# include "defines.h"
 # include "cleanup.h"
+# include "builtins.h"
+# include "executor.h"
+# include "expander.h"
+# include "general_utils.h"
 # include "../libft/includes/libft.h"
 
 //READLINE
@@ -36,10 +36,10 @@
 # endif
 
 //STANDARD HEADERS
+# include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <fcntl.h>
 # include <string.h>
 
 typedef struct s_env
@@ -86,11 +86,11 @@ void	add_back_env_node(t_env	*head, t_env *new);
 void	export(t_shell *shell);
 char	*get_variable(char *prompt);
 void	print_export(t_shell *shell);
+int		count_equal_sign(t_shell *shell);
 void	export_new_variables(t_shell *shell);
 void	add_new_variable(t_shell *shell, char *str);
-int		count_equal_sign(t_shell *shell);
-void	replace_var_content(t_shell *shell, char *str, char *var);
 char	*get_env_content(char *full, char *var_name);
+void	replace_var_content(t_shell *shell, char *str, char *var);
 
 //BUILTIN UNSET
 void	unset(t_shell *shell);
@@ -102,11 +102,14 @@ t_env	*find_env_var(t_env *head, char *var_name);
 void	pwd(t_shell *shell);
 
 //BUILTIN EXIT
+void	exit_code(t_shell *shell);
 void	exit_shell(t_shell *shell);
-int		nb_delimited_words(char *s, char c);
+int		is_wrong_command(char *s, char c);
 
 //INITIALIZE
+char	*extract_user(t_shell *shell);
 void	init_shell(t_shell *shell, char **env);
+void	init_missing_environment(t_shell *shell, char **env);
 
 //CLEANUP TOOLS
 void	free_env(t_env *head);
@@ -114,8 +117,5 @@ void	free_at_exit(t_shell *shell);
 void	free_char_array(char **array);
 
 void	ft_print_2d_char_array(char **array_2d);
-
-void	init_missing_environment(t_shell *shell, char **env);
-char	*extract_user(t_shell *shell);
 
 #endif

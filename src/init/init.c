@@ -41,6 +41,12 @@ void	init_missing_environment(t_shell *shell, char **env)
 	env[2] = ft_strdup("_=/usr/bin/env");
 	env[3] = ft_strdup(username);
 	env[4] = NULL;
+	free(user);
+	free(env[0]);
+	free(env[1]);
+	free(env[2]);
+	free(env[3]);
+	free(username);
 	shell->env_head = init_env(env);
 }
 
@@ -50,11 +56,12 @@ char	*extract_user(t_shell *shell)
 	char	*user;
 	char	*trimmed_user;
 
-	fd = open("user.txt", O_RDONLY);
+	fd = open("obj/general_utils/user.txt", O_RDONLY);
 	dup2(fd, 666);
 	close(fd);
 	user = get_next_line(666);
 	trimmed_user = ft_strtrim(user, "\n");
 	free(user);
+	close(666);
 	return (trimmed_user);
 }

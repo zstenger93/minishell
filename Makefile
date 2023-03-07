@@ -54,9 +54,8 @@ $(NAME): $(LIBFT) $(OBJ)
 	@echo ""
 	@echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)
-	@touch user.txt
-	@echo $$USER > user.txt
 	@$(CC) $(OBJ) $(INCL_RDL_LIB) $(LIBFT) -lreadline -o minishell $(DN)
+	@cd obj/general_utils && touch user.txt && echo $$USER > user.txt
 	@echo "$(PURPLE)                       $(NAME) $(DEF_COLOR)$(GREEN)Compiling done.$(DEF_COLOR)"
 	@echo ""
 	@echo "$(RED) ████▒░▒████▒░██▒░███▒░  █▒░██▒░ ████▒░ ██▒░░▒██▒░██████▒░██▒░    ██▒░"
@@ -84,7 +83,7 @@ clean:
 	@echo "$(CYAN)CLEAN$(DEF_COLOR)"
 	@echo "$(RED)Deleting objects.$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)
-	@$(RM) $(OBJ_DIR) user.txt $(DN)
+	@$(RM) $(OBJ_DIR) $(DN)
 	@make clean -C ./libft $(DN)
 	@echo "$(RED)Object files have been successfully removed!$(DEF_COLOR)"
 
