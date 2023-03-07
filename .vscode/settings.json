@@ -3,5 +3,8 @@
 		"minishell.h": "c",
 		"libft.h": "c",
 		"sstream": "c"
-	}
+	},
+	"editor.insertSpaces": false,
+	"editor.suggest.showStatusBar": true,
+	"zenMode.hideStatusBar": false
 }

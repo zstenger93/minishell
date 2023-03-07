@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:02:53 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/06 12:32:18 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:13:21 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_env	*init_env_node(char *str)
 		return (NULL);
 	split = ft_split(str, '=');
 	env_node->var_name = ft_strdup(split[0]);
-	env_node->content = ft_strdup(split[1]);
+	env_node->content = get_env_content(str, split[0]);
 	env_node->next = NULL;
 	free_char_array(split);
 	return (env_node);

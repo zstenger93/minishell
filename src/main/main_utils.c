@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 11:21:18 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/06 13:52:47 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:33:02 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,13 @@ bool	add_history_if(char *prompt, char *prev_prompt)
 		return (TRUE);
 	}
 	return (FALSE);
+}
+
+void	ft_print_2d_char_array(char **array_2d)
+{
+	int	i;
+
+	i = 0;
+	while (array_2d[i] != NULL)
+		printf("%s\n", array_2d[i++]);
 }

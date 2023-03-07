@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:08:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/06 12:35:26 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/07 07:55:35 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	free_env(t_env *head)
 
 void	free_at_exit(t_shell *shell)
 {
+	if (shell->trimmed_prompt != NULL)
+		free(shell->trimmed_prompt);
 	free(shell->terminal_prompt);
 	free(shell->prev_prompt);
 	free(shell->prompt);

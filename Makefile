@@ -18,9 +18,9 @@ BUILTINS		= builtins/env/env_utils \
 				  builtins/pwd/pwd \
 				  builtins/exit/exit \
 				  builtins/export/export \
+				  builtins/unset/unset \
 #   builtins/cd/
 #   builtins/echo/
-#   builtins/unset/
 
 INIT 			= init/init \
 
@@ -54,6 +54,8 @@ $(NAME): $(LIBFT) $(OBJ)
 	@echo ""
 	@echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)
+	@touch user.txt
+	@echo $$USER > user.txt
 	@$(CC) $(OBJ) $(INCL_RDL_LIB) $(LIBFT) -lreadline -o minishell $(DN)
 	@echo "$(PURPLE)                       $(NAME) $(DEF_COLOR)$(GREEN)Compiling done.$(DEF_COLOR)"
 	@echo ""
@@ -67,7 +69,6 @@ $(NAME): $(LIBFT) $(OBJ)
 	@echo " ▒░░          ▒░        ▒░        ░░     ░    ░    ░▒░     ░▒▒░    ░▒▒░"
 	@echo " ░░           ░         ░          ░                ░       ░░      ░░"
 	@echo " ░                                                           ░       ░"
-
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(@D)
 	@$(CC) $(INCL_RDL_HEADER) -c $< -o $@ $(DN)
@@ -83,7 +84,7 @@ clean:
 	@echo "$(CYAN)CLEAN$(DEF_COLOR)"
 	@echo "$(RED)Deleting objects.$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)
-	@$(RM) $(OBJ_DIR) $(DN)
+	@$(RM) $(OBJ_DIR) user.txt $(DN)
 	@make clean -C ./libft $(DN)
 	@echo "$(RED)Object files have been successfully removed!$(DEF_COLOR)"
 
