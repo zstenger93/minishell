@@ -12,6 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
+//does bash write exit after exit?
 void	exit_shell(t_shell *shell)
 {
 	if (is_wrong_command(shell->trimmed_prompt, ' ') > 2)
