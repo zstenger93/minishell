@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/07 18:18:08 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/08 11:01:26 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	exit_shell(t_shell *shell)
 {
-
 	if (is_wrong_command(shell->trimmed_prompt, ' ') > 2)
 		return ;
 	if (ft_strcmp(shell->trimmed_prompt, "exit") == 1

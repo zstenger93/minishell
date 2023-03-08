@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/07 18:17:49 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:12:27 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,6 @@ void	builtins(t_shell *shell)
 		exit_shell(shell);
 	else if (cmd(shell, "unset", 5) == TRUE)
 		unset(shell);
+	else if (cmd(shell, "cd", 2) == TRUE)
+		cd(shell);
 }

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:31:10 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/06 14:05:51 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:59:36 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	terminal_prompt(t_shell *shell)
 
 	if (shell->terminal_prompt != NULL)
 		free(shell->terminal_prompt);
-	curr_dir = get_curr_dir();
+	curr_dir = get_curr_dir(shell);
 	username = ft_nm_strjoin(ARROW_SIGN, shell->user_name);
 	directory = ft_nm_strjoin(SPACE_SIGN, curr_dir);
 	half = ft_nm_strjoin(username, directory);
@@ -34,18 +34,19 @@ void	terminal_prompt(t_shell *shell)
 	shell->terminal_prompt = full;
 }
 
-char	*get_curr_dir(void)
+char	*get_curr_dir(t_shell *shell)
 {
 	int		i;
-	char	*pwd;
+	t_env	*pwd;
 	char	**split;
+	char	*directory;
 
 	i = 0;
-	pwd = getenv("PWD");
-	split = ft_split(pwd, '/');
+	pwd = find_env_var(shell->env_head, "PWD");
+	split = ft_split(pwd->content, '/');
 	while (split[i] != NULL)
 		i++;
-	pwd = ft_strdup(split[--i]);
+	directory = ft_strdup(split[--i]);
 	free_char_array(split);
-	return (pwd);
+	return (directory);
 }

@@ -1,23 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 08:34:36 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/08 09:15:28 by zstenger         ###   ########.fr       */
+/*   Created: 2023/03/08 20:01:04 by zstenger          #+#    #+#             */
+/*   Updated: 2023/03/08 20:01:05 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-
-int	main(int argc, char **argv, char **env)
-{	
-	t_shell	shell;
-
-	how_to_use(argc);
-	init_shell(&shell, env);
-	shell_loop(&shell);
-	exit(EXIT_SUCCESS);
-}

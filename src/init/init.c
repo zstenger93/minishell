@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/07 18:17:01 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/08 11:46:10 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,27 @@ void	init_shell(t_shell *shell, char **env)
 	shell->cmd_paths = ft_split(get_path(env), ':');
 }
 
+//check for leaks and to copy directly to our env or not
 void	init_missing_environment(t_shell *shell, char **env)
 {
 	char	*user;
 	char	*get_path;
 	char	*username;
-	char	**env_copy;
+	char	*home;
 
 	get_path = NULL;
 	get_path = getcwd(get_path, 0);
 	user = extract_user(shell);
+	home = ft_nm_strjoin("HOME=/Users/", user);
 	username = ft_nm_strjoin("USER=", user);
 	env[0] = ft_nm_strjoin("PWD=", get_path);
-	env[1] = ft_strdup("SHLVL=1");
-	env[2] = ft_strdup("_=/usr/bin/env");
-	env[3] = ft_strdup(username);
-	env[4] = NULL;
+	env[1] = ft_strdup(home);
+	env[2] = ft_strdup("SHLVL=1");
+	env[3] = ft_strdup("_=/usr/bin/env");
+	env[4] = ft_strdup(username);
+	env[5] = NULL;
+	free(home);
 	free(user);
-	free(env[0]);
-	free(env[1]);
-	free(env[2]);
-	free(env[3]);
 	free(username);
 	shell->env_head = init_env(env);
 }

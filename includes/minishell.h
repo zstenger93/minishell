@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/07 18:03:30 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:48:49 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@
 # endif
 
 //STANDARD HEADERS
+# include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <dirent.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
@@ -69,7 +71,7 @@ void	read_line(t_shell *shell);
 void	shell_loop(t_shell *shell);
 
 //PROMPT
-char	*get_curr_dir(void);
+char	*get_curr_dir(t_shell *shell);
 void	terminal_prompt(t_shell *shell);
 
 //BUILTINS
@@ -107,6 +109,17 @@ void	exit_code(t_shell *shell);
 void	exit_shell(t_shell *shell);
 int		is_wrong_command(char *s, char c);
 
+//BUILTIN CD
+void	cd_home(void);
+void	cd(t_shell *shell);
+void	cd_oldpwd(t_shell *shell);
+void	cd_forward(char *folder_path);
+bool	strcmp_2(char *str1, char *str2);
+void	add_oldpwd_to_env(t_shell *shell);
+int		nb_delimited_words(char *s, char c);
+void	cd_back(char *dotdot, char *folder_path);
+void	update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
+
 //INITIALIZE
 char	*extract_user(t_shell *shell);
 void	init_shell(t_shell *shell, char **env);
@@ -119,6 +132,6 @@ void	free_char_array(char **array);
 
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
-int	ft_print_2d_char_array(char **array_2d);
+void	ft_print_2d_char_array(char **array_2d);
 
 #endif

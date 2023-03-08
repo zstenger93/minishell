@@ -20,7 +20,8 @@ BUILTINS		= builtins/env/env_utils \
 				  builtins/export/export \
 				  builtins/export/export_utils \
 				  builtins/unset/unset \
-#   builtins/cd/
+				  builtins/cd/cd \
+				  builtins/cd/cd_utils \
 #   builtins/echo/
 
 INIT 			= init/init \
@@ -68,7 +69,8 @@ $(NAME): $(LIBFT) $(OBJ)
 	@echo " ▓▒░░       ░▒▓▒░     ░▒▓▒░      ░▒▓     ▒░   ▒░  ░▒▓▒░   ░░▒▓▒░  ░░▒▓▒░"
 	@echo " ▒░░          ▒░        ▒░        ░░     ░    ░    ░▒░     ░▒▒░    ░▒▒░"
 	@echo " ░░           ░         ░          ░                ░       ░░      ░░"
-	@echo " ░                                                           ░       ░"
+	@echo " ░                                                           ░       ░ $(DEF_COLOR)"
+
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(@D)
 	@$(CC) $(INCL_RDL_HEADER) -c $< -o $@ $(DN)
