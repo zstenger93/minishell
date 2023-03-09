@@ -2,7 +2,8 @@
 	"files.associations": {
 		"minishell.h": "c",
 		"libft.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"ioctl.h": "c"
 	},
 	"editor.insertSpaces": false,
 	"editor.suggest.showStatusBar": true,

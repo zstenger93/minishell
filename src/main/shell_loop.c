@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/09 08:13:22 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:39:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	shell_loop(t_shell *shell)
 	while (TRUE)
 	{
 		terminal_prompt(shell);
-		read_line(shell);
+		if (read_line(shell) == NULL)
+			break ;
 		builtins(shell);
 		if (add_history_if(shell->prompt, shell->prev_prompt) == TRUE)
 			shell->prev_prompt = shell->prompt;
@@ -28,10 +29,13 @@ void	shell_loop(t_shell *shell)
 	}
 }
 
-void	read_line(t_shell *shell)
+int	*read_line(t_shell *shell)
 {
 	shell->prompt = readline(shell->terminal_prompt);
 	shell->trimmed_prompt = ft_strtrim(shell->prompt, "\t ");
+	if (shell->prompt == NULL)
+		return (NULL);
+	return ((void *)1);
 }
 
 void	builtins(t_shell *shell)

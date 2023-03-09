@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:08:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/07 07:55:35 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:28:59 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,6 @@ void	free_at_exit(t_shell *shell)
 	free_env(shell->env_head);
 	free(shell->prev_prompt);
 	free(shell->prompt);
+	rl_clear_history();
+	printf("exit\n");
 }

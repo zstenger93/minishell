@@ -6,12 +6,13 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:43:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/09 08:17:32 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/09 08:28:16 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+//FIX cd - if it's the first command. NO OLDPWD at STARTUP
 void	cd(t_shell *shell)
 {
 	char	**split;

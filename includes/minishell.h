@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/08 19:48:49 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:40:42 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <signal.h>
+# include <termios.h>
+
+int	g_exit_status;
 
 typedef struct s_env
 {
@@ -67,7 +71,7 @@ int		cmd(t_shell *shell, char *str, int s);
 bool	add_history_if(char *prompt, char *prev_prompt);
 
 //SHELL_LOOP
-void	read_line(t_shell *shell);
+int		*read_line(t_shell *shell);
 void	shell_loop(t_shell *shell);
 
 //PROMPT
@@ -124,6 +128,10 @@ void	update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 char	*extract_user(t_shell *shell);
 void	init_shell(t_shell *shell, char **env);
 void	init_missing_environment(t_shell *shell, char **env);
+
+//SIGNALS
+void	signals(void);
+void	handle_sigint(int sig_num);
 
 //CLEANUP TOOLS
 void	free_env(t_env *head);

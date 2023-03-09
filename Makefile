@@ -32,12 +32,14 @@ PARSER			=
 
 EXECUTOR		= 
 
+SIGNALS			= signals/signals
+
 CLEANUP_TOOLS	= cleanup_tools/free_at_error/free_at_error \
 				  cleanup_tools/free/free \
 
 GENERAL_UTILS	= general_utils/error \
 
-SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(LEXER) $(GENERAL_UTILS) $(CLEANUP_TOOLS)
+SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(LEXER) $(GENERAL_UTILS) $(CLEANUP_TOOLS) $(SIGNALS)
 
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
 OBJ				= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SOURCE)))

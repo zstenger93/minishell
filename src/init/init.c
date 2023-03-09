@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/08 11:46:10 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:43:37 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	init_shell(t_shell *shell, char **env)
 {
+	g_exit_status = 0;
 	if (getenv("USER") == NULL)
 		init_missing_environment(shell, env);
 	else
