@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:31:10 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/08 19:59:36 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/09 08:15:56 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,15 @@ char	*get_curr_dir(t_shell *shell)
 
 	i = 0;
 	pwd = find_env_var(shell->env_head, "PWD");
-	split = ft_split(pwd->content, '/');
-	while (split[i] != NULL)
-		i++;
-	directory = ft_strdup(split[--i]);
-	free_char_array(split);
+	if (ft_strcmp(pwd->content, "/") == TRUE)
+		directory = ft_strdup("/");
+	else
+	{
+		split = ft_split(pwd->content, '/');
+		while (split[i] != NULL)
+			i++;
+		directory = ft_strdup(split[--i]);
+		free_char_array(split);
+	}
 	return (directory);
 }

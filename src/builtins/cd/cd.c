@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:43:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/08 19:59:25 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/09 08:17:32 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	cd(t_shell *shell)
 	old_pwd = find_env_var(shell->env_head, "PWD");
 	old_pwd_content = old_pwd->content;
 	split = ft_split(shell->trimmed_prompt, ' ');
-	if (split[1] == NULL || strcmp_2(split[1], "~" ) == true)
+	if (split[1] == NULL || strcmp_2(split[1], "~" ) == TRUE)
 		cd_home();
-	else if (split[1] == NULL || strcmp_2(split[1], "-" ) == true)
+	else if (split[1] == NULL || strcmp_2(split[1], "-" ) == TRUE)
 		cd_oldpwd(shell);
 	else if (split[2] == NULL && split[1] != NULL
 		&& ft_strcmp(split[1], "..") != 1)
