@@ -79,8 +79,8 @@
 <h2 align=center>Mandatory</h2>
 
 <h3>Getting a headache from deciding who does what :white_check_mark:</h3>
-<h3>Using one global variable :x:</h3>
-<h3>Have a working history :x:</h3>
+<h3>Using one global variable :white_check_mark:</h3>
+<h3>Have a working history :white_check_mark:</h3>
 <h3>Working relative or absolute PATH :x:</h3>
 <h3>Handle ' and " so shell won't interpret with it's content :x:</h3>
 <h3>Working redirections as:</h3>
@@ -93,16 +93,16 @@
 <h3>Handle $? (echo $?) which should display the last exit code :x:</h3>
 <h3>Handle ctrl-C, ctrl-D and ctrl-\ the way it works in bash:</h3>
 	<h3>ctrl + c displays a new prompt :x:</h3>
-	<h3>ctrl + d exits the shell :x:</h3>
-	<h3>ctrl + \ does nothing :x:</h3>
+	<h3>ctrl + d exits the shell :white_check_mark:</h3>
+	<h3>ctrl + \ does nothing :white_check_mark:</h3>
 <h3>Implement the followiung builtins:</h3>
 	<h3>echo with option -n :x:</h3>
-	<h3>cd with relative or absolute path :x:</h3>
-	<h3>pwd :x:</h3>
+	<h3>cd with relative or absolute path :white_check_mark:</h3>
+	<h3>pwd :white_check_mark:</h3>
 	<h3>export :x::white_check_mark:</h3>
-	<h3>unset :x:</h3>
+	<h3>unset :white_check_mark:</h3>
 	<h3>env :white_check_mark:</h3>
-	<h3>exit :x:</h3>
+	<h3>exit :white_check_mark:</h3>
 
 <h2>Bonus? :sweat_smile: :gun:</h2>
 
