@@ -38,6 +38,7 @@ CLEANUP_TOOLS	= cleanup_tools/free_at_error/free_at_error \
 				  cleanup_tools/free/free \
 
 GENERAL_UTILS	= general_utils/error \
+				  general_utils/utils \
 
 SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(LEXER) $(GENERAL_UTILS) $(CLEANUP_TOOLS) $(SIGNALS)
 

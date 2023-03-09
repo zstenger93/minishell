@@ -13,6 +13,7 @@
 #include "../../includes/minishell.h"
 
 ///////////////////////CHECK CTRL C \_0_/
+///////////////////////ON MY MACHINE IT WORKS \_0_/ xD
 void	signals(void)
 {
 	struct sigaction	ctrl_c;
@@ -40,6 +41,6 @@ void	handle_sigint(int sig_num)
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_exit_status = 1;
+		// g_exit_status = 1;
 	}
 }

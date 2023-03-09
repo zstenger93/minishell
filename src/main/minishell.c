@@ -21,5 +21,5 @@ int	main(int argc, char **argv, char **env)
 	signals();
 	shell_loop(&shell);
 	free_at_exit(&shell);
-	exit(g_exit_status);
+	exit(EXIT_SUCCESS);
 }

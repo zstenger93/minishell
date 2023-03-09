@@ -12,7 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-//FIX cd - if it's the first command. NO OLDPWD at STARTUP
+//FIX cd - if it's the first command. SHOULDN'T BE OLDPWD at STARTUP
 void	cd(t_shell *shell)
 {
 	char	**split;
@@ -44,7 +44,7 @@ void	cd_home(void)
 	if (home_dir == NULL)
 		printf("you are homeless\n");
 	else if (chdir(home_dir) == -1)
-		printf("minishell: cd: %s: %s\n", home_dir, strerror(errno));
+		printf("minishell: cd: %s\n", "HOME not set");
 }
 
 void	cd_oldpwd(t_shell *shell)

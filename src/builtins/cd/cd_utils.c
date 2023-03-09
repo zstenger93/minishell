@@ -56,9 +56,10 @@ void	update_pwd_and_oldpwd(t_shell *shell, char *old_pwd)
 	char	*new_pwd;
 	char	*pwd_join;
 	char	*old_pwd_join;
+	char	path[PATH_MAX];
 
 	add_oldpwd_to_env(shell);
-	new_pwd = getcwd(NULL, sizeof(NULL));
+	new_pwd = getcwd(NULL, sizeof(path));
 	pwd_join = ft_nm_strjoin("PWD=", new_pwd);
 	old_pwd_join = ft_nm_strjoin("OLDPWD=", old_pwd);
 	replace_var_content(shell, old_pwd_join, "OLDPWD");

@@ -14,7 +14,6 @@
 
 void	init_shell(t_shell *shell, char **env)
 {
-	g_exit_status = 0;
 	if (getenv("USER") == NULL)
 		init_missing_environment(shell, env);
 	else
@@ -33,9 +32,10 @@ void	init_missing_environment(t_shell *shell, char **env)
 	char	*get_path;
 	char	*username;
 	char	*home;
+	char	path[PATH_MAX];
 
 	get_path = NULL;
-	get_path = getcwd(get_path, 0);
+	get_path = getcwd(get_path, sizeof(path));
 	user = extract_user(shell);
 	home = ft_nm_strjoin("HOME=/Users/", user);
 	username = ft_nm_strjoin("USER=", user);

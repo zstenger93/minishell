@@ -12,7 +12,13 @@
 
 #include "../../includes/minishell.h"
 
-//shell->prev_prompt can be extracted from struct
+//
+//
+//
+//FORKIN MAKE OUR FPRINTF TO PRINT ERRORS TO STDERR
+//
+//
+//
 void	shell_loop(t_shell *shell)
 {
 	while (TRUE)
@@ -21,12 +27,17 @@ void	shell_loop(t_shell *shell)
 		if (read_line(shell) == NULL)
 			break ;
 		builtins(shell);
-		if (add_history_if(shell->prompt, shell->prev_prompt) == TRUE)
-			shell->prev_prompt = shell->prompt;
-		else
-			free(shell->prompt);
-		free(shell->trimmed_prompt);
+		addhistory(shell);
 	}
+}
+
+void	addhistory(t_shell *shell)
+{
+	if (add_history_if(shell->prompt, shell->prev_prompt) == TRUE)
+		shell->prev_prompt = shell->prompt;
+	else
+		free(shell->prompt);
+	free(shell->trimmed_prompt);
 }
 
 int	*read_line(t_shell *shell)
@@ -42,14 +53,16 @@ void	builtins(t_shell *shell)
 {
 	if (cmd(shell, "export", 6) == TRUE)
 		export(shell);
-	else if (cmd(shell, "env", 3) == TRUE)
-		env(shell);
+	else if (cmd(shell, "cd", 2) == TRUE)
+		cd(shell);
 	else if (cmd(shell, "pwd", 3) == TRUE)
 		pwd(shell);
+	else if (cmd(shell, "env", 3) == TRUE)
+		env(shell);
 	else if (cmd(shell, "exit", 4) == TRUE)
 		exit_shell(shell);
 	else if (cmd(shell, "unset", 5) == TRUE)
 		unset(shell);
-	else if (cmd(shell, "cd", 2) == TRUE)
-		cd(shell);
+	else if (cmd(shell, "clear", 5) == TRUE)
+		clear_screen();
 }

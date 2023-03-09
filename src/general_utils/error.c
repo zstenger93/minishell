@@ -16,10 +16,24 @@ void	how_to_use(int argc)
 {
 	if (argc != 1)
 	{
-		printf(RED "✗ This program doesn't take any arguments! ✗\n" C_END);
-		printf(YELLOW "       Please run it as: ./minishell\n\n" C_END);
-		printf(GREEN"Sincerely,\n" C_END);
-		printf(RED "                     Mr. Minishell Community\n" C_END);
+		printf(GREEN "                     WELCOME TO\n");
+		printf(RED "   __      __    _________    ___           ___\n");
+		printf(RED "  |  |    |  |  |         |  |   |         |   |\n");
+		printf(RED "  |  |    |  |  |   ______|  |   |         |   |\n");
+		printf(RED "  |  |____|  |  |  |____     |   |         |   |\n");
+		printf(RED "  |          |  |       |    |   |         |   |\n");
+		printf(RED "  |   ____   |  |   ____|    |   |         |   |\n");
+		printf(RED "  |  |    |  |  |  |______   |   |______   |   |______\n");
+		printf(RED "  |  |    |  |  |         |  |          |  |          |\n");
+		printf(RED "  |__|    |__|  |_________|  |__________|  |__________|\n");
+		printf(C_END "\n");
+		printf(YELLOW "       ✗" RED
+			" This program doesn't take any arguments! " YELLOW "✗\n" C_END);
+		printf("\n");
+		printf(ITALIC "              Please run it as: ./minishell\n\n" C_END);
+		printf(GREEN"       Sincerely,\n" C_END);
+		printf(RED "                            Mr. Minishell Community\n" C_END);
+		printf("\n");
 		exit(EXIT_SUCCESS);
 	}
 }

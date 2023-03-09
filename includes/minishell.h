@@ -44,9 +44,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <signal.h>
+# include <limits.h>
 # include <termios.h>
 
-int	g_exit_status;
+// int	g_exit_status;
 
 typedef struct s_env
 {
@@ -73,6 +74,7 @@ bool	add_history_if(char *prompt, char *prev_prompt);
 //SHELL_LOOP
 int		*read_line(t_shell *shell);
 void	shell_loop(t_shell *shell);
+void	addhistory(t_shell *shell);
 
 //PROMPT
 char	*get_curr_dir(t_shell *shell);
@@ -141,5 +143,6 @@ void	free_char_array(char **array);
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 void	ft_print_2d_char_array(char **array_2d);
+void clear_screen(void);
 
 #endif
