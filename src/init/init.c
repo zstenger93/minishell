@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/09 18:43:37 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:21:14 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	init_shell(t_shell *shell, char **env)
 {
+	t_token	token;
+
 	if (getenv("USER") == NULL)
 		init_missing_environment(shell, env);
 	else
@@ -23,6 +25,8 @@ void	init_shell(t_shell *shell, char **env)
 	shell->terminal_prompt = NULL;
 	shell->user_name = getenv("USER");
 	shell->cmd_paths = ft_split(get_path(env), ':');
+	shell->tokens = malloc(sizeof(t_token *));
+	*shell->tokens = NULL;
 }
 
 //check for leaks and to copy directly to our env or not
@@ -58,6 +62,12 @@ char	*extract_user(t_shell *shell)
 	char	*trimmed_user;
 
 	fd = open("obj/general_utils/user.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		print_to_stderr("Open failed: Username cannot be extracted.");
+		trimmed_user = ft_strdup("Magic cookie");
+		return (trimmed_user);
+	}
 	dup2(fd, 666);
 	close(fd);
 	user = get_next_line(666);

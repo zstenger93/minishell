@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/09 18:40:42 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:35:22 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,23 @@
 # include <limits.h>
 # include <termios.h>
 
-// int	g_exit_status;
+# define TOKENS " |><"
+
+typedef struct s_token
+{
+	char			*content;
+	struct s_token	*next;
+}	t_token;
+
+typedef struct s_lexer
+{
+	char			*token;
+	struct s_lexer	*next;
+}	t_lexer;
+
+typedef struct s_parser
+{
+}	t_parser;
 
 typedef struct s_env
 {
@@ -65,6 +81,7 @@ typedef struct s_shell
 	char	*prev_prompt;
 	char	*trimmed_prompt;
 	char	*terminal_prompt;
+	t_token	**tokens;
 }	t_shell;
 
 //MAIN UTILS
@@ -135,6 +152,22 @@ void	init_missing_environment(t_shell *shell, char **env);
 void	signals(void);
 void	handle_sigint(int sig_num);
 
+//LEXER
+void	print_token(t_token *tokens);
+void	identify_tokens(t_shell *shell);
+void	free_token_array(t_token **array);
+char	*ft_strdup2(char *str, int start, int end);
+void	free_tokens(t_token *token, t_token **tokens);
+
+//EXPANDER
+bool	is_dollar(char *token);
+char	*var_to_expand(t_token *tokens);
+char	*expand_variable(char *content);
+char	*expand(char *token, t_shell *shell);
+void	expander(t_token *token, t_shell *shell);
+char	*replace_variable(char *variable, t_shell *shell);
+void	replace_var_with_content(t_token *token, char *token_to_expand, char *content);
+
 //CLEANUP TOOLS
 void	free_env(t_env *head);
 void	free_at_exit(t_shell *shell);
@@ -143,6 +176,7 @@ void	free_char_array(char **array);
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 void	ft_print_2d_char_array(char **array_2d);
-void clear_screen(void);
+void	print_to_stderr(char *str);
+void	clear_screen(void);
 
 #endif

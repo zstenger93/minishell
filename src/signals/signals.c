@@ -6,14 +6,13 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 20:01:04 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/09 18:39:35 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/10 07:53:20 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-///////////////////////CHECK CTRL C \_0_/
-///////////////////////ON MY MACHINE IT WORKS \_0_/ xD
+//check exit status
 void	signals(void)
 {
 	struct sigaction	ctrl_c;
@@ -41,6 +40,14 @@ void	handle_sigint(int sig_num)
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_redisplay();
-		// g_exit_status = 1;
 	}
+}
+
+void	print_to_stderr(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	write(2, str, len);
+	write(2, "\n", 1);
 }

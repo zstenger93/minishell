@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/09 18:39:23 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:34:40 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 //
 //
 //
-//FORKIN MAKE OUR FPRINTF TO PRINT ERRORS TO STDERR
+// MAKE OUR FPRINTF TO PRINT ERRORS TO STDERR
 //
-//
+//CHECK CTRL D IF THE LINE ISNT EMPTY
 //
 void	shell_loop(t_shell *shell)
 {
@@ -26,18 +26,12 @@ void	shell_loop(t_shell *shell)
 		terminal_prompt(shell);
 		if (read_line(shell) == NULL)
 			break ;
+		identify_tokens(shell);
+		expander(*shell->tokens, shell);
+		print_token(*shell->tokens);
 		builtins(shell);
 		addhistory(shell);
 	}
-}
-
-void	addhistory(t_shell *shell)
-{
-	if (add_history_if(shell->prompt, shell->prev_prompt) == TRUE)
-		shell->prev_prompt = shell->prompt;
-	else
-		free(shell->prompt);
-	free(shell->trimmed_prompt);
 }
 
 int	*read_line(t_shell *shell)
@@ -47,6 +41,18 @@ int	*read_line(t_shell *shell)
 	if (shell->prompt == NULL)
 		return (NULL);
 	return ((void *)1);
+}
+
+void	addhistory(t_shell *shell)
+{
+	t_token	*token;
+
+	if (add_history_if(shell->prompt, shell->prev_prompt) == TRUE)
+		shell->prev_prompt = shell->prompt;
+	else
+		free(shell->prompt);
+	free(shell->trimmed_prompt);
+	// free_tokens(token, shell->tokens);
 }
 
 void	builtins(t_shell *shell)

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/08 11:01:26 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/10 08:02:14 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	exit_code(t_shell *shell)
 	i = 5;
 	len = ft_strlen(shell->trimmed_prompt + i);
 	code_str = (char *)malloc(sizeof(char) * (len + 1));
+	if (code_str == NULL)
+	{
+		free_at_exit(shell);
+		exit(EXIT_FAILURE);
+	}
 	strcpy(code_str, shell->trimmed_prompt + i);
 	code = ft_atoi(code_str);
 	free_at_exit(shell);
@@ -65,6 +70,6 @@ int	is_wrong_command(char *s, char c)
 		index++;
 	}
 	if (count > 2)
-		printf("exit: too many arguments\n");
+		print_to_stderr("exit: too many arguments");
 	return (count);
 }

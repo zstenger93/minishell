@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:43:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/09 08:28:16 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/10 08:04:02 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	cd_home(void)
 	if (home_dir == NULL)
 		printf("you are homeless\n");
 	else if (chdir(home_dir) == -1)
-		printf("minishell: cd: %s\n", "HOME not set");
+		print_to_stderr("minishell: cd: HOME not set");
 }
 
 void	cd_oldpwd(t_shell *shell)
