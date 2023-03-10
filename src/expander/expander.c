@@ -16,13 +16,19 @@ void	expander(t_token *token, t_shell *shell)
 {
 	char	*expanded_token;
 	char	*token_to_expand;
+	t_token	*curr;
 
-	token_to_expand = var_to_expand(token);
-	if (token_to_expand == NULL)
-		return ;
-	else
-		expanded_token = expand(token_to_expand, shell);
-	replace_var_with_content(token, token_to_expand, expanded_token);
+	curr = token;
+	while (curr->next != NULL)
+	{
+		token_to_expand = var_to_expand(token);
+		if (token_to_expand == NULL)
+			return ;
+		else
+			expanded_token = expand(token_to_expand, shell);
+		replace_var_with_content(token, token_to_expand, expanded_token);
+		curr = curr->next;
+	}
 }
 
 bool	is_dollar(char *token)
