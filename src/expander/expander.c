@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+//need to add $? option
 void	expander(t_token *token, t_shell *shell)
 {
 	char	*expanded_token;
