@@ -48,6 +48,7 @@
 # include <termios.h>
 
 # define OPERATORS "|><"
+# define SPACES " \t\n\v\r\f"
 
 typedef struct s_token
 {

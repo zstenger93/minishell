@@ -76,6 +76,11 @@ char	**get_operator_list()
 	return (result);
 }
 
+bool	is_space(char c)
+{
+	return (ft_pf_strchr(SPACES, c));
+}
+
 bool	is_operator(char c)
 {
 	return (ft_pf_strchr(OPERATORS, c));
@@ -85,40 +90,30 @@ bool	wrong_operator_check(char *str) // case when cat Makefile <     > dasdas
 {
 	int	i;
 	int	j;
-	bool	prev_operator;
 
 	i = 0;
 	if (is_operator(str[0]) || is_operator(str[ft_strlen(str) - 1]))
 		return (false);
-	prev_operator = false;
 	while (str[++i])
 	{
 		if (is_operator(str[i]) && is_operator(str[i - 1]) && str[i] != str[i - 1])
 			return (false);
 		if (is_operator(str[i]) && is_operator(str[i - 1]) && str[i] == '|')
 			return (false);
-		j = 0;
-		if (is_operator(str[i - 1]) && str[i] == ' ')
+		if (is_operator(str[i - 1]) && is_space(str[i]))
 		{
 			j = i;
-			while (str[j] == ' ')
+			while (is_space(str[j]))
 			{
 				if (is_operator(str[j + 1]))
-				{
-					prev_operator = true;
-					break ;
-				}
-				prev_operator = false;
+					return (FALSE);
 				j++;
 				i++;
 			}
 		}
-		if (is_operator(str[i]) && prev_operator == true)
-			return (false);
 	}
 	printf("CORRECT INPUT\n");
 	return (true);
-	
 }
 
 
