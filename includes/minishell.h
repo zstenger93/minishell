@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/10 20:35:22 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/11 15:18:46 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@
 # include <limits.h>
 # include <termios.h>
 
-# define TOKENS " |><"
+# define OPERATORS "|><"
 
 typedef struct s_token
 {
-	char			*content;
+	char			*cmd;
+	char			*args;
+	char			*dollar;
+	char			*operator;
 	struct s_token	*next;
 }	t_token;
 
@@ -161,6 +164,7 @@ void	free_tokens(t_token *token, t_token **tokens);
 
 //EXPANDER
 bool	is_dollar(char *token);
+char	*variable_doesnt_exist();
 char	*var_to_expand(t_token *tokens);
 char	*expand_variable(char *content);
 char	*expand(char *token, t_shell *shell);

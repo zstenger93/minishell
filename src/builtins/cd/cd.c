@@ -6,12 +6,13 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:43:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/10 08:04:02 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/11 14:20:46 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+//check for cd ~/path
 //FIX cd - if it's the first command. SHOULDN'T BE OLDPWD at STARTUP
 void	cd(t_shell *shell)
 {

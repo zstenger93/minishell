@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/10 20:34:40 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/11 16:16:39 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	shell_loop(t_shell *shell)
 		if (read_line(shell) == NULL)
 			break ;
 		identify_tokens(shell);
-		expander(*shell->tokens, shell);
-		print_token(*shell->tokens);
+		// expander(*shell->tokens, shell);
+		// print_token(*shell->tokens);
 		builtins(shell);
 		addhistory(shell);
 	}
@@ -37,6 +37,7 @@ void	shell_loop(t_shell *shell)
 int	*read_line(t_shell *shell)
 {
 	shell->prompt = readline(shell->terminal_prompt);
+	
 	shell->trimmed_prompt = ft_strtrim(shell->prompt, "\t ");
 	if (shell->prompt == NULL)
 		return (NULL);

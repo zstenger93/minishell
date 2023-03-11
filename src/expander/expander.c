@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:39:58 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/10 20:32:12 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/11 08:05:15 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ char	*expand(char *token, t_shell *shell)
 	return (expanded_token);
 }
 
+//cherck this
 char	*replace_variable(char *variable, t_shell *shell)
 {
 	t_env	*curr;
-	char	*space;
 	char	*trimmed_variable;
 
 	if (variable[0] == '(')
@@ -83,13 +83,24 @@ char	*replace_variable(char *variable, t_shell *shell)
 		trimmed_variable = ft_strtrim(variable, "()");
 		curr = find_env_var(shell->env_head, trimmed_variable);
 		free(trimmed_variable);
+		if (curr == NULL)
+			return (variable_doesnt_exist());
 		return (curr->content);
 	}
 	else if (variable[0] != '(' || variable[0] != ' ')
 	{
 		curr = find_env_var(shell->env_head, variable);
+		if (curr == NULL)
+			return (variable_doesnt_exist());
 		return (curr->content);
 	}
+	return (variable_doesnt_exist());
+}
+
+char	*variable_doesnt_exist()
+{
+	char	*space;
+
 	space = ft_strdup(" ");
 	return (space);
 }

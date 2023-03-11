@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:45:33 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/06 14:07:15 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/11 09:43:00 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@
 # define FALSE 0
 
 //OPERATORS
-# define HEREDOC	"<<"
-# define APPEND		">>"
-# define INPUT		"<"
-# define OUTPUT		">"
-# define PIPE		"|"
 # define SQUOTE		39
 # define DQUOTE		34
 
