@@ -54,6 +54,7 @@ typedef struct s_token
 	char			*cmd;
 	char			*args;
 	char			*dollar;
+	char			*content;
 	char			*operator;
 	struct s_token	*next;
 }	t_token;

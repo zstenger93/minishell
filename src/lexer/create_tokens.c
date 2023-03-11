@@ -84,7 +84,9 @@ bool	is_operator(char c)
 bool	wrong_operator_check(char *str) // case when cat Makefile <     > dasdas
 {
 	int	i;
+	int	j;
 	bool	prev_operator;
+
 	i = 0;
 	if (is_operator(str[0]) || is_operator(str[ft_strlen(str) - 1]))
 		return (false);
@@ -95,14 +97,24 @@ bool	wrong_operator_check(char *str) // case when cat Makefile <     > dasdas
 			return (false);
 		if (is_operator(str[i]) && is_operator(str[i - 1]) && str[i] == '|')
 			return (false);
-		if (str[i] != ' ')
+		j = 0;
+		if (is_operator(str[i - 1]) && str[i] == ' ')
 		{
-			prev_operator = false;
+			j = i;
+			while (str[j] == ' ')
+			{
+				if (is_operator(str[j + 1]))
+				{
+					prev_operator = true;
+					break ;
+				}
+				prev_operator = false;
+				j++;
+				i++;
+			}
 		}
 		if (is_operator(str[i]) && prev_operator == true)
 			return (false);
-		if (is_operator(str[i]))
-			prev_operator = true;
 	}
 	printf("CORRECT INPUT\n");
 	return (true);
