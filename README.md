@@ -38,7 +38,7 @@
 
 | Function				| Manual Page		| From lib			| Description
 | :--					| :--				| :--				| :--
-| **getenv**			|					|					|
+| **getenv**			|					|					| getting the value of variables from the env list
 | **wait3**				| `man wait3`		| `<sys/wait.h>`	| (obsolete) wait for process to change state, BSD style
 | **wait4**				| `man wait4`		| `<sys/wait.h>`	| (obsolete) wait for process to change state, BSD style
 | **signal**			| `man signal`		| `<signal.h>`		| ANSI C signal handling
