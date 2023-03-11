@@ -83,12 +83,13 @@
 <h3>Have a working history :white_check_mark:</h3>
 <h3>Working relative or absolute PATH :x:</h3>
 <h3>Handle ' and " so shell won't interpret with it's content :x:</h3>
+<h3>Working main loop with readline :white_check_mark:</h3>
+<h3>Custom prompt with curr User and Dir :white_check_mark:</h3>
 <h3>Working redirections as:</h3>
 	<h3>< redirect output :x:</h3>
 	<h3>> redirect input :x:</h3>
 	<h3><< (heredoc) but doesn't have to update the history :x:</h3>
 	<h3>>> should redirect in append mode to the file :x:</h3>
-<h3>Implement pipes :x:</h3>
 <h3>Handle environment variables with expander :white_check_mark:</h3>
 <h3>SIGNALS:</h3>
 <h3>Handle ctrl-C, ctrl-D and ctrl-\ the way it works in bash:</h3>
@@ -107,7 +108,7 @@
 <h3>EXECUTOR:</h3>
 	<h3>split heredoc arg for execute :x:</h3>
 	<h3>split arguments to pass for execve :x:</h3>
-	<h3>correct piping :x:</h3>
+	<h3>Implement pipes :x:</h3>
 
 <h3>Implement the followiung BUILTINS:</h3>
 	<h3>echo with option -n :x:</h3>
