@@ -89,17 +89,30 @@
 	<h3><< (heredoc) but doesn't have to update the history :x:</h3>
 	<h3>>> should redirect in append mode to the file :x:</h3>
 <h3>Implement pipes :x:</h3>
-<h3>Handle environment variables :x:</h3>
-<h3>Handle $? (echo $?) which should display the last exit code :x:</h3>
+<h3>Handle environment variables with expander :white_check_mark:</h3>
 <h3>Handle ctrl-C, ctrl-D and ctrl-\ the way it works in bash:</h3>
-	<h3>ctrl + c displays a new prompt :x:</h3>
+	<h3>ctrl + c displays a new prompt :white_check_mark:</h3>
 	<h3>ctrl + d exits the shell :white_check_mark:</h3>
 	<h3>ctrl + \ does nothing :white_check_mark:</h3>
+<h3>Lexer:</h3>
+	<h3>heredoc arg :x:</h3>
+	<h3>chechk valid operators :x:</h3>
+	<h3>tokenize the prompt using 5 different token type :x:</h3>
+<h3>Expander:</h3>
+	<h3>expand env variables :x:</h3>
+	<h3>Handle dollar+? (echo dollar+?) which should display the last exit code :x:</h3>
+<h3>Parser:</h3>
+	<h3>check for edge, error cases and what we dont have to handle :x:</h3>
+<h3>Executor:</h3>
+	<h3>split heredoc arg for execute :x:</h3>
+	<h3>split arguments to pass for execve :x:</h3>
+	<h3>correct piping :x:</h3>
+
 <h3>Implement the followiung builtins:</h3>
 	<h3>echo with option -n :x:</h3>
 	<h3>cd with relative or absolute path :white_check_mark:</h3>
 	<h3>pwd :white_check_mark:</h3>
-	<h3>export :x::white_check_mark:</h3>
+	<h3>export :white_check_mark:</h3>
 	<h3>unset :white_check_mark:</h3>
 	<h3>env :white_check_mark:</h3>
 	<h3>exit :white_check_mark:</h3>
