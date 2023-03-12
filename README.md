@@ -106,6 +106,7 @@
 <h3>PARSER:</h3>
 	<h3>check for edge, error cases and what we dont have to handle :x:</h3>
 <h3>EXECUTOR:</h3>
+	<h3>check for valid commands after split while turning them into lowercase :x:</h3>
 	<h3>split heredoc arg for execute :x:</h3>
 	<h3>split arguments to pass for execve :x:</h3>
 	<h3>Implement pipes :x:</h3>
