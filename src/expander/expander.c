@@ -65,7 +65,7 @@ char	*expand(char *token, t_shell *shell)
 		if (trimmed_token[i - 1] == ')')
 			expanded_token = replace_variable(trimmed_token, shell);
 		else
-			expanded_token = ft_strdup(" ");
+			expanded_token = ft_strdup("");
 	}
 	else
 		expanded_token = replace_variable(trimmed_token, shell);
@@ -90,7 +90,7 @@ char	*replace_variable(char *variable, t_shell *shell)
 		curr = find_env_var(shell->env_head, variable);
 		return (curr->content);
 	}
-	space = ft_strdup(" ");
+	space = ft_strdup("");
 	return (space);
 }
 
