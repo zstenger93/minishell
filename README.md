@@ -82,6 +82,7 @@
 <h3>Using one global variable :white_check_mark:</h3>
 <h3>Have a working history :white_check_mark:</h3>
 <h3>Working relative or absolute PATH :x:</h3>
+<h3>Check for unclosed quotes :white_check_mark:</h3>
 <h3>Handle ' and " so shell won't interpret with it's content :x:</h3>
 <h3>Working main loop with readline :white_check_mark:</h3>
 <h3>Custom prompt with curr User and Dir :white_check_mark:</h3>
