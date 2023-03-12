@@ -6,12 +6,14 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:31:10 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/09 18:13:20 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:10:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+//make the color of the arrow change depending if the prev command exit code is
+// 0 or something else
 void	terminal_prompt(t_shell *shell)
 {
 	char	*half;
@@ -23,7 +25,10 @@ void	terminal_prompt(t_shell *shell)
 	if (shell->terminal_prompt != NULL)
 		free(shell->terminal_prompt);
 	curr_dir = get_curr_dir(shell);
-	username = ft_nm_strjoin(ARROW_SIGN, shell->user_name);
+	if (shell->exit_code == 0)
+		username = ft_nm_strjoin(G_ARROW_SIGN, shell->user_name);
+	else
+		username = ft_nm_strjoin(R_ARROW_SIGN, shell->user_name);
 	directory = ft_nm_strjoin(SPACE_SIGN, curr_dir);
 	half = ft_nm_strjoin(username, directory);
 	full = ft_nm_strjoin(half, X_SIGN);

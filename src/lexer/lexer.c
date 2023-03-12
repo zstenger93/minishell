@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:17:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/06 08:43:49 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/12 09:30:36 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,4 @@
 // 	}
 // 	free_char_array(line.sliced);
 // 	return(0);
-// }
-
-// char	count_quotes(char *s, int sq, int dq)
-// {
-// 	int		scount;
-// 	int		qcount;
-// 	int	i;
-
-// 	i = 0;
-// 	scount = 0;
-// 	qcount = 0;
-// 	while (s[i] != '\0')
-// 	{
-// 		if (s[i] == sq)
-// 			scount++;
-// 		else if (s[i] == dq)
-// 			qcount++;
-// 		i++;
-// 	}
-// 	// printf("%d\n%d\n", qcount, scount);
-// 	if ((qcount % 2) == 0 && (scount % 2) == 0)
-// 		return(1);
-// 	return (0);
 // }

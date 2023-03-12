@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/11 16:16:39 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:09:33 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	shell_loop(t_shell *shell)
 		terminal_prompt(shell);
 		if (read_line(shell) == NULL)
 			break ;
-		identify_tokens(shell);
+		extract_dollars(&shell->trimmed_prompt, shell);
+		printf("RESULT : %s\n", shell->trimmed_prompt);
+		// identify_tokens(shell);
 		// expander(*shell->tokens, shell);
 		// print_token(*shell->tokens);
 		builtins(shell);

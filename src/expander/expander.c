@@ -6,119 +6,81 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:39:58 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/11 08:05:15 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/12 17:51:55 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 //need to add $? option
-void	expander(t_token *token, t_shell *shell)
+char	*expander(char *dollar_to_expand, t_shell *shell)
 {
-	char	*expanded_token;
-	char	*token_to_expand;
-	t_token	*curr;
+	char	*variable;
+	char	*expanded_dollar;
 
-	curr = token;
-	while (curr->next != NULL)
-	{
-		token_to_expand = var_to_expand(token);
-		if (token_to_expand == NULL)
-			return ;
-		else
-			expanded_token = expand(token_to_expand, shell);
-		replace_var_with_content(token, token_to_expand, expanded_token);
-		curr = curr->next;
-	}
+	variable = expand(dollar_to_expand, shell);
+	if (ft_strlen(variable) == 0)
+		return (variable);
+	expanded_dollar = expand_variable(variable);
+	return (expanded_dollar);
 }
 
-bool	is_dollar(char *token)
-{
-	if (token[0] == '$')
-		return (TRUE);
-	return (FALSE);
-}
-
-char	*var_to_expand(t_token *tokens)
-{
-	while (tokens->next != NULL)
-	{
-		if (is_dollar(tokens->content) == TRUE)
-			return (tokens->content);
-		tokens = tokens->next;
-	}
-	return (NULL);
-}
-
-char	*expand(char *token, t_shell *shell)
+char	*expand(char *dollar_to_expand, t_shell *shell)
 {
 	int		i;
-	char	*trimmed_token;
-	char	*expanded_token;
+	char	*trimmed_dollar;
+	char	*expanded_dollar;
 
 	i = 0;
-	trimmed_token = ft_strtrim(token, "$");
-	if (trimmed_token[0] == '(')
+	trimmed_dollar = ft_strtrim(dollar_to_expand, "$");
+	if (trimmed_dollar[0] == '(')
 	{
-		while (trimmed_token[i] != '\0')
+		while (trimmed_dollar[i] != '\0')
 			i++;
-		if (trimmed_token[i - 1] == ')')
-			expanded_token = replace_variable(trimmed_token, shell);
+		if (trimmed_dollar[i - 1] == ')')
+			expanded_dollar = replace_variable(trimmed_dollar, shell);
 		else
-			expanded_token = ft_strdup(" ");
+			expanded_dollar = ft_strdup("");
 	}
 	else
-		expanded_token = replace_variable(trimmed_token, shell);
-	return (expanded_token);
+		expanded_dollar = replace_variable(trimmed_dollar, shell);
+	free(trimmed_dollar);
+	return (expanded_dollar);
 }
 
-//cherck this
+//add extra trim after taking off brackets
 char	*replace_variable(char *variable, t_shell *shell)
 {
 	t_env	*curr;
 	char	*trimmed_variable;
 
+	trimmed_variable = ft_strtrim(variable, "( )");
 	if (variable[0] == '(')
 	{
-		trimmed_variable = ft_strtrim(variable, "()");
 		curr = find_env_var(shell->env_head, trimmed_variable);
 		free(trimmed_variable);
 		if (curr == NULL)
 			return (variable_doesnt_exist());
 		return (curr->content);
 	}
-	else if (variable[0] != '(' || variable[0] != ' ')
+	else if (trimmed_variable[0] != '(' || trimmed_variable[0] != ' ')
 	{
-		curr = find_env_var(shell->env_head, variable);
+		curr = find_env_var(shell->env_head, trimmed_variable);
+		free(trimmed_variable);
 		if (curr == NULL)
 			return (variable_doesnt_exist());
 		return (curr->content);
 	}
+	free(trimmed_variable);
 	return (variable_doesnt_exist());
 }
 
-char	*variable_doesnt_exist()
+char	*variable_doesnt_exist(void)
 {
 	char	*space;
 
-	space = ft_strdup(" ");
+	space = ft_strdup("");
 	return (space);
-}
-
-void	replace_var_with_content(t_token *token, char *token_to_expand, char *content)
-{
-	t_token	*curr;
-
-	curr = token;
-	while (curr->next != NULL)
-	{
-		if (curr->content == token_to_expand)
-		{
-			free(curr->content);
-			curr->content = expand_variable(content);
-		}
-		curr = curr->next;
-	}
 }
 
 char	*expand_variable(char *content)

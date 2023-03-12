@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:08:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/10 18:07:19 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:17:32 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,34 @@ void	free_env(t_env *head)
 	}
 }
 
-void	free_tokens(t_token *token, t_token **tokens)
-{
-	t_token	*next;
+// void	free_tokens(t_token *token, t_token **tokens)
+// {
+// 	t_token	*next;
 
-	while (token != NULL)
-	{
-		next = token->next;
-		free(token->content);
-		free(token);
-		token = next;
-	}
-	free_token_array(tokens);
-}
+// 	while (token != NULL)
+// 	{
+// 		next = token->next;
+// 		free(token->content);
+// 		free(token);
+// 		token = next;
+// 	}
+// 	free_token_array(tokens);
+// }
 
-void	free_token_array(t_token **array)
-{
-	int	i;
+// void	free_token_array(t_token **array)
+// {
+// 	int	i;
 
-	if (array == NULL)
-		return ;
-	i = 0;
-	while (array[i] != NULL)
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
+// 	if (array == NULL)
+// 		return ;
+// 	i = 0;
+// 	while (array[i] != NULL)
+// 	{
+// 		free(array[i]);
+// 		i++;
+// 	}
+// 	free(array);
+// }
 
 void	free_at_exit(t_shell *shell)
 {
@@ -76,7 +76,6 @@ void	free_at_exit(t_shell *shell)
 
 	if (shell->trimmed_prompt != NULL)
 		free(shell->trimmed_prompt);
-	// free_tokens(token, shell->tokens);
 	free_char_array(shell->cmd_paths);
 	free(shell->terminal_prompt);
 	free_env(shell->env_head);

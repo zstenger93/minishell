@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/11 15:18:46 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/12 17:42:04 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,13 @@ typedef struct s_shell
 {
 	char	*prompt;
 	t_env	*env_head;
+	int		exit_code;
 	char	*user_name;
 	char	**cmd_paths;
 	char	*prev_prompt;
 	char	*trimmed_prompt;
 	char	*terminal_prompt;
+	char	*empty;
 	t_token	**tokens;
 }	t_shell;
 
@@ -158,21 +160,23 @@ void	signals(void);
 void	handle_sigint(int sig_num);
 
 //LEXER
-void	print_token(t_token *tokens);
+bool	is_space(char c);
+bool	is_operator(char c);
+bool	syntax_error(char c);
 void	identify_tokens(t_shell *shell);
-void	free_token_array(t_token **array);
+bool	wrong_operator_check(char *str);
+char	count_quotes(char *s, int sq, int dq);
 char	*ft_strdup2(char *str, int start, int end);
-void	free_tokens(t_token *token, t_token **tokens);
+// void	print_token(t_token *tokens);
+// void	free_token_array(t_token **array);
+// void	free_tokens(t_token *token, t_token **tokens);
 
 //EXPANDER
-bool	is_dollar(char *token);
-char	*variable_doesnt_exist();
-char	*var_to_expand(t_token *tokens);
+char	*variable_doesnt_exist(void);
 char	*expand_variable(char *content);
-char	*expand(char *token, t_shell *shell);
-void	expander(t_token *token, t_shell *shell);
+char	*expand(char *dollar_to_expand, t_shell *shell);
+char	*expander(char *dollar_to_expand, t_shell *shell);
 char	*replace_variable(char *variable, t_shell *shell);
-void	replace_var_with_content(t_token *token, char *token_to_expand, char *content);
 
 //CLEANUP TOOLS
 void	free_env(t_env *head);
@@ -184,5 +188,8 @@ void	free_char_array(char **array);
 void	ft_print_2d_char_array(char **array_2d);
 void	print_to_stderr(char *str);
 void	clear_screen(void);
+
+void	extract_dollars(char **str, t_shell *shell);
+
 
 #endif

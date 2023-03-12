@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:45:33 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/11 09:43:00 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:07:01 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,14 @@
 # define HERE_DOC "\033[1;34mheredoc> \033[0m"
 
 //PROMPT
-# define ARROW_SIGN "\033[1;32m➜  \033[38;5;75m"
+	//ARROW GREEN
+# define G_ARROW_SIGN "\033[1;32m➜  \033[38;5;75m"
+	//ARROW RED
+# define R_ARROW_SIGN "\033[1;31m➜  \033[38;5;75m"
 # define SPACE_SIGN "\033[1;96m "
 # define X_SIGN "\033[1;33m ✗ \033[0m"
+
+//PARSE ERROR
+# define SYNTAX_ERROR "minishell: syntax error near unexpected token"
 
 #endif

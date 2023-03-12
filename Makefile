@@ -27,6 +27,10 @@ BUILTINS		= builtins/env/env_utils \
 INIT 			= init/init \
 
 LEXER			= lexer/create_tokens \
+				  lexer/is_str_valid \
+				  lexer/lexer_utils \
+				  lexer/lexer \
+				  lexer/expander_utils \
 
 PARSER			= 
 
