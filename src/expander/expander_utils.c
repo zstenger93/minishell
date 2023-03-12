@@ -12,18 +12,25 @@
 
 #include "../../includes/minishell.h"
 
-bool	has_dollar(char *str)
+bool	has_dollar(char *str, t_shell *shell)
 {
 	int	i;
 
 	i = -1;
 	while (str[++i] != '\0')
 	{
-		if (str[i] == '$'
-			&& ft_pf_strchr(SPACES, str[i]) == NULL)
-			return (true);
+		if (str[i] == '$' && str[i - 1] == 92)
+			i++;
+		else if (str[i] == '$' && ft_pf_strchr(SPACES, str[i + 1]) != NULL)
+		{
+			syntax_error(str[i]);
+			shell->cmd_has_been_executed = FALSE;
+		}
+		else if (str[i] == '$'
+			&& ft_pf_strchr(SPACES, str[i + 1]) == NULL)
+			return (TRUE);
 	}
-	return (false);
+	return (FALSE);
 }
 
 void	get_dollar(char **dst, char **s, int index)
@@ -56,11 +63,11 @@ void	extract_dollar(char **s, t_shell *shell) //  echo $(PWD ) dasdasdasd
 	i = 0;
 	while (s[0][i] != '\0')
 	{
-		if (s[0][i] == 36)
+		if (s[0][i] == 36 && (i > 0 && s[0][i - 1] != 92))
 		{
 			before_dollar[0] = ft_strdup2(s[0], 0, i); // "echo "
 			get_dollar(dollar_to_expand, s, i); // $(PWD )
-			dollar_expanded = expander(dollar_to_expand[0], shell); // expand PWD to "PATH"
+			dollar_expanded = expand_dollars(dollar_to_expand[0], shell); // expand PWD to "PATH"
 			after_dollar[0] = ft_strdup2(s[0], i + ft_strlen(*dollar_to_expand), ft_strlen(s[0])); // " dasdasdasd "
 			
 			free(dollar_to_expand[0]);
@@ -82,14 +89,16 @@ void	extract_dollar(char **s, t_shell *shell) //  echo $(PWD ) dasdasdasd
 	}
 }
 
-void	extract_dollars(char **str, t_shell *shell)
+void	expander(char **str, t_shell *shell)
 {
-	while (has_dollar(*str) == true)
+	if (str[0][0] == '$')
 	{
-		extract_dollar(str, shell);
+		shell->cmd_has_been_executed = FALSE;
+		syntax_error(str[0][0]);
+		return ;
 	}
-	
+	while (has_dollar(*str, shell) == TRUE)
+		extract_dollar(str, shell);
 }
-
 
 // $(PWD ) dasdasdasd  | cat $USER | sdasd $( HOME )

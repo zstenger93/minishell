@@ -54,8 +54,7 @@ typedef struct s_token
 {
 	char			*cmd;
 	char			*args;
-	char			*dollar;
-	char			*content;
+	char			*heredoc;
 	char			*operator;
 	struct s_token	*next;
 }	t_token;
@@ -80,15 +79,14 @@ typedef struct s_env
 typedef struct s_shell
 {
 	char	*prompt;
+	t_token	**tokens;
 	t_env	*env_head;
-	int		exit_code;
 	char	*user_name;
 	char	**cmd_paths;
 	char	*prev_prompt;
 	char	*trimmed_prompt;
 	char	*terminal_prompt;
-	char	*empty;
-	t_token	**tokens;
+	int		cmd_has_been_executed;
 }	t_shell;
 
 //MAIN UTILS
@@ -150,6 +148,8 @@ int		nb_delimited_words(char *s, char c);
 void	cd_back(char *dotdot, char *folder_path);
 void	update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 
+//BUILTIN ECHO
+
 //INITIALIZE
 char	*extract_user(t_shell *shell);
 void	init_shell(t_shell *shell, char **env);
@@ -162,8 +162,8 @@ void	handle_sigint(int sig_num);
 //LEXER
 bool	is_space(char c);
 bool	is_operator(char c);
-bool	syntax_error(char c);
-void	identify_tokens(t_shell *shell);
+void	lexer(t_shell *shell);
+void	tokenizer(t_shell *shell);
 bool	wrong_operator_check(char *str);
 char	count_quotes(char *s, int sq, int dq);
 char	*ft_strdup2(char *str, int start, int end);
@@ -171,25 +171,33 @@ char	*ft_strdup2(char *str, int start, int end);
 // void	free_token_array(t_token **array);
 // void	free_tokens(t_token *token, t_token **tokens);
 
+//PARSER
+
 //EXPANDER
 char	*variable_doesnt_exist(void);
-char	*expand_variable(char *content);
+char	*copy_variable(char *content);
+void	expander(char **str, t_shell *shell);
+bool	has_dollar(char *str, t_shell *shell);
+void	extract_dollar(char **s, t_shell *shell);
+void	get_dollar(char **dst, char **s, int index);
 char	*expand(char *dollar_to_expand, t_shell *shell);
-char	*expander(char *dollar_to_expand, t_shell *shell);
 char	*replace_variable(char *variable, t_shell *shell);
+char	*expand_dollars(char *dollar_to_expand, t_shell *shell);
 
 //CLEANUP TOOLS
 void	free_env(t_env *head);
 void	free_at_exit(t_shell *shell);
 void	free_char_array(char **array);
 
+//ERROR HANDLING
+void	how_to_use(int argc);
+bool	syntax_error(char c);
+
+//GENERAL UTILS
+void	print_to_stderr(char *str);
+
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 void	ft_print_2d_char_array(char **array_2d);
-void	print_to_stderr(char *str);
-void	clear_screen(void);
-
-void	extract_dollars(char **str, t_shell *shell);
-
 
 #endif

@@ -27,7 +27,7 @@ void	init_shell(t_shell *shell, char **env)
 	shell->cmd_paths = ft_split(get_path(env), ':');
 	shell->tokens = malloc(sizeof(t_token *));
 	*shell->tokens = NULL;
-	shell->exit_code = 0;
+	shell->cmd_has_been_executed = TRUE;
 }
 
 //check for leaks and to copy directly to our env or not

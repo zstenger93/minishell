@@ -42,12 +42,3 @@ void	handle_sigint(int sig_num)
 		rl_redisplay();
 	}
 }
-
-void	print_to_stderr(char *str)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	write(2, str, len);
-	write(2, "\n", 1);
-}

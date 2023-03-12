@@ -12,24 +12,13 @@
 
 #include "../../includes/minishell.h"
 
-// int	lexer(char *prompt_line)
-// {
-// 	t_prompt	line;
+void	lexer(t_shell *shell)
+{
+	bool	result;
 
-// 	if(count_quotes(prompt_line, SQUOTE, DQUOTE) == 0)
-// 		return(printf("odd amount of quotes\n"), 0);
-// 	line.sliced = ft_split(prompt_line, ' ');
-// 	int i = 0;
-// 	while (line.sliced[i] != NULL)
-// 	{
-// 		if (ft_strncmp(line.sliced[i], HEREDOC, 2) == 0
-// 			|| ft_strncmp(line.sliced[i], APPEND, 2) == 0
-// 			|| ft_strncmp(line.sliced[i], PIPE, 1) == 0)
-// 			printf("%s is a token\n", line.sliced[i]);
-// 		else
-// 			printf("%s\n", line.sliced[i]);
-// 		i++;
-// 	}
-// 	free_char_array(line.sliced);
-// 	return(0);
-// }
+    result = wrong_operator_check(shell->trimmed_prompt);
+	if (result == FALSE)
+		shell->cmd_has_been_executed = FALSE;
+	expander(&shell->trimmed_prompt, shell);
+    // tokenizer(shell);
+}

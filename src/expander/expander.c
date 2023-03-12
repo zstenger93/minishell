@@ -13,7 +13,7 @@
 #include "../../includes/minishell.h"
 
 //need to add $? option
-char	*expander(char *dollar_to_expand, t_shell *shell)
+char	*expand_dollars(char *dollar_to_expand, t_shell *shell)
 {
 	char	*variable;
 	char	*expanded_dollar;
@@ -21,7 +21,7 @@ char	*expander(char *dollar_to_expand, t_shell *shell)
 	variable = expand(dollar_to_expand, shell);
 	if (ft_strlen(variable) == 0)
 		return (variable);
-	expanded_dollar = expand_variable(variable);
+	expanded_dollar = copy_variable(variable);
 	return (expanded_dollar);
 }
 
@@ -83,7 +83,7 @@ char	*variable_doesnt_exist(void)
 	return (space);
 }
 
-char	*expand_variable(char *content)
+char	*copy_variable(char *content)
 {
 	int		i;
 	int		content_len;

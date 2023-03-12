@@ -12,8 +12,11 @@
 
 #include "../../includes/minishell.h"
 
-void	clear_screen(void)
+void	print_to_stderr(char *str)
 {
-	printf("\033[2J");
-	printf("\033[1;1H");
+	int	len;
+
+	len = ft_strlen(str);
+	write(2, str, len);
+	write(2, "\n", 1);
 }

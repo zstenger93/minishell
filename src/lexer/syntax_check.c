@@ -20,16 +20,18 @@ bool	wrong_operator_check(char *str)
 	int	j;
 
 	i = 0;
-	if (count_quotes(str, SQUOTE, DQUOTE) == FALSE)
-		return (false);
-	if (is_operator(str[0]) || is_operator(str[ft_strlen(str) - 1]))
-		return (syntax_error(str[0]), false);
+	if (ft_strlen(str) == 0)
+		;
+	else if (count_quotes(str, SQUOTE, DQUOTE) == FALSE)
+		return (FALSE);
+	else if (is_operator(str[0]) || is_operator(str[ft_strlen(str) - 1]))
+		return (syntax_error(str[0]), FALSE);
 	while (str[++i])
 	{
 		if (is_operator(str[i]) && is_operator(str[i - 1]) && str[i] != str[i - 1])
-			return (syntax_error(str[i]), false);
+			return (syntax_error(str[i]), FALSE);
 		if (is_operator(str[i]) && is_operator(str[i - 1]) && str[i] == '|' && str[i - 2] != 92)
-			return (syntax_error(str[i]), false);
+			return (syntax_error(str[i]), FALSE);
 		if (is_operator(str[i - 1]) && is_space(str[i]))
 		{
 			j = i;
@@ -42,37 +44,38 @@ bool	wrong_operator_check(char *str)
 			}
 		}
 	}
-	return (true);
+	return (TRUE);
 }
 
 char	count_quotes(char *s, int sq, int dq)
 {
-	int		scount;
-	int		qcount;
+	int		sq_count;
+	int		dq_count;
 	int	i;
 
 	i = -1;
-	scount = 0;
-	qcount = 0;
+	sq_count = 0;
+	dq_count = 0;
 	while (s[++i] != '\0')
 	{
 		if (s[i] == 92 && s[i + 1] != '\0' && (s[i + 1] == sq || s[i + 1] == dq))
 			i++;
 		else if (s[i] == sq)
-			scount++;
+			sq_count++;
 		else if (s[i] == dq)
-			qcount++;
+			dq_count++;
 	}
-	if ((qcount % 2) == 0 && (scount % 2) == 0)
-		return(1);
-	syntax_error(s[i]);
-	return (0);
+	if (sq_count % 2 != 0)
+		syntax_error(sq);
+	else if (dq_count % 2 != 0)
+		syntax_error(dq);
+	else
+		return (1);
 }
 
 bool	syntax_error(char c)
 {
-	
-	return(ft_printf(BOLD"%s `%c'\n"C_END, SYNTAX_ERROR, c), false);
+	return(ft_printf(BOLD"%s `%c'\n"C_END, SYNTAX_ERROR, c), FALSE);
 }
 
 bool	is_operator(char c)

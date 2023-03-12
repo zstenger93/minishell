@@ -25,7 +25,7 @@ void	terminal_prompt(t_shell *shell)
 	if (shell->terminal_prompt != NULL)
 		free(shell->terminal_prompt);
 	curr_dir = get_curr_dir(shell);
-	if (shell->exit_code == 0)
+	if (shell->cmd_has_been_executed == TRUE)
 		username = ft_nm_strjoin(G_ARROW_SIGN, shell->user_name);
 	else
 		username = ft_nm_strjoin(R_ARROW_SIGN, shell->user_name);
@@ -37,6 +37,7 @@ void	terminal_prompt(t_shell *shell)
 	free(curr_dir);
 	free(half);
 	shell->terminal_prompt = full;
+	shell->cmd_has_been_executed = TRUE;
 }
 
 char	*get_curr_dir(t_shell *shell)

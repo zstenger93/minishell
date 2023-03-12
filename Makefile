@@ -8,37 +8,37 @@ OBJ_DIR			= obj/
 LIBFT			= libft/libft.a
 OS				= $(shell uname)
 
-MAIN			= main/minishell \
+MAIN			= main/prompt \
+				  main/minishell \
 				  main/shell_loop \
-				  main/prompt \
 				  main/main_utils \
 
-BUILTINS		= builtins/env/env_utils \
+BUILTINS		= builtins/cd/cd \
 				  builtins/env/env \
 				  builtins/pwd/pwd \
 				  builtins/exit/exit \
-				  builtins/export/export \
-				  builtins/export/export_utils \
 				  builtins/unset/unset \
-				  builtins/cd/cd \
 				  builtins/cd/cd_utils \
+				  builtins/export/export \
+				  builtins/env/env_utils \
+				  builtins/export/export_utils \
 #   builtins/echo/
 
 INIT 			= init/init \
 
-LEXER			= lexer/create_tokens \
-				  lexer/is_str_valid \
+LEXER			= lexer/lexer \
+				  lexer/tokenizer \
 				  lexer/lexer_utils \
-				  lexer/lexer \
-				  lexer/expander_utils \
+				  lexer/syntax_check \
 
-PARSER			= 
+PARSER			= parser/ \
 
 EXPANDER		= expander/expander \
+				  expander/expander_utils \
 
 EXECUTOR		= 
 
-SIGNALS			= signals/signals
+SIGNALS			= signals/signals \
 
 CLEANUP_TOOLS	= cleanup_tools/free_at_error/free_at_error \
 				  cleanup_tools/free/free \
@@ -46,7 +46,8 @@ CLEANUP_TOOLS	= cleanup_tools/free_at_error/free_at_error \
 GENERAL_UTILS	= general_utils/error \
 				  general_utils/utils \
 
-SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(LEXER) $(EXPANDER) $(GENERAL_UTILS) $(CLEANUP_TOOLS) $(SIGNALS)
+SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(EXPANDER) $(LEXER) \
+				  $(SIGNALS) $(GENERAL_UTILS) $(CLEANUP_TOOLS)
 
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
 OBJ				= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SOURCE)))
@@ -63,11 +64,11 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
 	@echo ""
-	@echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
+# @echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)
 	@$(CC) $(OBJ) $(INCL_RDL_LIB) $(LIBFT) -lreadline -o minishell $(DN)
 	@cd obj/general_utils && touch user.txt && echo $$USER > user.txt
-	@echo "$(PURPLE)                       $(NAME) $(DEF_COLOR)$(GREEN)Compiling done.$(DEF_COLOR)"
+# @echo "$(PURPLE)                       $(NAME) $(DEF_COLOR)$(GREEN)Compiling done.$(DEF_COLOR)"
 # @echo ""
 # @echo "$(RED) ████▒░▒████▒░██▒░███▒░  █▒░██▒░ ████▒░ ██▒░░▒██▒░██████▒░██▒░    ██▒░"
 # @echo " ██▒██▒██▒██▒░██▒░█▒██▒░ █▒░██▒░█▒░ ██▒░██▒░░▒██▒░██▒░    ██▒░    ██▒░"
@@ -120,13 +121,13 @@ v:
 	valgrind --read-var-info=yes --leak-check=full --track-origins=yes ./minishell
 
 DEF_COLOR = \033[0;39m
-RED = \033[1;4;91m
-GREEN = \033[4;92m
-CYAN = \033[1;96m
 CYAN3 = \033[1;4;96m
 YELLOW = \033[1;33m
 PURPLE = \033[1;35m
 BWhite = \033[1;37m
+RED = \033[1;4;91m
+GREEN = \033[4;92m
 CYAN2 = \x1B[1;36m
+CYAN = \033[1;96m
 
 .PHONY: all clean fclean re run v

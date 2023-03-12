@@ -12,13 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-//
-//
-//
 // MAKE OUR FPRINTF TO PRINT ERRORS TO STDERR
-//
-//CHECK CTRL D IF THE LINE ISNT EMPTY
-//
 void	shell_loop(t_shell *shell)
 {
 	while (TRUE)
@@ -26,20 +20,18 @@ void	shell_loop(t_shell *shell)
 		terminal_prompt(shell);
 		if (read_line(shell) == NULL)
 			break ;
-		extract_dollars(&shell->trimmed_prompt, shell);
-		printf("RESULT : %s\n", shell->trimmed_prompt);
-		// identify_tokens(shell);
-		// expander(*shell->tokens, shell);
-		// print_token(*shell->tokens);
+		lexer(shell);
 		builtins(shell);
 		addhistory(shell);
 	}
 }
+		// parser(shell);
+		// executor(shell);
+// printf("RESULT : %s\n", shell->trimmed_prompt);
 
 int	*read_line(t_shell *shell)
 {
 	shell->prompt = readline(shell->terminal_prompt);
-	
 	shell->trimmed_prompt = ft_strtrim(shell->prompt, "\t ");
 	if (shell->prompt == NULL)
 		return (NULL);
@@ -55,7 +47,6 @@ void	addhistory(t_shell *shell)
 	else
 		free(shell->prompt);
 	free(shell->trimmed_prompt);
-	// free_tokens(token, shell->tokens);
 }
 
 void	builtins(t_shell *shell)
@@ -72,6 +63,6 @@ void	builtins(t_shell *shell)
 		exit_shell(shell);
 	else if (cmd(shell, "unset", 5) == TRUE)
 		unset(shell);
-	else if (cmd(shell, "clear", 5) == TRUE)
-		clear_screen();
 }
+	// else if (cmd(shell, "echo", 4) == TRUE)
+	// 	echo();
