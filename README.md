@@ -98,10 +98,10 @@
 	<h3>ctrl + \ does nothing :white_check_mark:</h3>
 <h3>LEXER:</h3>
 	<h3>heredoc arg :x:</h3>
-	<h3>chechk valid operators :x:</h3>
-	<h3>tokenize the prompt using 5 different token type :x:</h3>
+	<h3>chechk valid operators :white_check_mark:</h3>
+	<h3>tokenize the prompt using 4 different token type :x:</h3>
 <h3>EXPANDER:</h3>
-	<h3>expand env variables :x:</h3>
+	<h3>expand env variables :white_check_mark:</h3>
 	<h3>Handle dollar+? (echo dollar+?) which should display the last exit code :x:</h3>
 <h3>PARSER:</h3>
 	<h3>check for edge, error cases and what we dont have to handle :x:</h3>
@@ -110,7 +110,6 @@
 	<h3>split heredoc arg for execute :x:</h3>
 	<h3>split arguments to pass for execve :x:</h3>
 	<h3>Implement pipes :x:</h3>
-
 <h3>Implement the followiung BUILTINS:</h3>
 	<h3>echo with option -n :x:</h3>
 	<h3>cd with relative or absolute path :white_check_mark:</h3>
