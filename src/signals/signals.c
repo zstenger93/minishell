@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 20:01:04 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/10 07:53:20 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:06:54 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	signals(void)
 	struct sigaction	ctrl_c;
 	struct sigaction	ctrl_back_slash;
 	struct termios		sett;
+	struct termios		term;
 
 	tcgetattr(1, &sett);
 	sett.c_lflag &= ~ECHOCTL;

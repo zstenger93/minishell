@@ -30,6 +30,7 @@ LEXER			= lexer/lexer \
 				  lexer/tokenizer \
 				  lexer/lexer_utils \
 				  lexer/syntax_check \
+				  lexer/syntax_utils \
 
 PARSER			= parser/ \
 
@@ -44,7 +45,7 @@ CLEANUP_TOOLS	= cleanup_tools/free_at_error/free_at_error \
 				  cleanup_tools/free/free \
 
 GENERAL_UTILS	= general_utils/error \
-				  general_utils/utils \
+				  general_utils/general_utils \
 
 SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(EXPANDER) $(LEXER) \
 				  $(SIGNALS) $(GENERAL_UTILS) $(CLEANUP_TOOLS)

@@ -1,89 +1,90 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_str_valid.c                                     :+:      :+:    :+:   */
+/*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 12:47:49 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/12 13:10:36 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:48:53 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//finish the error message
-//check for valid reads, shouldnt read non existing memory with -1 and -2
+//fisrt check need to be separated
 bool	wrong_operator_check(char *str)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	if (ft_strlen(str) == 0)
-		;
-	else if (count_quotes(str, SQUOTE, DQUOTE) == FALSE)
-		return (FALSE);
-	else if (is_operator(str[0]) || is_operator(str[ft_strlen(str) - 1]))
-		return (syntax_error(str[0]), FALSE);
+	if (str[0] == '|')
+		return (syntax_error(str[0]), TRUE);
+	if (is_operator(str[ft_strlen(str) - 1]))
+		return (syntax_error(str[ft_strlen(str) - 1]), TRUE);
+	if (has_wrong_pipe(str))
+		printf("wrong pipe\n");
 	while (str[++i])
 	{
-		if (is_operator(str[i]) && is_operator(str[i - 1]) && str[i] != str[i - 1])
-			return (syntax_error(str[i]), FALSE);
-		if (is_operator(str[i]) && is_operator(str[i - 1]) && str[i] == '|' && str[i - 2] != 92)
-			return (syntax_error(str[i]), FALSE);
 		if (is_operator(str[i - 1]) && is_space(str[i]))
 		{
-			j = i;
-			while (is_space(str[j]))
-			{
-				if (is_operator(str[j + 1]))
-					return (syntax_error(str[j + 1]), FALSE);
-				j++;
-				i++;
-			}
+			i = skip_spaces(str, i);
+			if (is_operator(str[i]))
+				return (syntax_error(str[i]), TRUE);
 		}
 	}
-	return (TRUE);
+	return (FALSE);
 }
 
-char	count_quotes(char *s, int sq, int dq)
+// have redirection after pipe but no escape before pipe -> WRONG
+// have redirection after pipe and escape before pipe -> WRONG
+bool	redir_after(char *str, int i)
 {
-	int		sq_count;
-	int		dq_count;
+	if (ft_pf_strchr(REDIRECTIONS, str[i + 1]) && str[i - 1] != 92)
+		return (true);
+	if (ft_pf_strchr(REDIRECTIONS, str[i + 1]) && str[i - 1] == 92)
+		if (nb_esc_chars(str, i) % 2 == 0)
+			return (true);
+	return (false);
+}
+
+// redirection before pipe but no escape before redirection -> WRONG
+// redirection before pipe and not escaped escape before redirection -> WRONG
+bool	redir_before(char *str, int i)
+{
+	if (ft_pf_strchr(REDIRECTIONS, str[i - 1]) && str[i - 2] != 92)
+		return (true);
+	if (ft_pf_strchr(REDIRECTIONS, str[i - 1]) && str[i - 2] == 92)
+		if (nb_esc_chars(str, i - 1) % 2 == 0)
+			return (true);
+	return (false);
+}
+
+bool	has_wrong_pipe(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[++i] != '\0')
+	{
+		if (str[i] == '|')
+		{
+			if (redir_after(str, i))
+				return (true);
+			if (redir_before(str, i))
+				return (true);
+		}
+	}
+	return (false);
+}
+
+bool	special_char_check(char *str)
+{
 	int	i;
 
 	i = -1;
-	sq_count = 0;
-	dq_count = 0;
-	while (s[++i] != '\0')
-	{
-		if (s[i] == 92 && s[i + 1] != '\0' && (s[i + 1] == sq || s[i + 1] == dq))
-			i++;
-		else if (s[i] == sq)
-			sq_count++;
-		else if (s[i] == dq)
-			dq_count++;
-	}
-	if (sq_count % 2 != 0)
-		syntax_error(sq);
-	else if (dq_count % 2 != 0)
-		syntax_error(dq);
-	else
-		return (1);
-}
-
-bool	syntax_error(char c)
-{
-	return(ft_printf(BOLD"%s `%c'\n"C_END, SYNTAX_ERROR, c), FALSE);
-}
-
-bool	is_operator(char c)
-{
-	return (ft_pf_strchr(OPERATORS, c));
-}
-
-bool	is_space(char c)
-{
-	return (ft_pf_strchr(SPACES, c));
+	while (str[++i])
+		if (is_special_char(str[i]))
+			return (syntax_error(str[i]), TRUE);
+	return (FALSE);
 }
