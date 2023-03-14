@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/13 19:39:02 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:27:49 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@
 # define OPERATORS "|><"
 # define SPACES " \t\n\v\r\f"
 # define SPECIAL_CHARSET "*()#@:;%`&{}"
+
+typedef enum e_io_here
+{
+	INPUT,
+	OUTPUT,
+	HEREDOC,
+	APPEND,
+	WORD
+}	t_io_here;
 
 typedef struct s_token
 {
@@ -214,5 +223,8 @@ int		skip_spaces(char *str, int index);
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 void	ft_print_2d_char_array(char **array_2d);
+
+
+char	**get_tokens(char *str);
 
 #endif
