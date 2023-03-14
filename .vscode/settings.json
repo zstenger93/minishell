@@ -3,7 +3,11 @@
 		"minishell.h": "c",
 		"libft.h": "c",
 		"sstream": "c",
-		"ioctl.h": "c"
+		"ioctl.h": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c"
 	},
 	"editor.insertSpaces": false,
 	"editor.suggest.showStatusBar": true,

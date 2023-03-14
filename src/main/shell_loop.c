@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/13 15:25:56 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:43:47 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,19 @@ void	shell_loop(t_shell *shell)
 		terminal_prompt(shell);
 		if (read_line(shell) == NULL)
 			break ;
-		lexer(shell);
-		printf("RESULT : %s\n", shell->trimmed_prompt);
-		builtins(shell);
+		tokenizer(shell->trimmed_prompt);
+		// t_token *token;
+		// while (token != NULL)
+		// {
+		// 	printf("%s\n", token->content);
+		// 	token = token->next;
+		// }
+		// lexer(shell);
+		// builtins(shell);
 		addhistory(shell);
 	}
 }
+		// printf("RESULT : %s\n", shell->trimmed_prompt);
 		// parser(shell);
 		// executor(shell);
 

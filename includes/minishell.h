@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/13 19:39:02 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:29:14 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@
 
 typedef struct s_token
 {
-	char			*cmd;
-	char			*args;
-	char			*operator;
+	char			*content;
 	struct s_token	*next;
 }	t_token;
 
@@ -168,7 +166,7 @@ bool	is_operator(char c);
 void	lexer(t_shell *shell);
 bool	is_special_char(char c);
 bool	is_special_char(char c);
-void	tokenizer(t_shell *shell);
+void	tokenizer(char *prompt);
 bool	has_wrong_pipe(char *str);
 bool	special_char_check(char *str);
 bool	redir_after(char *str, int i);
@@ -214,5 +212,7 @@ int		skip_spaces(char *str, int index);
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 void	ft_print_2d_char_array(char **array_2d);
+
+char	*ft_strtok_r(char *str, char const *sep, char **saveptr);
 
 #endif
