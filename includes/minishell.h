@@ -162,6 +162,8 @@ void	update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 
 //BUILTIN ECHO
 void	echo(t_shell *shell);
+void	trim_quotes(char *str);
+char	*ft_strtrim2(char const *s1, char const *set);
 
 //INITIALIZE
 char	*extract_user(t_shell *shell);
@@ -228,7 +230,5 @@ void	ft_print_2d_char_array(char **array_2d);
 
 char	**get_tokens(char *str);
 
-char	*ft_strtrim2(char const *s1, char const *set);
-void	trim_quotes(char *str);
 
 #endif

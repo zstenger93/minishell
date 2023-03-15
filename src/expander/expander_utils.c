@@ -33,6 +33,7 @@ bool	has_dollar(char *str, t_shell *shell)
 	return (FALSE);
 }
 
+//itoa needs a check at $? in expander
 void	get_dollar(char **dst, char **s, int index)
 {
 	char	delimeter;

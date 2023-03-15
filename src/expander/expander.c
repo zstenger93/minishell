@@ -22,6 +22,8 @@ char	*expand_dollars(char *dollar_to_expand, t_shell *shell)
 	if (ft_strlen(variable) == 0)
 		return (variable);
 	expanded_dollar = copy_variable(variable);
+	if (dollar_to_expand[1] == '?')
+		free(variable);
 	return (expanded_dollar);
 }
 
@@ -33,6 +35,8 @@ char	*expand(char *dollar_to_expand, t_shell *shell)
 
 	i = 0;
 	trimmed_dollar = ft_strtrim(dollar_to_expand, "$");
+	if (trimmed_dollar[0] == '?')
+		expanded_dollar = replace_variable(trimmed_dollar, shell);
 	if (trimmed_dollar[0] == '(')
 	{
 		while (trimmed_dollar[i] != '\0')
@@ -54,6 +58,8 @@ char	*replace_variable(char *variable, t_shell *shell)
 	t_env	*curr;
 	char	*trimmed_variable;
 
+	if (variable[0] == '?')
+		return (ft_itoa(shell->exit_code));
 	trimmed_variable = ft_strtrim(variable, "( )");
 	if (variable[0] == '(')
 	{
