@@ -20,8 +20,7 @@ void	shell_loop(t_shell *shell)
 		terminal_prompt(shell);
 		if (read_line(shell) == NULL)
 			break ;
-		expander(&shell->trimmed_prompt, shell);
-		// lexer(shell);
+		lexer(shell);
 		// tokenizer(shell);
 		builtins(shell);
 		addhistory(shell);

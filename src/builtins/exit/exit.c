@@ -21,7 +21,7 @@ void	exit_shell(t_shell *shell)
 		&& ft_strncmp(shell->trimmed_prompt, "exit ", 5) != 0)
 	{
 		free_at_exit(shell);
-		exit(EXIT_SUCCESS);
+		exit(shell->exit_code);
 	}
 	else if (ft_strncmp(shell->trimmed_prompt, "exit ", 5) == 0)
 		exit_code(shell);

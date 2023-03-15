@@ -92,7 +92,7 @@ typedef struct s_shell
 	char	*prompt;
 	t_token	**tokens;
 	t_env	*env_head;
-	char	*exit_code;
+	int		exit_code;
 	char	*user_name;
 	char	**cmd_paths;
 	char	*prev_prompt;

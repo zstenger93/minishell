@@ -15,13 +15,23 @@
 void	echo(t_shell *shell)
 {
 	char	*trim;
+	char	**shit_cmd;
 	if (cmd(shell, "echo", 4) && ft_strlen(shell->trimmed_prompt) == 4)
 		write(1, "\n", 1);
 	else if (shell->trimmed_prompt[4] != ' ')
-		printf("command not found\n");
-	trim = ft_strtrim2(shell->trimmed_prompt, "echo ");
-	trim_quotes(trim);
-	free(trim);
+	{
+		shit_cmd = ft_split(shell->trimmed_prompt, ' ');
+		printf("%s: command not found\n", shit_cmd[0]);
+		free_char_array(shit_cmd);
+	}
+	else
+	{
+		trim = ft_strtrim2(shell->trimmed_prompt, "echo -n");
+		trim_quotes(trim);
+		if (!cmd(shell, "echo -n", 7))
+			write(1, "\n", 1);
+		free(trim);
+	}
 }
 
 void	trim_quotes(char *str)
@@ -42,7 +52,6 @@ void	trim_quotes(char *str)
 				write(1, &str[i], 1);
 		i++;
 	}
-	write(1, "\n", 1);
 }
 
 static int	ft_char_in_set(char c, char const *set)

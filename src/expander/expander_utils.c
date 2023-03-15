@@ -37,19 +37,24 @@ void	get_dollar(char **dst, char **s, int index)
 {
 	char	delimeter;
 	int		i;
+	int		doll;
 
 	i = index;
+	doll = index + 1;
 	delimeter = ' ';
 	if (s[0][index + 1] == '(')
 		delimeter = ')';
-	if (s[0][index - 1] == '\'' )
+	if (index > 0 && s[0][index - 1] == '\'' )
 		delimeter = '\'';
-	if (s[0][index - 1] == '\"' )
+	if (index > 0 && s[0][index - 1] == '\"' )
 		delimeter = '\"';
-	while (s[0][i] != delimeter)
+	while (s[0][i] != '\0' && s[0][i] != delimeter && s[0][doll] >= 40 && 122 >= s[0][doll])
+	{
 		i++;
-	if (delimeter == ' ' || delimeter == '\'' || delimeter == '\"')
-		i--;
+		doll++;
+	}
+	// if (delimeter == ' ' || delimeter == '\'' || delimeter == '\"' || s[0][i] == '$')
+	// 	i--;
 	dst[0] = ft_strdup2(s[0], index, i + 1);
 }
 
@@ -95,7 +100,7 @@ bool	expander(char **str, t_shell *shell)
 	after_dollar = malloc(sizeof(char *));
 	while (has_dollar(*str, shell) == TRUE)
 	{
-		extract_dollar(str, shell, before_dollar, after_dollar);
+		extract_dollar(&*str, shell, before_dollar, after_dollar);
 		free(after_dollar[0]);
 	}
 	free(before_dollar);

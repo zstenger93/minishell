@@ -20,14 +20,15 @@ void	init_shell(t_shell *shell, char **env)
 		init_missing_environment(shell, env);
 	else
 		shell->env_head = init_env(env);
+	shell->exit_code = 0;
 	shell->prev_prompt = NULL;
 	shell->trimmed_prompt = NULL;
 	shell->terminal_prompt = NULL;
 	shell->user_name = getenv("USER");
+	shell->cmd_has_been_executed = TRUE;
 	shell->cmd_paths = ft_split(get_path(env), ':');
 	shell->tokens = malloc(sizeof(t_token *));
 	*shell->tokens = NULL;
-	shell->cmd_has_been_executed = TRUE;
 }
 
 //check for leaks and to copy directly to our env or not
