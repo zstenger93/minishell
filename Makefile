@@ -7,6 +7,7 @@ SRC_DIR			= src/
 OBJ_DIR			= obj/
 LIBFT			= libft/libft.a
 OS				= $(shell uname)
+USER			= $(shell whoami)
 
 MAIN			= main/prompt \
 				  main/minishell \
@@ -57,8 +58,8 @@ ifeq ($(OS), Linux)
 INCL_RDL_HEADER	= -I /home/linuxbrew/.linuxbrew/opt/readline/include/readline
 INCL_RDL_LIB	= -lreadline -L /home/linuxbrew/.linuxbrew/opt/readline/lib
 else
-INCL_RDL_HEADER	= -I /Users/zstenger/.brew/opt/readline/include
-INCL_RDL_LIB	= -lreadline -L /Users/zstenger/.brew/opt/readline/lib
+INCL_RDL_HEADER	= -I /Users/$(USER)/.brew/opt/readline/include
+INCL_RDL_LIB	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 endif
 
 all: $(NAME)
