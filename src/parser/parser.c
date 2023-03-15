@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:02:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/15 08:05:44 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/15 11:30:53 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,4 +145,6 @@ char	*get_cmd(char *str)
 	if (has_cmd(str) == true)
 		return (get_cmd_name(str, 0));
 	return (NULL);
+
+	
 }
