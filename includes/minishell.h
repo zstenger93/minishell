@@ -180,7 +180,6 @@ bool	is_operator(char c);
 void	lexer(t_shell *shell);
 bool	is_special_char(char c);
 bool	is_special_char(char c);
-void	tokenizer(t_shell *shell);
 bool	has_wrong_pipe(char *str);
 bool	special_char_check(char *str);
 bool	redir_after(char *str, int i);
@@ -192,11 +191,23 @@ int		nb_esc_chars(char *str, int last_ind);
 char	*ft_strdup2(char *str, int start, int end);
 
 //TOKENIZER
+int		count_pipes(char *str);
+char	**get_tokens(char *str);
+void	tokenizer(t_shell *shell);
+int		skip_quotes(char *str, int index);
 // void	print_token(t_token *tokens);
 // void	free_token_array(t_token **array);
 // void	free_tokens(t_token *token, t_token **tokens);
 
 //PARSER
+bool		has_cmd(char *str);
+char		*get_cmd(char *str);
+int			is_input(char *str);
+int 		is_append(char *str);
+int			is_output(char *str);
+int			is_here_doc(char *str);
+t_io_here	get_io_here_type(char *str);
+char		*extract_cmd_name(char *str, int start);
 
 //EXPANDER
 char	*variable_doesnt_exist(void);
@@ -226,9 +237,5 @@ int		skip_spaces(char *str, int index);
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 void	ft_print_2d_char_array(char **array_2d);
-
-
-char	**get_tokens(char *str);
-
 
 #endif
