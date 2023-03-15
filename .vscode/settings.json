@@ -3,7 +3,8 @@
 		"minishell.h": "c",
 		"libft.h": "c",
 		"sstream": "c",
-		"ioctl.h": "c"
+		"ioctl.h": "c",
+		"system_error": "c"
 	},
 	"editor.insertSpaces": false,
 	"editor.suggest.showStatusBar": true,

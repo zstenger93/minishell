@@ -17,6 +17,7 @@ BUILTINS		= builtins/cd/cd \
 				  builtins/env/env \
 				  builtins/pwd/pwd \
 				  builtins/exit/exit \
+				  builtins/echo/echo \
 				  builtins/unset/unset \
 				  builtins/cd/cd_utils \
 				  builtins/export/export \
@@ -63,7 +64,7 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ)
+$(NAME): $(BIN) $(RD) $(LIBFT) $(OBJ)
 	@echo ""
 # @echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)

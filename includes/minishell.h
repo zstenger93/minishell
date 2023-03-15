@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/14 15:27:49 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:09:08 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ void	cd_back(char *dotdot, char *folder_path);
 void	update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 
 //BUILTIN ECHO
+void	echo(t_shell *shell);
 
 //INITIALIZE
 char	*extract_user(t_shell *shell);
@@ -226,5 +227,8 @@ void	ft_print_2d_char_array(char **array_2d);
 
 
 char	**get_tokens(char *str);
+
+char	*ft_strtrim2(char const *s1, char const *set);
+void	trim_quotes(char *str);
 
 #endif

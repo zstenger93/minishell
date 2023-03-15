@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:39:58 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/12 17:51:55 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:18:53 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ char	*replace_variable(char *variable, t_shell *shell)
 			return (variable_doesnt_exist());
 		return (curr->content);
 	}
-	else if (trimmed_variable[0] != '(' || trimmed_variable[0] != ' ')
+	else if (trimmed_variable[0] != '(' || trimmed_variable[0] != ' '
+		|| trimmed_variable)
 	{
 		curr = find_env_var(shell->env_head, trimmed_variable);
 		free(trimmed_variable);

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:17:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/13 17:47:32 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:09:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	lexer(t_shell *shell)
 		return ;
 	if (wrong_operator_check(shell->trimmed_prompt) == TRUE)
 		shell->cmd_has_been_executed = FALSE;
-	else if (unclosed_quotes(shell->trimmed_prompt) == TRUE)
+	if (unclosed_quotes(shell->trimmed_prompt) == TRUE)
 		shell->cmd_has_been_executed = FALSE;
 	else if (expander(&shell->trimmed_prompt, shell) == FALSE)
 		shell->cmd_has_been_executed = FALSE;
