@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:02:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/14 16:11:23 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/15 08:05:44 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,50 @@ int	is_input(char *str)
 
 t_io_here	get_io_here_type(char *str)
 {
+	t_io_here	result;
+	int			i;
+
 	if (is_here_doc(str) >= 0)
-		return (HEREDOC);
-	if (is_append(str) >= 0)
-		return (APPEND);
-	if (is_input(str) >= 0)
-		return (INPUT);
-	if (is_output(str) >= 0)
-		return (OUTPUT);
+	{
+		i = is_here_doc(str);
+		result	= HERE_DOC;
+	}
+	else if (is_append(str) >= 0)
+	{
+		i = is_append(str);
+		result = APPEND;
+	}
+	else if (is_input(str) >= 0)
+	{
+		i = is_input(str);
+		result = INPUT;
+	}
+	else if (is_output(str) >= 0)
+	{
+		i = is_output(str);
+		result = OUTPUT;
+	}
 	return (WORD);
+}
+
+bool	has_cmd(char *str)
+{
+	if (ft_pf_strchr(REDIRECTIONS, str[0]) == NULL)
+		return (true);
+	return (false);
+}
+
+char	*extract_cmd_name(char *str, int start)
+{
+	int		i;
+	char	*result;
+
+	i = start;
+	while (str[i] != '\0' || ft_pf_strchr(SPACES, str[i])
+		|| ft_pf_strchr(REDIRECTIONS, str[i]))
+		i++;
+	result = ft_strdup2(str, start, i + 1);
+	return (result);
 }
 
 char	*get_cmd(char *str)
@@ -106,16 +141,8 @@ char	*get_cmd(char *str)
 	int	i;
 
 	if (get_io_here_type(str) == WORD)
-	{
-		
-	}
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (get_io_here_type(str) == HEREDOC)
-		{
-			
-		}
-	}
-	
+		return (get_cmd_name(str, 0));
+	if (has_cmd(str) == true)
+		return (get_cmd_name(str, 0));
+	return (NULL);
 }

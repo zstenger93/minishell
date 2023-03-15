@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/14 14:22:04 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/15 08:11:30 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,3 @@ char	**get_tokens(char *str)
 	tokens[++index] = NULL;
 	return (tokens);
 }
-
