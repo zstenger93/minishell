@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/10 20:35:22 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:27:49 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,26 @@
 # include <limits.h>
 # include <termios.h>
 
-# define TOKENS " |><"
+# define REDIRECTIONS "><"
+# define PIPE "|"
+# define OPERATORS "|><"
+# define SPACES " \t\n\v\r\f"
+# define SPECIAL_CHARSET "*()#@:;%`&{}"
+
+typedef enum e_io_here
+{
+	INPUT,
+	OUTPUT,
+	HEREDOC,
+	APPEND,
+	WORD
+}	t_io_here;
 
 typedef struct s_token
 {
-	char			*content;
+	char			*cmd;
+	char			*args;
+	char			*operator;
 	struct s_token	*next;
 }	t_token;
 
@@ -75,13 +90,15 @@ typedef struct s_env
 typedef struct s_shell
 {
 	char	*prompt;
+	t_token	**tokens;
 	t_env	*env_head;
+	char	*exit_code;
 	char	*user_name;
 	char	**cmd_paths;
 	char	*prev_prompt;
 	char	*trimmed_prompt;
 	char	*terminal_prompt;
-	t_token	**tokens;
+	int		cmd_has_been_executed;
 }	t_shell;
 
 //MAIN UTILS
@@ -143,6 +160,8 @@ int		nb_delimited_words(char *s, char c);
 void	cd_back(char *dotdot, char *folder_path);
 void	update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 
+//BUILTIN ECHO
+
 //INITIALIZE
 char	*extract_user(t_shell *shell);
 void	init_shell(t_shell *shell, char **env);
@@ -153,30 +172,59 @@ void	signals(void);
 void	handle_sigint(int sig_num);
 
 //LEXER
-void	print_token(t_token *tokens);
-void	identify_tokens(t_shell *shell);
-void	free_token_array(t_token **array);
+bool	is_space(char c);
+bool	is_operator(char c);
+void	lexer(t_shell *shell);
+bool	is_special_char(char c);
+bool	is_special_char(char c);
+void	tokenizer(t_shell *shell);
+bool	has_wrong_pipe(char *str);
+bool	special_char_check(char *str);
+bool	redir_after(char *str, int i);
+bool	special_char_check(char *str);
+bool	redir_before(char *str, int i);
+bool	wrong_operator_check(char *str);
+char	count_quotes(char *s, int sq, int dq);
+int		nb_esc_chars(char *str, int last_ind);
 char	*ft_strdup2(char *str, int start, int end);
-void	free_tokens(t_token *token, t_token **tokens);
+
+//TOKENIZER
+// void	print_token(t_token *tokens);
+// void	free_token_array(t_token **array);
+// void	free_tokens(t_token *token, t_token **tokens);
+
+//PARSER
 
 //EXPANDER
-bool	is_dollar(char *token);
-char	*var_to_expand(t_token *tokens);
-char	*expand_variable(char *content);
-char	*expand(char *token, t_shell *shell);
-void	expander(t_token *token, t_shell *shell);
+char	*variable_doesnt_exist(void);
+char	*copy_variable(char *content);
+bool	expander(char **str, t_shell *shell);
+bool	has_dollar(char *str, t_shell *shell);
+void	get_dollar(char **dst, char **s, int index);
+char	*expand(char *dollar_to_expand, t_shell *shell);
 char	*replace_variable(char *variable, t_shell *shell);
-void	replace_var_with_content(t_token *token, char *token_to_expand, char *content);
+char	*expand_dollars(char *dollar_to_expand, t_shell *shell);
+void	extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest);
 
 //CLEANUP TOOLS
 void	free_env(t_env *head);
 void	free_at_exit(t_shell *shell);
 void	free_char_array(char **array);
 
+//ERROR HANDLING
+void	how_to_use(int argc);
+bool	syntax_error(char c);
+
+//GENERAL UTILS
+void	print_to_stderr(char *str);
+bool	unclosed_quotes(char *str);
+int		skip_spaces(char *str, int index);
+
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 void	ft_print_2d_char_array(char **array_2d);
-void	print_to_stderr(char *str);
-void	clear_screen(void);
+
+
+char	**get_tokens(char *str);
 
 #endif

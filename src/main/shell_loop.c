@@ -6,19 +6,13 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/10 20:34:40 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/14 13:52:37 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//
-//
-//
 // MAKE OUR FPRINTF TO PRINT ERRORS TO STDERR
-//
-//CHECK CTRL D IF THE LINE ISNT EMPTY
-//
 void	shell_loop(t_shell *shell)
 {
 	while (TRUE)
@@ -26,13 +20,15 @@ void	shell_loop(t_shell *shell)
 		terminal_prompt(shell);
 		if (read_line(shell) == NULL)
 			break ;
-		identify_tokens(shell);
-		expander(*shell->tokens, shell);
-		print_token(*shell->tokens);
+		lexer(shell);
+		tokenizer(shell);
 		builtins(shell);
 		addhistory(shell);
 	}
 }
+		// printf("RESULT : %s\n", shell->trimmed_prompt);
+		// parser(shell);
+		// executor(shell);
 
 int	*read_line(t_shell *shell)
 {
@@ -52,7 +48,6 @@ void	addhistory(t_shell *shell)
 	else
 		free(shell->prompt);
 	free(shell->trimmed_prompt);
-	// free_tokens(token, shell->tokens);
 }
 
 void	builtins(t_shell *shell)
@@ -69,6 +64,6 @@ void	builtins(t_shell *shell)
 		exit_shell(shell);
 	else if (cmd(shell, "unset", 5) == TRUE)
 		unset(shell);
-	else if (cmd(shell, "clear", 5) == TRUE)
-		clear_screen();
 }
+	// else if (cmd(shell, "echo", 4) == TRUE)
+	// 	echo();

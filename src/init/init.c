@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/10 20:21:14 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:12:42 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_shell(t_shell *shell, char **env)
 	shell->cmd_paths = ft_split(get_path(env), ':');
 	shell->tokens = malloc(sizeof(t_token *));
 	*shell->tokens = NULL;
+	shell->cmd_has_been_executed = TRUE;
 }
 
 //check for leaks and to copy directly to our env or not
@@ -65,12 +66,17 @@ char	*extract_user(t_shell *shell)
 	if (fd == -1)
 	{
 		print_to_stderr("Open failed: Username cannot be extracted.");
-		trimmed_user = ft_strdup("Magic cookie");
+		trimmed_user = ft_strdup("Magic Cookie");
 		return (trimmed_user);
 	}
 	dup2(fd, 666);
 	close(fd);
 	user = get_next_line(666);
+	if (ft_strlen(user) == 0 || user[0] == '\n')
+	{
+		trimmed_user = ft_strdup("Magic Cookie");
+		return (trimmed_user);
+	}
 	trimmed_user = ft_strtrim(user, "\n");
 	free(user);
 	close(666);
