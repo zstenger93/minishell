@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/16 15:07:35 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:54:41 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_shell
 	char	*prompt;
 	t_token	**tokens;
 	t_env	*env_head;
+	int		echo_flag;
 	int		exit_code;
 	char	*user_name;
 	char	**cmd_paths;
@@ -163,8 +164,14 @@ void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 //BUILTIN ECHO
 void		echo(t_shell *shell);
 void		trim_quotes(char *str);
+bool		wrong_echo_cmd(t_shell *shell);
 bool		has_quote_in_string(char *str);
-char		*ft_strtrim2(char const *s1, char const *set, size_t start);
+bool		slash_n_checker(const char *str, int i);
+char		*trim_result_malloc(const char *s1, size_t start);
+bool		no_space_after_n(const char *s1, int i, t_shell *shell);
+char		*trim_echo(char const *s1, char const *set, size_t start);
+bool		breaking_bad(const char *s1, size_t start, t_shell *shell);
+char		*trim_slash_n(char const *s1, char const *t, size_t i, t_shell *s);
 
 //INITIALIZE
 char		*extract_user(t_shell *shell);

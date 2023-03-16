@@ -23,8 +23,9 @@ BUILTINS		= builtins/cd/cd \
 				  builtins/cd/cd_utils \
 				  builtins/export/export \
 				  builtins/env/env_utils \
+				  builtins/echo/echo_utils \
+				  builtins/echo/echo_utils2 \
 				  builtins/export/export_utils \
-#   builtins/echo/
 
 INIT 			= init/init \
 

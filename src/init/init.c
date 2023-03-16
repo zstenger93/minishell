@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/12 13:12:42 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:28:51 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_shell(t_shell *shell, char **env)
 	else
 		shell->env_head = init_env(env);
 	shell->exit_code = 0;
+	shell->echo_flag = 0;
 	shell->prev_prompt = NULL;
 	shell->trimmed_prompt = NULL;
 	shell->terminal_prompt = NULL;
@@ -67,7 +68,7 @@ char	*extract_user(t_shell *shell)
 	if (fd == -1)
 	{
 		print_to_stderr("Open failed: Username cannot be extracted.");
-		trimmed_user = ft_strdup("Magic Cookie");
+		trimmed_user = ft_strdup("Having fun trying to break our code?🤨");
 		return (trimmed_user);
 	}
 	dup2(fd, 666);
@@ -75,7 +76,7 @@ char	*extract_user(t_shell *shell)
 	user = get_next_line(666);
 	if (ft_strlen(user) == 0 || user[0] == '\n')
 	{
-		trimmed_user = ft_strdup("Magic Cookie");
+		trimmed_user = ft_strdup("Having fun trying to break our code?🤨");
 		return (trimmed_user);
 	}
 	trimmed_user = ft_strtrim(user, "\n");

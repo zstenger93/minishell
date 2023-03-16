@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:59:01 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/16 14:55:10 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:58:10 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,49 @@
 void	echo(t_shell *shell)
 {
 	char	*trim;
-	char	**shit_cmd;
 
-	if (cmd(shell, "echo", 4) && ft_strlen(shell->trimmed_prompt) == 4)
-		write(1, "\n", 1);
-	else if (shell->trimmed_prompt[4] != ' ')
-	{
-		shit_cmd = ft_split(shell->trimmed_prompt, ' ');
-		printf("%s: command not found\n", shit_cmd[0]);
-		free_char_array(shit_cmd);
-	}
+	shell->echo_flag = 0;
+	if (wrong_echo_cmd(shell) == TRUE)
+		return ;
 	else
 	{
 		if (cmd(shell, "echo -n", 7) && ft_strlen(shell->trimmed_prompt) == 7)
 			write(1, "", 1);
-		else
+		else if (cmd(shell, "echo -n", 7))
 		{
-			trim = ft_strtrim2(shell->trimmed_prompt, " -n", 5);
+			trim = trim_slash_n(shell->trimmed_prompt, " -n", 4, shell);
 			trim_quotes(trim);
 			free(trim);
+			if (shell->echo_flag == 1)
+				write(1, "\n", 1);
 		}
-		if (!cmd(shell, "echo -n", 7))
+		else
+		{
+			trim = trim_echo(shell->trimmed_prompt, " ", 5);
+			trim_quotes(trim);
+			free(trim);
 			write(1, "\n", 1);
+		}
 	}
+}
+
+bool	wrong_echo_cmd(t_shell *shell)
+{
+	char	**shit_cmd;
+
+	if (cmd(shell, "echo", 4) && ft_strlen(shell->trimmed_prompt) == 4)
+	{
+		write(1, "\n", 1);
+		return (TRUE);
+	}
+	if (shell->trimmed_prompt[4] != ' ')
+	{
+		shit_cmd = ft_split(shell->trimmed_prompt, ' ');
+		printf("%s: command not found\n", shit_cmd[0]);
+		free_char_array(shit_cmd);
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
 void	trim_quotes(char *str)
@@ -53,8 +73,6 @@ void	trim_quotes(char *str)
 	{
 		if (str[i] == '\"')
 			dq = 1;
-		if (str[i] == ' ')
-			write(1, &str[i], 1);
 		if (str[i] == ' ' && str[i + 1] == ' ' && quotes == FALSE)
 			while (str[i] == ' ')
 				i++;
@@ -65,68 +83,4 @@ void	trim_quotes(char *str)
 				write(1, &str[i], 1);
 		i++;
 	}
-}
-
-static int	ft_char_in_set(char c, char const *set)
-{
-	size_t	z;
-
-	z = 0;
-	while (set[z])
-	{
-		if (set[z] == c)
-			return (1);
-		z++;
-	}
-	return (0);
-}
-
-bool	slash_n_checker(const char *str, int i)
-{
-	int	j;
-
-	j = i + 1;
-	while (str[j] != '\0' && str[i - 1] != 'n')
-	{
-		if (str[i] == '-')
-		{
-			while (str[j] == 'n')
-				j++;
-			if (ft_pf_strchr(SPACES, str[j]) == NULL)
-				return (FALSE);
-		}
-		else if (str[j] != '\0' && ft_pf_strchr(SPACES, str[j]))
-			return (TRUE);
-		break ;
-	}
-	return (FALSE);
-}
-
-char	*ft_strtrim2(char const *s1, char const *set, size_t start)
-{
-	char			*trim_result;
-	static size_t	z = 0;
-
-	if (!s1 || !set)
-		return (NULL);
-	while ((s1[start] && ft_char_in_set(s1[start], set)) && s1[start] != '\0')
-	{
-		if (s1[start] == ' ')
-			start++;
-		if (s1[start] == '-' && s1[start + 1] == 'n')
-			if (slash_n_checker(s1, start) == true)
-				while (ft_pf_strchr(SPACES, s1[start]) != NULL
-					&& s1[start] != '\0')
-					start++;
-		start++;
-	}
-	if (s1[start] != '\0')
-		start--;
-	trim_result = (char *)malloc(sizeof(*s1) * (ft_strlen(s1) - start + 1));
-	if (!trim_result)
-		return (NULL);
-	while (start < ft_strlen(s1))
-		trim_result[z++] = s1[start++];
-	trim_result[z] = '\0';
-	return (trim_result);
 }
