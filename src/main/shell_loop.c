@@ -54,16 +54,20 @@ void	builtins(t_shell *shell)
 {
 	if (cmd(shell, "export", 6) == TRUE)
 		export(shell);
-	else if (cmd(shell, "cd", 2) == TRUE)
+	else if (convert_to_lower(shell->trimmed_prompt, 4)
+		&& cmd(shell, "cd", 2) == TRUE)
 		cd(shell);
-	else if (cmd(shell, "pwd", 3) == TRUE)
+	else if (convert_to_lower(shell->trimmed_prompt, 3)
+		&& cmd(shell, "pwd", 3) == TRUE)
 		pwd(shell);
 	else if (cmd(shell, "env", 3) == TRUE)
 		env(shell);
-	else if (cmd(shell, "exit", 4) == TRUE)
+	else if (convert_to_lower(shell->trimmed_prompt, 4)
+		&& cmd(shell, "exit", 4) == TRUE)
 		exit_shell(shell);
 	else if (cmd(shell, "unset", 5) == TRUE)
 		unset(shell);
-	else if (cmd(shell, "echo", 4) == TRUE)
+	else if (convert_to_lower(shell->trimmed_prompt, 4)
+		&& cmd(shell, "echo", 4) == TRUE)
 		echo(shell);
 }

@@ -50,3 +50,24 @@ bool	no_space_after_n(const char *s1, int i, t_shell *shell)
 	}
 	return (FALSE);
 }
+
+int	ft_isupper(char c)
+{
+	return (c >= 'A' && c <= 'Z');
+}
+
+bool	convert_to_lower(char *str, int until)
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	len = strlen(str);
+	while (i < len && i < until)
+	{
+		if (ft_isupper(str[i]))
+			str[i] = ft_tolower(str[i]);
+		i++;
+    }
+	return (TRUE);
+}

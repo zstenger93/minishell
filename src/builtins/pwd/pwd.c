@@ -16,6 +16,11 @@ void	pwd(t_shell *shell)
 {
 	t_env	*curr;
 
+	if (ft_strlen(shell->trimmed_prompt) > 3)
+	{
+		ft_printf("pwd: too many arguments\n");
+		return ;
+	}
 	curr = shell->env_head;
 	while (curr->next != NULL)
 	{

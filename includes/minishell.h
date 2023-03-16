@@ -245,5 +245,6 @@ int			skip_spaces(char *str, int index);
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 void		ft_print_2d_char_array(char **array_2d);
-
+bool	convert_to_lower(char *str, int i);
+int	ft_isupper(char c);
 #endif
