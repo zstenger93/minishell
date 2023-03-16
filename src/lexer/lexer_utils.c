@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 12:54:07 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/14 14:34:50 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:04:36 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,30 @@ char	count_quotes(char *s, int sq, int dq)
 	while (s[++i] != '\0')
 	{
 		if (s[i] == sq || (s[i] == 92 && s[i + 1] != '\0'
-			&& s[i + 1] == sq && nb_esc_chars(s, i) % 2 == 0))
+				&& s[i + 1] == sq && nb_esc_chars(s, i) % 2 == 0))
 			sq_count++;
 		else if (s[i] == dq || (s[i] == 92 && s[i + 1] != '\0'
-			&& s[i + 1] == dq && nb_esc_chars(s, i) % 2 == 0))
+				&& s[i + 1] == dq && nb_esc_chars(s, i) % 2 == 0))
 			dq_count++;
 	}
 	if (sq_count % 2 != 0)
 		return (syntax_error(sq), TRUE);
 	else if (dq_count % 2 != 0)
 		return (syntax_error(dq), TRUE);
+	return (FALSE);
+}
+
+bool	has_quote_in_string(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+			return (TRUE);
+		i++;
+	}
 	return (FALSE);
 }
 

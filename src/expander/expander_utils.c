@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:40:39 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/15 13:39:30 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:00:20 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,12 @@ void	get_dollar(char **dst, char **s, int index)
 		delimeter = '\'';
 	if (index > 0 && s[0][index - 1] == '\"' )
 		delimeter = '\"';
-	while (s[0][i] != '\0' && s[0][i] != delimeter && s[0][doll] >= 40 && 122 >= s[0][doll])
+	while (s[0][i] != '\0' && s[0][i] != delimeter
+		&& s[0][doll] >= 40 && 122 >= s[0][doll])
 	{
 		i++;
 		doll++;
 	}
-	// if (delimeter == ' ' || delimeter == '\'' || delimeter == '\"' || s[0][i] == '$')
-	// 	i--;
 	dst[0] = ft_strdup2(s[0], index, i + 1);
 }
 

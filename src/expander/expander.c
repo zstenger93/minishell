@@ -6,13 +6,13 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:39:58 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/15 13:18:53 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:28:28 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//need to add $? option
+//need to check on the coversion at $? with itoa, its leaking
 char	*expand_dollars(char *dollar_to_expand, t_shell *shell)
 {
 	char	*variable;
