@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:45:47 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/16 19:59:31 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 08:20:34 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,4 @@ bool	no_space_after_n(const char *s1, int i, t_shell *shell)
 		return (TRUE);
 	}
 	return (FALSE);
-}
-
-int	ft_isupper(char c)
-{
-	return (c >= 'A' && c <= 'Z');
-}
-
-bool	convert_to_lower(char *str, int until)
-{
-	int	len;
-	int	i;
-
-	i = 0;
-	len = strlen(str);
-	while (i < len && i < until)
-	{
-		if (ft_isupper(str[i]))
-			str[i] = ft_tolower(str[i]);
-		i++;
-    }
-	return (TRUE);
 }

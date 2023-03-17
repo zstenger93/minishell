@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:43:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/11 14:20:46 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:19:34 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	cd(t_shell *shell)
 	old_pwd_content = old_pwd->content;
 	split = ft_split(shell->trimmed_prompt, ' ');
 	if (split[1] == NULL || strcmp_2(split[1], "~" ) == TRUE)
-		cd_home();
+		cd_home(shell);
 	else if (split[1] == NULL || strcmp_2(split[1], "-" ) == TRUE)
 		cd_oldpwd(shell);
 	else if (split[2] == NULL && split[1] != NULL
@@ -37,15 +37,20 @@ void	cd(t_shell *shell)
 	update_pwd_and_oldpwd(shell, old_pwd->content);
 }
 
-void	cd_home(void)
+void	cd_home(t_shell *shell)
 {
-	char	*home_dir;
+	t_env	*hdr;
 
-	home_dir = getenv("HOME");
-	if (home_dir == NULL)
-		printf("you are homeless\n");
-	else if (chdir(home_dir) == -1)
-		print_to_stderr("minishell: cd: HOME not set");
+	hdr = find_env_var(shell->env_head, "HOME");
+	if (!hdr)
+	{
+		shell->exit_code = 1;
+		p_err("%scd: %s\n", SHELL, HOMELESS);
+	}
+	else if (ft_strlen(hdr->content) < 1)
+		printf("");
+	else if (chdir(hdr->content) == -1)
+		p_err("%scd: %s: %s", SHELL, hdr->content, strerror(ENOENT));
 }
 
 void	cd_oldpwd(t_shell *shell)
@@ -54,18 +59,15 @@ void	cd_oldpwd(t_shell *shell)
 
 	old_pwd = find_env_var(shell->env_head, "OLDPWD");
 	if (old_pwd->content == NULL)
-		printf("minishell: cd: %s: %s\n", "OLDPWD", strerror(errno));
-	else
-	{
-		if (chdir(old_pwd->content) == -1)
-			printf("minishell: cd: %s: %s\n", old_pwd->content, strerror(errno));
-	}
+		p_err("%scd: %s: %s\n", SHELL, "OLDPWD", strerror(errno));
+	else if (chdir(old_pwd->content) == -1)
+		p_err("%scd: %s: %s\n", SHELL, old_pwd->content, strerror(errno));
 }
 
 void	cd_forward(char *folder_path)
 {
 	if (chdir(folder_path) == -1)
-		printf("minishell: cd: %s: %s\n", folder_path, strerror(errno));
+		p_err("%scd: %s: %s\n", SHELL, folder_path, strerror(errno));
 }
 
 void	cd_back(char *dotdot, char *folder_path)
@@ -75,9 +77,6 @@ void	cd_back(char *dotdot, char *folder_path)
 		if (chdir(dotdot) == -1)
 			;
 	}
-	else
-	{
-		if (chdir(folder_path) == -1)
-			printf("minishell: cd: %s: %s\n", folder_path, strerror(errno));
-	}
+	else if (chdir(folder_path) == -1)
+		p_err("%scd: %s: %s\n", SHELL, folder_path, strerror(errno));
 }

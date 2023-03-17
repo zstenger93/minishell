@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:59:29 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/16 19:55:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 08:19:59 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*trim_echo(char const *s1, char const *set, size_t start)
 	return (trim_result);
 }
 
-// in case of retardness like this echo -n -nnnnnnnasd result is: nasd
 char	*trim_slash_n(char const *s1, char const *t, size_t i, t_shell *s)
 {
 	char	*trim_result;

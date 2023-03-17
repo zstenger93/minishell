@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:38:18 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/07 07:04:46 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:19:15 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	pwd(t_shell *shell)
 
 	if (ft_strlen(shell->trimmed_prompt) > 3)
 	{
-		ft_printf("pwd: too many arguments\n");
+		p_err("pwd: %s\n", TMA);
 		return ;
 	}
 	curr = shell->env_head;

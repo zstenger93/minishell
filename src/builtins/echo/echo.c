@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:59:01 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/16 19:58:10 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:17:53 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	echo(t_shell *shell)
 		else if (cmd(shell, "echo -n", 7))
 		{
 			trim = trim_slash_n(shell->trimmed_prompt, " -n", 4, shell);
-			trim_quotes(trim);
+			print_without_quotes(trim);
 			free(trim);
 			if (shell->echo_flag == 1)
 				write(1, "\n", 1);
@@ -34,7 +34,7 @@ void	echo(t_shell *shell)
 		else
 		{
 			trim = trim_echo(shell->trimmed_prompt, " ", 5);
-			trim_quotes(trim);
+			print_without_quotes(trim);
 			free(trim);
 			write(1, "\n", 1);
 		}
@@ -53,14 +53,15 @@ bool	wrong_echo_cmd(t_shell *shell)
 	if (shell->trimmed_prompt[4] != ' ')
 	{
 		shit_cmd = ft_split(shell->trimmed_prompt, ' ');
-		printf("%s: command not found\n", shit_cmd[0]);
+		p_err("%s: %s\n", shit_cmd[0], CMD_NOT_FND);
+		shell->exit_code = 127;
 		free_char_array(shit_cmd);
 		return (TRUE);
 	}
 	return (FALSE);
 }
 
-void	trim_quotes(char *str)
+void	print_without_quotes(char *str)
 {
 	int	i;
 	int	dq;

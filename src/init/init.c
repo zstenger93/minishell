@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/16 19:28:51 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:34:44 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_shell(t_shell *shell, char **env)
 	*shell->tokens = NULL;
 }
 
+//segfaults in iterm except if the file doesnt exist
 //check for leaks and to copy directly to our env or not
 void	init_missing_environment(t_shell *shell, char **env)
 {
@@ -67,16 +68,17 @@ char	*extract_user(t_shell *shell)
 	fd = open("obj/general_utils/user.txt", O_RDONLY);
 	if (fd == -1)
 	{
-		print_to_stderr("Open failed: Username cannot be extracted.");
+		p_err("%s%s\n", SHELL, UFILE_DELETED);
 		trimmed_user = ft_strdup("Having fun trying to break our code?🤨");
 		return (trimmed_user);
 	}
 	dup2(fd, 666);
-	close(fd);
 	user = get_next_line(666);
+	close(fd);
 	if (ft_strlen(user) == 0 || user[0] == '\n')
 	{
-		trimmed_user = ft_strdup("Having fun trying to break our code?🤨");
+		p_err("%s%s\n", SHELL, UNAME_REMOVED);
+		trimmed_user = ft_strdup("Getting trickier huh?🤔");
 		return (trimmed_user);
 	}
 	trimmed_user = ft_strtrim(user, "\n");

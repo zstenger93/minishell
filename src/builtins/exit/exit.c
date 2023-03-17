@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/10 08:02:14 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:14:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ int	is_wrong_command(char *s, char c)
 		index++;
 	}
 	if (count > 2)
-		print_to_stderr("exit: too many arguments");
+		p_err("exit: %s", TMA);
 	return (count);
 }

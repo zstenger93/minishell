@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/16 14:59:17 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:39:48 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	**get_tokens(char *str)
 
 	tokens = malloc(sizeof(char *) * (count_pipes(str) + 1));
 	if (tokens == NULL)
-		printf("MALLOC\n");
+		return (p_err("%s%s\n", SHELL, MALLOC_FAIL), NULL);
 	end = -1;
 	start = 0;
 	index = -1;

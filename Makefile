@@ -23,9 +23,9 @@ BUILTINS		= builtins/cd/cd \
 				  builtins/cd/cd_utils \
 				  builtins/export/export \
 				  builtins/env/env_utils \
-				  builtins/echo/echo_utils \
-				  builtins/echo/echo_utils2 \
+				  builtins/echo/echo_trim_n \
 				  builtins/export/export_utils \
+				  builtins/echo/echo_trim_n_edge_cases \
 
 INIT 			= init/init \
 
@@ -70,7 +70,7 @@ $(NAME): $(BIN) $(RD) $(LIBFT) $(OBJ)
 	@echo ""
 # @echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)
-	@$(CC) $(OBJ) $(INCL_RDL_LIB) $(LIBFT) -lreadline -o minishell $(DN)
+	@$(CC) $(CFLAGS) $(OBJ) $(INCL_RDL_LIB) $(LIBFT) -lreadline -o minishell $(DN)
 	@cd obj/general_utils && touch user.txt && echo $$USER > user.txt
 # @echo "$(PURPLE)                       $(NAME) $(DEF_COLOR)$(GREEN)Compiling done.$(DEF_COLOR)"
 # @echo ""

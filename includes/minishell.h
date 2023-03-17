@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/16 19:54:41 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:04:42 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char		*get_curr_dir(t_shell *shell);
 void		terminal_prompt(t_shell *shell);
 
 //BUILTINS
-void		builtins(t_shell *shell);
+bool		builtins(t_shell *shell);
 
 //BUILTIN ENV
 void		env(t_shell *shell);
@@ -151,8 +151,8 @@ void		exit_shell(t_shell *shell);
 int			is_wrong_command(char *s, char c);
 
 //BUILTIN CD
-void		cd_home(void);
 void		cd(t_shell *shell);
+void		cd_home(t_shell *shell);
 void		cd_oldpwd(t_shell *shell);
 void		cd_forward(char *folder_path);
 bool		strcmp_2(char *str1, char *str2);
@@ -163,9 +163,10 @@ void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 
 //BUILTIN ECHO
 void		echo(t_shell *shell);
-void		trim_quotes(char *str);
+bool		is_in_dq(char *s, int i);
 bool		wrong_echo_cmd(t_shell *shell);
 bool		has_quote_in_string(char *str);
+void		print_without_quotes(char *str);
 bool		slash_n_checker(const char *str, int i);
 char		*trim_result_malloc(const char *s1, size_t start);
 bool		no_space_after_n(const char *s1, int i, t_shell *shell);
@@ -220,12 +221,13 @@ char		*extract_cmd_name(char *str, int start);
 //EXPANDER
 char		*variable_doesnt_exist(void);
 char		*copy_variable(char *content);
+char		*return_exit_status(t_shell *shell);
 bool		expander(char **str, t_shell *shell);
 bool		has_dollar(char *str, t_shell *shell);
-void		get_dollar(char **dst, char **s, int index);
-char		*expand(char *dollar_to_expand, t_shell *shell);
 char		*replace_variable(char *variable, t_shell *shell);
-char		*expand_dollars(char *dollar_to_expand, t_shell *shell);
+char		*expand_dollars(char *doll_to_exp, t_shell *shell);
+char		*type_to_expand(char *dollar_to_expand, t_shell *shell);
+void		copy_dollar_from_string(char **dst, char **s, int index);
 void		extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest);
 
 //CLEANUP TOOLS
@@ -238,13 +240,12 @@ void		how_to_use(int argc);
 bool		syntax_error(char c);
 
 //GENERAL UTILS
-void		print_to_stderr(char *str);
+int			ft_isupper(char c);
 bool		unclosed_quotes(char *str);
 int			skip_spaces(char *str, int index);
+bool		convert_to_lower(char *str, int until);
 
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 void		ft_print_2d_char_array(char **array_2d);
-bool	convert_to_lower(char *str, int i);
-int	ft_isupper(char c);
 #endif

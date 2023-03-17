@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 12:47:49 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/14 09:34:54 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:12:40 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	wrong_operator_check(char *str)
 	if (is_operator(str[ft_strlen(str) - 1]))
 		return (syntax_error(str[ft_strlen(str) - 1]), TRUE);
 	if (has_wrong_pipe(str))
-		printf("wrong pipe\n");
+		p_err("%s%s\n", SHELL, PIPE_ERROR);
 	while (str[++i])
 	{
 		if (is_operator(str[i - 1]) && is_space(str[i]))
