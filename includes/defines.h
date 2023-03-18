@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:45:33 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/12 13:07:01 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:37:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define TRUE 1
 # define FALSE 0
+
+# define SHELL "minishell: "
 
 //OPERATORS
 # define SQUOTE		39
@@ -34,5 +36,14 @@
 
 //PARSE ERROR
 # define SYNTAX_ERROR "minishell: syntax error near unexpected token"
+
+//STDERRORS
+# define UNAME_REMOVED "Username not found. Please stop f*ckin around."
+# define UFILE_DELETED "Open failed: Username cannot be extracted."
+# define CMD_NOT_FND "command not found"
+# define PIPE_ERROR "pipe failed"
+# define HOMELESS "HOME not set"
+# define TMA "too many arguments"
+# define MALLOC_FAIL "memory allocation failed"
 
 #endif

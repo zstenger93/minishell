@@ -24,13 +24,14 @@ void	tokenizer(t_shell *shell)
 int	skip_quotes(char *str, int index)
 {
 	int	quote;
+
 	if (str[index] != SQUOTE && str[index] != DQUOTE)
 		return (index);
 	quote = str[index++];
 	while (str[index] != quote
 		&& nb_esc_chars(str, index) % 2 == 1)
 		index++;
-	return (index + 1);	
+	return (index + 1);
 }
 
 int	count_pipes(char *str)
@@ -40,8 +41,8 @@ int	count_pipes(char *str)
 
 	count = 0;
 	i = -1;
-	 while (str[++i] != '\0')
-	 {
+	while (str[++i] != '\0')
+	{
 		i = skip_quotes(str, i);
 		if (str[i] == '|'
 			&& nb_esc_chars(str, i) % 2 == 0)
@@ -60,7 +61,7 @@ char	**get_tokens(char *str)
 
 	tokens = malloc(sizeof(char *) * (count_pipes(str) + 1));
 	if (tokens == NULL)
-		printf("MALLOC\n");
+		return (p_err("%s%s\n", SHELL, MALLOC_FAIL), NULL);
 	end = -1;
 	start = 0;
 	index = -1;

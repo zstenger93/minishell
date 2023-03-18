@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:41:43 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/13 17:42:56 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:07:44 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	is_special_char(char c)
 
 bool	syntax_error(char c)
 {
-	return (ft_printf(BOLD"%s `%c'\n"C_END, SYNTAX_ERROR, c), TRUE);
+	return (p_err(BOLD"%s `%c'\n"C_END, SYNTAX_ERROR, c), TRUE);
 }
 
 bool	is_operator(char c)

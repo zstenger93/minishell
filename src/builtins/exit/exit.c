@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/10 08:02:14 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:14:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exit_shell(t_shell *shell)
 		&& ft_strncmp(shell->trimmed_prompt, "exit ", 5) != 0)
 	{
 		free_at_exit(shell);
-		exit(EXIT_SUCCESS);
+		exit(shell->exit_code);
 	}
 	else if (ft_strncmp(shell->trimmed_prompt, "exit ", 5) == 0)
 		exit_code(shell);
@@ -70,6 +70,6 @@ int	is_wrong_command(char *s, char c)
 		index++;
 	}
 	if (count > 2)
-		print_to_stderr("exit: too many arguments");
+		p_err("exit: %s", TMA);
 	return (count);
 }

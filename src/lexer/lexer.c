@@ -6,7 +6,7 @@
 /*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:17:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/18 09:51:31 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/18 08:34:00 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@ void	lexer(t_shell *shell)
 {
 	if (ft_strlen(shell->trimmed_prompt) == 0)
 		return ;
-	if (wrong_operator_check(shell->trimmed_prompt) == TRUE)
-		shell->cmd_has_been_executed = FALSE;
-	else if (unclosed_quotes(shell->trimmed_prompt) == TRUE)
+	if (unclosed_quotes(shell->trimmed_prompt) == TRUE)
 		shell->cmd_has_been_executed = FALSE;
 	else if (expander(&shell->trimmed_prompt, shell) == FALSE)
 		shell->cmd_has_been_executed = FALSE;
+	if (builtins(shell) == TRUE && cmd(shell, "echo", 4) == FALSE)
+	{
+	if (wrong_operator_check(shell->trimmed_prompt) == TRUE)
+		shell->cmd_has_been_executed = FALSE;
 	if (special_char_check(shell->trimmed_prompt) == TRUE)
 		shell->cmd_has_been_executed = FALSE;
+	}
 }
 // tokenizer(shell);

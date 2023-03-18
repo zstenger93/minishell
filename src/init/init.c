@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/12 13:12:42 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:34:44 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,19 @@ void	init_shell(t_shell *shell, char **env)
 		init_missing_environment(shell, env);
 	else
 		shell->env_head = init_env(env);
+	shell->exit_code = 0;
+	shell->echo_flag = 0;
 	shell->prev_prompt = NULL;
 	shell->trimmed_prompt = NULL;
 	shell->terminal_prompt = NULL;
 	shell->user_name = getenv("USER");
+	shell->cmd_has_been_executed = TRUE;
 	shell->cmd_paths = ft_split(get_path(env), ':');
 	shell->tokens = malloc(sizeof(t_token *));
 	*shell->tokens = NULL;
-	shell->cmd_has_been_executed = TRUE;
 }
 
+//segfaults in iterm except if the file doesnt exist
 //check for leaks and to copy directly to our env or not
 void	init_missing_environment(t_shell *shell, char **env)
 {
@@ -65,16 +68,17 @@ char	*extract_user(t_shell *shell)
 	fd = open("obj/general_utils/user.txt", O_RDONLY);
 	if (fd == -1)
 	{
-		print_to_stderr("Open failed: Username cannot be extracted.");
-		trimmed_user = ft_strdup("Magic Cookie");
+		p_err("%s%s\n", SHELL, UFILE_DELETED);
+		trimmed_user = ft_strdup("Having fun trying to break our code?🤨");
 		return (trimmed_user);
 	}
 	dup2(fd, 666);
-	close(fd);
 	user = get_next_line(666);
+	close(fd);
 	if (ft_strlen(user) == 0 || user[0] == '\n')
 	{
-		trimmed_user = ft_strdup("Magic Cookie");
+		p_err("%s%s\n", SHELL, UNAME_REMOVED);
+		trimmed_user = ft_strdup("Getting trickier huh?🤔");
 		return (trimmed_user);
 	}
 	trimmed_user = ft_strtrim(user, "\n");

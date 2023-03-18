@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/14 13:52:37 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/18 08:52:58 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	shell_loop(t_shell *shell)
 		terminal_prompt(shell);
 		if (read_line(shell) == NULL)
 			break ;
+		// expander(&shell->trimmed_prompt, shell);
 		lexer(shell);
-		tokenizer(shell);
-		builtins(shell);
+		// tokenizer(shell);
+		// parser(shell);
+		// executor(shell);
 		addhistory(shell);
 	}
 }
 		// printf("RESULT : %s\n", shell->trimmed_prompt);
-		// parser(shell);
-		// executor(shell);
 
 int	*read_line(t_shell *shell)
 {
@@ -50,20 +50,24 @@ void	addhistory(t_shell *shell)
 	free(shell->trimmed_prompt);
 }
 
-void	builtins(t_shell *shell)
+bool	builtins(t_shell *shell)
 {
 	if (cmd(shell, "export", 6) == TRUE)
-		export(shell);
+		return (export(shell), TRUE);
 	else if (cmd(shell, "cd", 2) == TRUE)
-		cd(shell);
-	else if (cmd(shell, "pwd", 3) == TRUE)
-		pwd(shell);
-	else if (cmd(shell, "env", 3) == TRUE)
-		env(shell);
+		return (cd(shell), TRUE);
+	else if (convert_to_lower(shell->trimmed_prompt, 3)
+		&& cmd(shell, "pwd", 3) == TRUE)
+		return (pwd(shell), TRUE);
+	else if (convert_to_lower(shell->trimmed_prompt, 3)
+		&& cmd(shell, "env", 3) == TRUE)
+		return (env(shell), TRUE);
 	else if (cmd(shell, "exit", 4) == TRUE)
-		exit_shell(shell);
+		return (exit_shell(shell), TRUE);
 	else if (cmd(shell, "unset", 5) == TRUE)
-		unset(shell);
+		return (unset(shell), TRUE);
+	else if (convert_to_lower(shell->trimmed_prompt, 4)
+		&& cmd(shell, "echo", 4) == TRUE)
+		return (echo(shell), TRUE);
+	return (FALSE);
 }
-	// else if (cmd(shell, "echo", 4) == TRUE)
-	// 	echo();

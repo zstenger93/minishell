@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:40:39 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/13 13:25:02 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/18 08:52:21 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ bool	has_dollar(char *str, t_shell *shell)
 	i = -1;
 	while (str[++i] != '\0')
 	{
-		if (str[i] == '$' && str[i - 1] == 92)
+		if (str[i] == '$' && str[i + 1] == '\0')
+			break ;
+		else if ((str[i] == '$' && str[i - 1] == 92)
+			|| (str[i] == '$' && str[i - 1] == '\''))
 			i++;
 		else if (str[i] == '$' && ft_pf_strchr(SPACES, str[i + 1]) != NULL)
 		{
@@ -33,22 +36,36 @@ bool	has_dollar(char *str, t_shell *shell)
 	return (FALSE);
 }
 
-void	get_dollar(char **dst, char **s, int index)
+void	copy_dollar_from_string(char **dst, char **s, int index)
 {
 	char	delimeter;
 	int		i;
+	int		doll;
 
-	i = index;
-	delimeter = ' ';
-	if (s[0][index + 1] == '(')
-		delimeter = ')';
-	while (s[0][i] != delimeter)
-		i++;
-	if (delimeter == ' ')
-		i--;
-	dst[0] = ft_strdup2(s[0], index, i + 1);
+	if (s[0][index + 1] == '?')
+		dst[0] = ft_strdup2(s[0], index, index + 2);
+	else
+	{
+		i = index;
+		doll = index + 1;
+		delimeter = ' ';
+		if (s[0][index + 1] == '(')
+			delimeter = ')';
+		if (index > 0 && s[0][index - 1] == '\'' )
+			delimeter = '\'';
+		if (index > 0 && s[0][index - 1] == '\"' )
+			delimeter = '\"';
+		while (s[0][i] != '\0' && s[0][i] != delimeter
+			&& s[0][doll] >= 40 && 122 >= s[0][doll])
+		{
+			i++;
+			doll++;
+		}
+		dst[0] = ft_strdup2(s[0], index, i + 1);
+	}
 }
 
+//another function to check for combinations for SQ?
 void	extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest)
 {
 	int		i;
@@ -59,10 +76,10 @@ void	extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest)
 	i = -1;
 	while (s[0][++i] != '\0')
 	{
-		if (s[0][i] == 36 && s[0][i - 1] != 92)
+		if (s[0][i] == 36 && s[0][i - 1] != 92 && s[0][i - 1] != '\'')
 		{
 			bef_doll[0] = ft_strdup2(s[0], 0, i);
-			get_dollar(doll, s, i);
+			copy_dollar_from_string(doll, s, i);
 			val = expand_dollars(doll[0], sh);
 			rest[0] = ft_strdup2(s[0], i + ft_strlen(*doll), ft_strlen(s[0]));
 			free(doll[0]);
@@ -85,18 +102,31 @@ bool	expander(char **str, t_shell *shell)
 	if (str[0][0] == '$')
 	{
 		shell->cmd_has_been_executed = FALSE;
-		return (syntax_error(str[0][0]), TRUE);
+		return (syntax_error(str[0][0]), FALSE);
 	}
-	before_dollar = malloc(sizeof(char *));
-	after_dollar = malloc(sizeof(char *));
 	while (has_dollar(*str, shell) == TRUE)
 	{
-		extract_dollar(str, shell, before_dollar, after_dollar);
+		before_dollar = malloc(sizeof(char *));
+		after_dollar = malloc(sizeof(char *));
+		extract_dollar(&*str, shell, before_dollar, after_dollar);
 		free(after_dollar[0]);
+		free(before_dollar);
+		free(after_dollar);
 	}
-	free(before_dollar);
-	free(after_dollar);
 	return (TRUE);
 }
 
-// $(PWD ) dasdasdasd  | cat $USER | sdasd $( HOME )
+char	*copy_variable(char *content)
+{
+	int		i;
+	int		content_len;
+	char	*var_content;
+
+	i = -1;
+	content_len = ft_strlen(content) + 1;
+	var_content = malloc(sizeof(char) * content_len);
+	while (content[++i] != '\0')
+		var_content[i] = content[i];
+	var_content[i] = '\0';
+	return (var_content);
+}
