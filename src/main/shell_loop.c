@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 16:24:24 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/18 08:52:58 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@ void	shell_loop(t_shell *shell)
 			break ;
 		// expander(&shell->trimmed_prompt, shell);
 		lexer(shell);
-		if (builtins(shell) == FALSE)
-		{
-			// tokenizer(shell);
-			// parser(shell);
-			// executor(shell);
-		}
+		// tokenizer(shell);
+		// parser(shell);
+		// executor(shell);
 		addhistory(shell);
 	}
 }
