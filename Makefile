@@ -33,7 +33,10 @@ LEXER			= lexer/lexer \
 				  lexer/syntax_check \
 				  lexer/syntax_utils \
 
-PARSER			= parser/ \
+PARSER			= parser/parser \
+				  parser/split \
+				  parser/new \
+				  parser/lexer_utils \
 
 EXPANDER		= expander/expander \
 				  expander/expander_utils \
@@ -49,7 +52,7 @@ GENERAL_UTILS	= general_utils/error \
 				  general_utils/general_utils \
 
 SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(EXPANDER) $(LEXER) \
-				  $(SIGNALS) $(GENERAL_UTILS) $(CLEANUP_TOOLS)
+				  $(SIGNALS) $(GENERAL_UTILS) $(CLEANUP_TOOLS) $(PARSER)
 
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
 OBJ				= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SOURCE)))

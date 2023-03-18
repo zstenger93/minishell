@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   general_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:44:08 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/13 09:02:10 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/16 10:36:59 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	print_to_stderr(char *str)
 
 int	skip_spaces(char *str, int index)
 {
-	while (is_space(str[index]))
+	while (str[index] != '\0'
+		&& is_space(str[index]))
 		index++;
 	return (index);
 }
