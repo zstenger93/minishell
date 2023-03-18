@@ -6,7 +6,7 @@
 /*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:26:27 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/17 08:27:24 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/18 09:32:48 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,24 @@ int	lexer_list_size(t_lexer *lexer)
 	return (i + 1);
 }
 
-t_lexer	*first_lexer(char *str)
-{
-	t_lexer	*lexer;
+// t_lexer	*first_lexer(char *str)
+// {
+// 	t_lexer	*lexer;
 
-	lexer = malloc(sizeof(t_lexer));
-	if (lexer == NULL)
-		printf("NULL");
-	lexer->token = str;
-	lexer->next = NULL;
-	return (lexer);
-}
+// 	lexer = malloc(sizeof(t_lexer));
+// 	if (lexer == NULL)
+// 		printf("NULL");
+// 	lexer->token = str;
+// 	lexer->next = NULL;
+// 	return (lexer);
+// }
 
 t_lexer	*add_new_lexer(t_lexer *lexer, char *str)
 {
 	t_lexer	*curr;
 	t_lexer	*new;
 
+	printf("NEW LEXER = %s\n", str);
 	if (lexer == NULL)
 	{
 		lexer = malloc(sizeof(t_lexer));

@@ -6,11 +6,28 @@
 /*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:29:18 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/18 09:01:01 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/18 10:33:10 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool is_printable(char c) {
+	int	ascii;
+
+	ascii = (int)c;
+
+	if ((ascii >= 33 && ascii <= 47)
+		|| (ascii >= 58 && ascii <= 59)
+		|| (ascii >= 63 && ascii <= 64)
+		|| ascii == 61
+		|| (ascii >= 91 && ascii <= 94)
+		|| (ascii >= 123 && ascii <= 126)
+		|| ascii == 96)
+		return true;
+	return false;
+}
+
 
 t_lexer *add_quote_token(char *str, int *i, int *old_i, t_lexer *lexer)
 {
@@ -36,7 +53,10 @@ t_lexer *add_quote_token(char *str, int *i, int *old_i, t_lexer *lexer)
 
 t_lexer *add_word_token(char *str, int *i, int *old_i, t_lexer *lexer)
 {
-	while ((ft_isalpha(str[*i]) || ft_isalnum(str[*i]))
+	if (ft_isalpha(str[*i]) == 0)
+		return (lexer);
+	while ((ft_isalpha(str[*i]) || ft_isalnum(str[*i])
+		|| is_printable(str[*i]))
 		&& str[*i] != '\0')
 		(*i)++;
 	if (*i != *old_i)
@@ -63,14 +83,16 @@ t_lexer *add_redirection_token(char *str, int *i, int *old_i, t_lexer *lexer) //
 	return (lexer);
 }
 
-// t_lexer *add_flag_token(char *str, int *i, int *old_i, t_lexer *lexer)
+t_lexer *add_flag_token(char *str, int *i, int *old_i, t_lexer *lexer)
 {
 	if (str[*i] != '-')
 		return (lexer);
 	(*i)++;
 	while (str[*i] != '\0')
 	{
-		if (ft_isalpha(str[*i]) == 0)
+		if (ft_isalpha(str[*i]) == 0
+			&& str[*i] != '-'
+			&& ft_isalnum(str[*i]))
 			break ;
 		(*i)++;
 	}
@@ -91,7 +113,7 @@ t_lexer	*split_elements(char *str, t_lexer *lexer) // check if index returned by
 		lexer = add_quote_token(str, &i, &old_i, lexer);
 		lexer = add_word_token(str, &i, &old_i, lexer);
 		lexer = add_redirection_token(str, &i, &old_i, lexer);
-		// lexer = add_flag_token(str, &i, &old_i, lexer);
+		lexer = add_flag_token(str, &i, &old_i, lexer);
 		i = skip_spaces(str, i);
 	}
 	print_lexer(lexer);
@@ -107,6 +129,7 @@ void	tokenize(char **str_arr)
 	lexer = NULL;
 	while (str_arr[i] != NULL)
 	{
+		printf("INSIDE TOKEN\n");
 		lexer = split_elements(str_arr[i++], lexer);
 		printf("\n");
 	}
@@ -207,3 +230,5 @@ void	tokenize(char **str_arr)
 // 	}
 	
 // }
+
+// awk F',' '{ total = 0; for (i = 2; i <= NF; i++) { total += $i }; avg = total / (NF - 1); if (avg > 90) { print $1 } }' OUTFILE.txt
