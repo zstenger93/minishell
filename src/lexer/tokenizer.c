@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 15:39:48 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 07:52:55 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	tokenizer(t_shell *shell)
 	char	**tokens;
 
 	tokens = get_tokens(shell->trimmed_prompt);
-	ft_print_2d_char_array(tokens);
+	// ft_print_2d_char_array(tokens);
+	tokenize(tokens);
 }
 
 int	skip_quotes(char *str, int index)

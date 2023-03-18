@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:02:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/15 08:05:44 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/16 09:45:55 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_io_here	get_io_here_type(char *str)
 	if (is_here_doc(str) >= 0)
 	{
 		i = is_here_doc(str);
-		result	= HERE_DOC;
+		result	= HEREDOC;
 	}
 	else if (is_append(str) >= 0)
 	{
@@ -136,13 +136,13 @@ char	*extract_cmd_name(char *str, int start)
 	return (result);
 }
 
-char	*get_cmd(char *str)
-{
-	int	i;
+// char	*get_cmd(char *str)
+// {
+// 	int	i;
 
-	if (get_io_here_type(str) == WORD)
-		return (get_cmd_name(str, 0));
-	if (has_cmd(str) == true)
-		return (get_cmd_name(str, 0));
-	return (NULL);
-}
+// 	if (get_io_here_type(str) == WORD)
+// 		return (get_cmd_name(str, 0));
+// 	if (has_cmd(str) == true)
+// 		return (get_cmd_name(str, 0));
+// 	return (NULL);
+// }

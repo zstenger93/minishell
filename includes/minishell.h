@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 18:04:42 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/17 09:07:44 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,5 +247,23 @@ bool		convert_to_lower(char *str, int until);
 
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
-void		ft_print_2d_char_array(char **array_2d);
+void	ft_print_2d_char_array(char **array_2d);
+
+
+char	**get_tokens(char *str);
+
+int		nb_elements(char *str);
+t_lexer	*split_elements(char *str, t_lexer *lexer);
+void	tokenize(char **str_arr);
+
+// LEXER UTILS
+t_lexer	*add_new_lexer(t_lexer *lexer, char *str);
+void	print_lexer(t_lexer *lexer);
+
+
+t_io_here	get_io_here_type(char *str);
+
+//TOKENIZER
+int	skip_quotes(char *str, int index);
+
 #endif
