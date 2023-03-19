@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/18 23:59:55 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:03:08 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	shell_loop(t_shell *shell)
 			break ;
 		// expander(&shell->trimmed_prompt, shell);
 		lexer(shell);
-		// tokenizer(shell);
+		tokenizer(shell);
 		// parser(shell);
 		// executor(shell);
 		addhistory(shell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 12:47:49 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 15:12:40 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:54:11 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,27 @@ bool	wrong_operator_check(char *str)
 					return (syntax_error(str[i]), TRUE);
 			}
 		}
+	}
+	return (FALSE);
+}
+
+bool	redir_check(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (i != ft_strlen(str) - 2)
+	{
+		if (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
+			return (syntax_error(str[i]), TRUE);
+		i++;
+	}
+	i = 0;
+	while (i != ft_strlen(str) - 2)
+	{
+		if (str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
+			return (syntax_error(str[i]), TRUE);
+		i++;
 	}
 	return (FALSE);
 }

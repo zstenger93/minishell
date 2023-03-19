@@ -6,7 +6,7 @@
 /*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:29:18 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/18 10:33:10 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/19 11:07:13 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,15 @@ bool is_printable(char c) {
 	return false;
 }
 
-
-t_lexer *add_quote_token(char *str, int *i, int *old_i, t_lexer *lexer)
+t_token *add_quote_token(char *str, int *i, int *old_i, t_token *token)
 {
 	char	quote;
 	bool	stop;
 
 	if (str[*i] == '\0')
-		return (lexer);
+		return (token);
 	if (str[*i] != SQUOTE && str[*i] != DQUOTE)
-		return (lexer);
+		return (token);
 	quote = str[(*i)++];
 	stop = false;
 	while (str[*i] != '\0' && stop == false)
@@ -46,49 +45,68 @@ t_lexer *add_quote_token(char *str, int *i, int *old_i, t_lexer *lexer)
 			stop = true;
 		(*i)++;
 	}
-	lexer = add_new_lexer(lexer, ft_strdup2(str, *old_i, *i));
+	token = add_new_token(token, ft_strdup2(str, *old_i, *i), ARG);
 	*old_i = *i;
-	return (lexer);
+	return (token);
 }
 
-t_lexer *add_word_token(char *str, int *i, int *old_i, t_lexer *lexer)
+t_token *add_word_token(char *str, int *i, int *old_i, t_token *token)
 {
 	if (ft_isalpha(str[*i]) == 0)
-		return (lexer);
+		return (token);
 	while ((ft_isalpha(str[*i]) || ft_isalnum(str[*i])
 		|| is_printable(str[*i]))
 		&& str[*i] != '\0')
 		(*i)++;
 	if (*i != *old_i)
 	{
-		lexer = add_new_lexer(lexer, ft_strdup2(str, *old_i, *i));
+		token = add_new_token(token, ft_strdup2(str, *old_i, *i), WORD);
 		*old_i = *i;
 	}
-	return (lexer);
+	return (token);
 }
 
-t_lexer *add_redirection_token(char *str, int *i, int *old_i, t_lexer *lexer) // add paranthases
+t_type	get_redirection_type(char *str, int start, int end)
+{
+	if (end - start == 2)
+	{
+		if (str[start] == '>')
+			return (APPEND);
+		return (HEREDOC);
+	}
+	else if (end - start == 1)
+	{
+		if (str[start] == '>')
+			return (OUTPUT);
+		return (INPUT);
+	}
+	return (UKNOWN);
+}
+
+t_token *add_redirection_token(char *str, int *i, int *old_i, t_token *token) // add paranthases
 {
 	char	redirection;
+	t_type	red_type;
 
 	if (str[*i] == '\0'
 		|| ft_pf_strchr(REDIRECTIONS, str[*i]) == NULL)
-		return (lexer);
+		return (token);
 	redirection = str[*i];
 	while (str[*i] == redirection
 		&& str[*i] != '\0')
 		(*i)++;
-	lexer = add_new_lexer(lexer, ft_strdup2(str, *old_i, *i));
+	red_type = get_redirection_type(str, *old_i, *i);
+	token = add_new_token(token, ft_strdup2(str, *old_i, *i), red_type);
 	*old_i = *i;
-	return (lexer);
+	return (token);
 }
 
-t_lexer *add_flag_token(char *str, int *i, int *old_i, t_lexer *lexer)
+t_token *add_flag_token(char *str, int *i, int *old_i, t_token *token)
 {
 	if (str[*i] != '-')
-		return (lexer);
+		return (token);
 	(*i)++;
-	while (str[*i] != '\0')
+	while (str[*i] != '\0' && str[*i] != ' ')
 	{
 		if (ft_isalpha(str[*i]) == 0
 			&& str[*i] != '-'
@@ -96,12 +114,12 @@ t_lexer *add_flag_token(char *str, int *i, int *old_i, t_lexer *lexer)
 			break ;
 		(*i)++;
 	}
-	lexer = add_new_lexer(lexer, ft_strdup2(str, *old_i, *i));
+	token = add_new_token(token, ft_strdup2(str, *old_i, *i), ARG);
 	*old_i = *i;
-	return (lexer);
+	return (token);
 }
 
-t_lexer	*split_elements(char *str, t_lexer *lexer) // check if index returned by functions is correct
+t_token	*split_elements(char *str, t_token *token) // check if index returned by functions is correct
 {
 	int	i;
 	int	old_i;
@@ -110,30 +128,28 @@ t_lexer	*split_elements(char *str, t_lexer *lexer) // check if index returned by
 	while (str[i] != '\0')
 	{
 		old_i = i;
-		lexer = add_quote_token(str, &i, &old_i, lexer);
-		lexer = add_word_token(str, &i, &old_i, lexer);
-		lexer = add_redirection_token(str, &i, &old_i, lexer);
-		lexer = add_flag_token(str, &i, &old_i, lexer);
+		token = add_quote_token(str, &i, &old_i, token);
+		token = add_word_token(str, &i, &old_i, token);
+		token = add_redirection_token(str, &i, &old_i, token);
+		token = add_flag_token(str, &i, &old_i, token);
 		i = skip_spaces(str, i);
 	}
-	print_lexer(lexer);
-	return (lexer);
+	print_tokens(token);
+	return (token);
 }
 
 void	tokenize(char **str_arr)
 {
 	int	i;
-	t_lexer	*lexer;
+	t_token	*token;
 
 	i = 0;
-	lexer = NULL;
+	token = NULL;
 	while (str_arr[i] != NULL)
 	{
-		printf("INSIDE TOKEN\n");
-		lexer = split_elements(str_arr[i++], lexer);
+		token = split_elements(str_arr[i++], token);
 		printf("\n");
 	}
-	
 }
 
 
@@ -187,7 +203,7 @@ void	tokenize(char **str_arr)
 // }
 
 
-// t_lexer	*split_elements(char *str, t_lexer *lexer) // check if index returned by functions is correct
+// t_token	*split_elements(char *str, t_token *token) // check if index returned by functions is correct
 // {
 // 	int	i;
 // 	int	old_i;
@@ -196,36 +212,36 @@ void	tokenize(char **str_arr)
 // 	while (str[i] != '\0')
 // 	{
 // 		old_i = i;
-// 		add_quote_token(str, &i, &old_i, lexer);
+// 		add_quote_token(str, &i, &old_i, token);
 // 		if (old_i != i)
 // 		{
-// 			lexer = add_new_lexer(lexer, ft_strdup2(str, old_i, i));
+// 			token = add_new_token(token, ft_strdup2(str, old_i, i));
 // 			old_i = i;
 // 		}
 // 		i = add_word_token(str, i);
 // 		if (old_i != i)
 // 		{
-// 			lexer = add_new_lexer(lexer, ft_strdup2(str, old_i, i));
+// 			token = add_new_token(token, ft_strdup2(str, old_i, i));
 // 			old_i = i;
 // 		}	
 // 		i = add_redirection_token(str, i);
 // 		if (old_i != i)
-// 			lexer = add_new_lexer(lexer, ft_strdup2(str, old_i, i));
+// 			token = add_new_token(token, ft_strdup2(str, old_i, i));
 // 		i = skip_spaces(str, i);
 // 	}
-// 	return (lexer);
+// 	return (token);
 // }
 
 // void	tokenize(char **str_arr)
 // {
 // 	int	i;
-// 	t_lexer	*lexer;
+// 	t_token	*token;
 
 // 	i = 0;
-// 	lexer = NULL;
+// 	token = NULL;
 // 	while (str_arr[i] != NULL)
 // 	{
-// 		split_elements(str_arr[i++], lexer);
+// 		split_elements(str_arr[i++], token);
 // 		printf("\n");
 // 	}
 	
