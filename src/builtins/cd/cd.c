@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:43:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 16:19:34 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/18 21:55:28 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	cd(t_shell *shell)
 	split = ft_split(shell->trimmed_prompt, ' ');
 	if (split[1] == NULL || strcmp_2(split[1], "~" ) == TRUE)
 		cd_home(shell);
-	else if (split[1] == NULL || strcmp_2(split[1], "-" ) == TRUE)
+	else if (strcmp_2(split[1], "-" ) == TRUE)
 		cd_oldpwd(shell);
 	else if (split[2] == NULL && split[1] != NULL
 		&& ft_strcmp(split[1], "..") != 1)
@@ -58,8 +58,13 @@ void	cd_oldpwd(t_shell *shell)
 	t_env	*old_pwd;
 
 	old_pwd = find_env_var(shell->env_head, "OLDPWD");
-	if (old_pwd->content == NULL)
+	if (!old_pwd)
+	{
+		shell->exit_code = 1;
 		p_err("%scd: %s: %s\n", SHELL, "OLDPWD", strerror(errno));
+	}
+	if (old_pwd->content == NULL)
+		printf("\n");
 	else if (chdir(old_pwd->content) == -1)
 		p_err("%scd: %s: %s\n", SHELL, old_pwd->content, strerror(errno));
 }
