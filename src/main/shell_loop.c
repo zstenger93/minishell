@@ -52,6 +52,8 @@ void	addhistory(t_shell *shell)
 
 bool	builtins(t_shell *shell)
 {
+	if (cmd(shell, "<<", 2) == TRUE)
+		heredoc(shell, "stop");
 	if (cmd(shell, "export", 6) == TRUE)
 		return (export(shell), TRUE);
 	else if (cmd(shell, "cd", 2) == TRUE)

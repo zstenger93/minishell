@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
 /*   Updated: 2023/03/19 11:45:36 by jergashe         ###   ########.fr       */
@@ -94,6 +94,8 @@ typedef struct s_shell
 {
 	char	*prompt;
 	t_cmd_tbl	**tokens;
+	char	*heredoc;
+	t_token	**tokens;
 	t_env	*env_head;
 	int		echo_flag;
 	int		exit_code;
@@ -165,11 +167,12 @@ void		cd_back(char *dotdot, char *folder_path);
 void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 
 //BUILTIN ECHO
+void	print_without_quotes(char *str);
 void		echo(t_shell *shell);
 bool		is_in_dq(char *s, int i);
 bool		wrong_echo_cmd(t_shell *shell);
 bool		has_quote_in_string(char *str);
-void		print_without_quotes(char *str);
+void		print_with_quotes(char *str);
 bool		slash_n_checker(const char *str, int i);
 char		*trim_result_malloc(const char *s1, size_t start);
 bool		no_space_after_n(const char *s1, int i, t_shell *shell);
@@ -223,6 +226,7 @@ char		*extract_cmd_name(char *str, int start);
 
 //EXPANDER
 char		*variable_doesnt_exist(void);
+bool		dont_expand(char *str, int i);
 char		*copy_variable(char *content);
 char		*return_exit_status(t_shell *shell);
 bool		expander(char **str, t_shell *shell);
@@ -239,6 +243,8 @@ void		free_at_exit(t_shell *shell);
 void		free_char_array(char **array);
 
 //ERROR HANDLING
+void		print_in(void);
+void		print_shell(void);
 void		how_to_use(int argc);
 bool		syntax_error(char c);
 
@@ -250,8 +256,9 @@ bool		convert_to_lower(char *str, int until);
 
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
-void	ft_print_2d_char_array(char **array_2d);
+void		ft_print_2d_char_array(char **array_2d);
 
+char		**get_tokens(char *str);
 
 char	**get_tokens(char *str);
 
@@ -263,7 +270,24 @@ t_token	*add_new_token(t_token *lexer, char *str, t_type type);
 void	print_tokens(t_token *lexer);
 
 
-//TOKENIZER
-int	skip_quotes(char *str, int index);
 
+//TOKENIZER
+int			skip_quotes(char *str, int index);
+
+//EXECUTOR
+void		execute(t_shell *shell, t_lexer *tokens);
+void		exec_smple_cmd(t_shell *shell, t_lexer *tokens);
+void		exec_on_pipeline(t_shell *shell, t_lexer *tokens);
+void		exec_smple_cmd_wth_redir(t_shell *shell, t_lexer *tokens);
+	//HEREDOC
+void		set_heredoc_to_null(t_shell *shell);
+void		heredoc(t_shell *shell, char *delimeter);
+	//COMMAND VALIDATING
+int			cmd_validator(char *command, t_shell *shell);
+char		*extract_path(t_shell *shell, char *command);
+void		invalid_command(t_shell *shell, char *command);
+	//PATH CHECK
+int			path_check(char *cmd_path);
+int			path_with_bin_check(char **commands);
+int			no_such_file_or_folder(char *command);
 #endif

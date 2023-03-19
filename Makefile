@@ -1,6 +1,6 @@
 NAME			= minishell
 CC				= cc
-CFLAGS			= -Wall -Werror -Wextra
+FLAGS			= -Wall -Werror -Wextra
 DN				= > /dev/null
 RM				= rm -rf
 SRC_DIR			= src/
@@ -41,9 +41,10 @@ PARSER			= parser/parser \
 				  parser/lexer_utils \
 
 EXPANDER		= expander/expander \
+				  expander/extra_utils \
 				  expander/expander_utils \
 
-EXECUTOR		= 
+EXECUTOR		= executor/heredoc/here_doc \
 
 SIGNALS			= signals/signals \
 
@@ -53,8 +54,8 @@ CLEANUP_TOOLS	= cleanup_tools/free_at_error/free_at_error \
 GENERAL_UTILS	= general_utils/error \
 				  general_utils/general_utils \
 
-SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(EXPANDER) $(LEXER) \
-				  $(SIGNALS) $(GENERAL_UTILS) $(CLEANUP_TOOLS) $(PARSER)
+SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(EXPANDER) $(LEXER) $(PARSER) \
+				  $(SIGNALS) $(GENERAL_UTILS) $(CLEANUP_TOOLS) $(EXECUTOR)
 
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
 OBJ				= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SOURCE)))
@@ -73,7 +74,7 @@ $(NAME): $(BIN) $(RD) $(LIBFT) $(OBJ)
 	@echo ""
 # @echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)
-	@$(CC) $(CFLAGS) $(OBJ) $(INCL_RDL_LIB) $(LIBFT) -lreadline -o minishell $(DN)
+	@$(CC) $(FLAGS) $(OBJ) $(INCL_RDL_LIB) $(LIBFT) -lreadline -o minishell $(DN)
 	@cd obj/general_utils && touch user.txt && echo $$USER > user.txt
 # @echo "$(PURPLE)                       $(NAME) $(DEF_COLOR)$(GREEN)Compiling done.$(DEF_COLOR)"
 # @echo ""

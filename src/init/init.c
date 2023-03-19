@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 15:34:44 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/18 22:53:59 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_shell(t_shell *shell, char **env)
 		shell->env_head = init_env(env);
 	shell->exit_code = 0;
 	shell->echo_flag = 0;
+	shell->heredoc = NULL;
 	shell->prev_prompt = NULL;
 	shell->trimmed_prompt = NULL;
 	shell->terminal_prompt = NULL;

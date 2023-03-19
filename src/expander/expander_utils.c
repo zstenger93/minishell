@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:40:39 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/18 08:52:21 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/19 02:48:25 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	has_dollar(char *str, t_shell *shell)
 		if (str[i] == '$' && str[i + 1] == '\0')
 			break ;
 		else if ((str[i] == '$' && str[i - 1] == 92)
-			|| (str[i] == '$' && str[i - 1] == '\''))
+			|| (str[i] == '$' && dont_expand(str, i) == TRUE))
 			i++;
 		else if (str[i] == '$' && ft_pf_strchr(SPACES, str[i + 1]) != NULL)
 		{
@@ -65,7 +65,6 @@ void	copy_dollar_from_string(char **dst, char **s, int index)
 	}
 }
 
-//another function to check for combinations for SQ?
 void	extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest)
 {
 	int		i;
@@ -76,7 +75,7 @@ void	extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest)
 	i = -1;
 	while (s[0][++i] != '\0')
 	{
-		if (s[0][i] == 36 && s[0][i - 1] != 92 && s[0][i - 1] != '\'')
+		if (s[0][i] == '$' && s[0][i - 1] != 92 && dont_expand(s[0], i) != TRUE)
 		{
 			bef_doll[0] = ft_strdup2(s[0], 0, i);
 			copy_dollar_from_string(doll, s, i);

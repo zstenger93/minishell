@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:59:01 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/19 09:09:47 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/19 08:24:34 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	echo(t_shell *shell)
 		else
 		{
 			trim = trim_echo(shell->trimmed_prompt, " ", 5);
-			print_without_quotes(trim);
+			print_with_quotes(trim);
 			free(trim);
 			write(1, "\n", 1);
 		}
@@ -61,7 +61,57 @@ bool	wrong_echo_cmd(t_shell *shell)
 	return (FALSE);
 }
 
-void	print_without_quotes(char *str)
+int	sq_space_counter(char *str, int i, int sq_space)
+{
+	if (str[i] == '\'')
+		return (sq_space + 1);
+	return (sq_space);
+}
+
+int	dq_space_counter(char *str, int i, int dq_space, int dq)
+{
+	if (str[i] == '\"')
+	{
+		dq++;
+		dq_space++;
+		return (dq_space);
+	}
+	return (dq_space);
+}
+
+//eChO "FuCk'EcHo" does print last "
+void	print_with_quotes(char *str)
+{
+	int	i;
+	int	dq;
+	int	quotes;
+	int	dq_space;
+	int	sq_space;
+
+	i = 0;
+	dq = 0;
+	dq_space = 0;
+	quotes = has_quote_in_string(str);
+	while (str[i] != '\0' && print_without_quotes(str) == FALSE)
+	{
+		sq_space = sq_space_counter(str, i, sq_space);
+		dq_space = dq_space_counter(str, i, dq_space, dq);
+		if (str[i] == '\"')
+			dq = 1;
+		if (str[i] == ' ' && str[i + 1] == ' ' && quotes == FALSE)
+			while (str[i] == ' ')
+				i++;
+		if ((str[i] != '\"' && dq_space % 2 != 0)
+			|| (str[i] != '\'' && sq_space % 2 != 0))
+			write(1, &str[i], 1);
+		else if (str[i] == '\'')
+			if (dq == 1)
+				write(1, &str[i], 1);
+		i++;
+	}
+}
+
+bool	print_without_quotes(char *str)
 {
 	int	i;
 	int	dq;
@@ -70,7 +120,7 @@ void	print_without_quotes(char *str)
 	i = 0;
 	dq = 0;
 	quotes = has_quote_in_string(str);
-	while (str[i] != '\0')
+	while (str[i] != '\0' && quotes == FALSE)
 	{
 		if (str[i] == '\"')
 			dq = 1;
@@ -84,4 +134,7 @@ void	print_without_quotes(char *str)
 				write(1, &str[i], 1);
 		i++;
 	}
+	if (quotes == FALSE)
+		return (TRUE);
+	return (FALSE);
 }
