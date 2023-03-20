@@ -6,33 +6,32 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:34:21 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/19 06:07:26 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:11:21 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	cmd_validator(char *command, t_shell *shell)
+int	cmd_validator(t_cmd_tbl *table, t_shell *shell)
 {
 	char	*cmd_path;
 
-	if (path_with_bin_check(command) == TRUE)
+	if (path_with_bin_check(table->cmd) == TRUE)
 	{
-		if (path_check(command) == TRUE)
+		if (path_check(table->cmd) == TRUE)
 			return (TRUE);
-		else
+	}
+	else
+	{
+		cmd_path = extract_path(shell, table->cmd);
+		if (cmd_path == NULL)
 		{
-			cmd_path = extract_path(shell, command);
-			if (cmd_path == NULL)
-			{
-				free(cmd_path);
-				return (FALSE);
-			}
-			else if (access(cmd_path, X_OK) == TRUE)
-				return (TRUE);
 			free(cmd_path);
+			return (FALSE);
 		}
-		return (TRUE);
+		else if (access(cmd_path, X_OK) == TRUE)
+			return (TRUE);
+		free(cmd_path);
 	}
 	return (FALSE);
 }

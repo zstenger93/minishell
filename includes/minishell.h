@@ -168,12 +168,12 @@ void		cd_back(char *dotdot, char *folder_path);
 void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 
 //BUILTIN ECHO
-void	print_without_quotes(char *str);
 void		echo(t_shell *shell);
 bool		is_in_dq(char *s, int i);
+void		print_with_quotes(char *str);
 bool		wrong_echo_cmd(t_shell *shell);
 bool		has_quote_in_string(char *str);
-void		print_with_quotes(char *str);
+void		print_without_quotes(char *str);
 bool		slash_n_checker(const char *str, int i);
 char		*trim_result_malloc(const char *s1, size_t start);
 bool		no_space_after_n(const char *s1, int i, t_shell *shell);
@@ -271,25 +271,22 @@ bool		is_redirection(t_token *token);
 int			token_list_size(t_token *token);
 
 
-
 //TOKENIZER
 int			skip_quotes(char *str, int index);
 
 //EXECUTOR
-void		execute(t_shell *shell, t_token *tokens);
-void		exec_smple_cmd(t_shell *shell, t_token *tokens);
-void		exec_on_pipeline(t_shell *shell, t_token *tokens);
-void		exec_smple_cmd_wth_redir(t_shell *shell, t_token *tokens);
+void		execute(t_shell *shell, t_cmd_tbl *cmd_table);
+void		exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell);
+void		exec_on_pipeline(t_cmd_tbl *table, t_shell *shell);
+void		exec_smple_cmd_wth_redir(t_cmd_tbl *table, t_shell *shell);
 	//HEREDOC
 void		set_heredoc_to_null(t_shell *shell);
 void		heredoc(t_shell *shell, char *delimeter);
 	//COMMAND VALIDATING
-int			cmd_validator(char *command, t_shell *shell);
 char		*extract_path(t_shell *shell, char *command);
 void		invalid_command(t_shell *shell, char *command);
 	//PATH CHECK
 int			path_check(char *cmd_path);
-int			path_with_bin_check(char **commands);
 int			no_such_file_or_folder(char *command);
 
 // TOKEN_UTILS
