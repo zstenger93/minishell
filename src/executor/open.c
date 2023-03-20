@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   open.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 01:44:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/19 02:04:54 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/20 07:46:44 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	open_file(char *type, t_shell *shell, t_lexer *tokens)
+int	open_file(char *type, t_shell *shell, t_token *tokens)
 {
 	int		fd;
 	char	*pwd;

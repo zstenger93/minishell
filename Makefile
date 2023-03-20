@@ -35,10 +35,12 @@ LEXER			= lexer/lexer \
 				  lexer/syntax_check \
 				  lexer/syntax_utils \
 
-PARSER			= parser/parser \
-				  parser/split \
-				  parser/new \
-				  parser/lexer_utils \
+PARSER			= parser/tokenize \
+				  parser/add_token \
+				  parser/token_utils_1 \
+				  parser/token_utils_2 \
+				  parser/cmd_table \
+				  parser/cmd_table_utils \
 
 EXPANDER		= expander/expander \
 				  expander/extra_utils \
