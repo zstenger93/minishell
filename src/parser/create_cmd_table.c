@@ -28,7 +28,7 @@ void	create_cmd_table(char **str_arr)
 		cmd_tbls = init_cmd_table(cmd_tbls, token);
 		print_cmd_tbl(cmd_tbls);
 		free_tokens(token);
-		free(cmd_tbls);
+		// free(cmd_tbls);
 		printf("\n");
 	}
 }

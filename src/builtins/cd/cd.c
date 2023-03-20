@@ -48,7 +48,7 @@ void	cd_home(t_shell *shell)
 		p_err("%scd: %s\n", SHELL, HOMELESS);
 	}
 	else if (ft_strlen(hdr->content) < 1)
-		printf("");
+		printf("\n");
 	else if (chdir(hdr->content) == -1)
 		p_err("%scd: %s: %s", SHELL, hdr->content, strerror(ENOENT));
 }
