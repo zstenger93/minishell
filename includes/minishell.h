@@ -65,19 +65,19 @@ typedef enum e_type
 
 typedef struct s_token
 {
-	char			*content;
 	t_type			type;
 	struct s_token	*next;
 	struct s_token	*prev;
+	char			*content;
 }	t_token;
 
 typedef struct s_cmd_tbl
 {
 	char				*cmd;
-	char				**cmd_args;
 	t_token				*args;
-	t_token				*redirs;
 	struct s_cmd_tbl	*next;
+	t_token				*redirs;
+	char				**cmd_args;
 }	t_cmd_tbl;
 
 
@@ -94,18 +94,18 @@ typedef struct s_env
 
 typedef struct s_shell
 {
-	char	*prompt;
+	char		*prompt;
 	t_cmd_tbl	**tokens;
-	char	*heredoc;
-	t_env	*env_head;
-	int		echo_flag;
-	int		exit_code;
-	char	*user_name;
-	char	**cmd_paths;
-	char	*prev_prompt;
-	char	*trimmed_prompt;
-	char	*terminal_prompt;
-	int		cmd_has_been_executed;
+	char		*heredoc;
+	t_env		*env_head;
+	int			echo_flag;
+	int			exit_code;
+	char		*user_name;
+	char		**cmd_paths;
+	char		*prev_prompt;
+	char		*trimmed_prompt;
+	char		*terminal_prompt;
+	int			cmd_has_been_executed;
 }	t_shell;
 
 //MAIN UTILS
@@ -210,28 +210,28 @@ char		*ft_strdup2(char *str, int start, int end);
 //PARSER
 void		parser(t_shell *shell);
 	//PIPE TOKENS
+int			count_pipes(char *str);
 char		**split_with_pipes(char *str);
 int			skip_quotes(char *str, int index);
-int			count_pipes(char *str);
 	//COMMAND TABLE
 void		create_cmd_table(char **str_arr);
 t_token		*split_elements_to_tokens(char *str, t_token *token);
 	//INIT TABLE
-t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens);
+char		**get_cmd_args_from_token(t_token *token);
 t_token		*assign_cmd(t_cmd_tbl *cmd_tbl, t_token *token);
 t_token		*assign_args(t_cmd_tbl *cmd_tbl, t_token *token);
 t_token		*assign_redirs(t_cmd_tbl *cmd_tbl, t_token *token);
-char		**get_cmd_args_from_token(t_token *token);
+t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens);
 	// CMD TABLE UTILS
 bool 		is_printable(char c);
 t_cmd_tbl	*get_empty_cmd_table();
 int			token_list_size(t_token *token);
 t_cmd_tbl	*add_new_cmd_tbl(t_cmd_tbl *cmd_tbl, t_cmd_tbl *new);
 	//ADD TOKEN
-t_token 	*add_quote_token(char *str, int *i, int *old_i, t_token *token);
-t_token 	*add_word_token(char *str, int *i, int *old_i, t_token *token);
-t_token 	*add_redirection_token(char *str, int *i, int *old_i, t_token *token);
 t_token 	*add_flag_token(char *str, int *i, int *old_i, t_token *token);
+t_token 	*add_word_token(char *str, int *i, int *old_i, t_token *token);
+t_token 	*add_quote_token(char *str, int *i, int *old_i, t_token *token);
+t_token 	*add_redirection_token(char *str, int *i, int *old_i, t_token *token);
 	//ADD TOKEN UTILS
 t_token		*copy_token(t_token *token);
 t_token		*get_new_token(char *str, t_type type);
@@ -287,12 +287,11 @@ void		invalid_command(t_shell *shell, char *command);
 int			path_check(char *cmd_path);
 int			no_such_file_or_folder(char *command);
 
-//PRINTING STUFF
-void		print_tokens(t_token *lexer);
-void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
+void		print_tokens(t_token *lexer);
+void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
 
 #endif
