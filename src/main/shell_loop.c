@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/19 10:03:08 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:03:41 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 // MAKE OUR FPRINTF TO PRINT ERRORS TO STDERR
 void	shell_loop(t_shell *shell)
 {
+	t_cmd_tbl *table;
+	t_token	*token;
+
 	while (TRUE)
 	{
 		terminal_prompt(shell);
