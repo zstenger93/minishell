@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/20 15:29:10 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:47:50 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,23 +207,40 @@ char		count_quotes(char *s, int sq, int dq);
 int			nb_esc_chars(char *str, int last_ind);
 char		*ft_strdup2(char *str, int start, int end);
 
-//TOKENIZER
-int			count_pipes(char *str);
-char		**get_tokens(char *str);
-void		tokenizer(t_shell *shell);
-int			skip_quotes(char *str, int index);
-// void	print_token(t_token *tokens);
-// void	free_token_array(t_token **array);
-// void	free_tokens(t_token *token, t_token **tokens);
-
 //PARSER
-bool		has_cmd(char *str);
-char		*get_cmd(char *str);
-int			is_input(char *str);
-int			is_append(char *str);
-int			is_output(char *str);
-int			is_here_doc(char *str);
-char		*extract_cmd_name(char *str, int start);
+void		parser(t_shell *shell);
+	//PIPE TOKENS
+char		**split_with_pipes(char *str);
+int			skip_quotes(char *str, int index);
+int			count_pipes(char *str);
+	//COMMAND TABLE
+void		create_cmd_table(char **str_arr);
+t_token		*split_elements_to_tokens(char *str, t_token *token);
+	//INIT TABLE
+t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens);
+t_token		*assign_cmd(t_cmd_tbl *cmd_tbl, t_token *token);
+t_token		*assign_args(t_cmd_tbl *cmd_tbl, t_token *token);
+t_token		*assign_redirs(t_cmd_tbl *cmd_tbl, t_token *token);
+char		**get_cmd_args_from_token(t_token *token);
+	// CMD TABLE UTILS
+bool 		is_printable(char c);
+t_cmd_tbl	*get_empty_cmd_table();
+int			token_list_size(t_token *token);
+t_cmd_tbl	*add_new_cmd_tbl(t_cmd_tbl *cmd_tbl, t_cmd_tbl *new);
+	//ADD TOKEN
+t_token 	*add_quote_token(char *str, int *i, int *old_i, t_token *token);
+t_token 	*add_word_token(char *str, int *i, int *old_i, t_token *token);
+t_token 	*add_redirection_token(char *str, int *i, int *old_i, t_token *token);
+t_token 	*add_flag_token(char *str, int *i, int *old_i, t_token *token);
+	//ADD TOKEN UTILS
+t_token		*copy_token(t_token *token);
+t_token		*get_new_token(char *str, t_type type);
+t_token		*add_new_token2(t_token *tokens, t_token *new);
+t_token		*add_new_token(t_token *lexer, char *str, t_type type);
+	//TOKEN UTILS
+void		free_tokens(t_token *token);
+bool		is_redirection(t_token *token);
+t_type		get_redirection_type(char *str, int start, int end);
 
 //EXPANDER
 char		*variable_doesnt_exist(void);
@@ -255,25 +272,6 @@ bool		unclosed_quotes(char *str);
 int			skip_spaces(char *str, int index);
 bool		convert_to_lower(char *str, int until);
 
-//what does the philosopher pigeon say?
-//TO BE OR NOT TO BE
-void		ft_print_2d_char_array(char **array_2d);
-
-char		**split_with_pipes(char *str);
-
-t_token		*split_elements_to_tokens(char *str, t_token *token);
-void		tokenize(char **str_arr);
-
-// LEXER UTILS
-t_token		*add_new_token(t_token *lexer, char *str, t_type type);
-void		print_tokens(t_token *lexer);
-bool		is_redirection(t_token *token);
-int			token_list_size(t_token *token);
-
-
-//TOKENIZER
-int			skip_quotes(char *str, int index);
-
 //EXECUTOR
 void		execute(t_shell *shell, t_cmd_tbl *cmd_table);
 void		exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell);
@@ -289,14 +287,12 @@ void		invalid_command(t_shell *shell, char *command);
 int			path_check(char *cmd_path);
 int			no_such_file_or_folder(char *command);
 
-// TOKEN_UTILS
-t_token		*copy_token(t_token *token);
-void		free_tokens(t_token *token);
-t_token		*add_new_token2(t_token *tokens, t_token *new);
-
-
-// COMMAND_TABLES.C
-t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens);
+//PRINTING STUFF
+void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
+
+//what does the philosopher pigeon say?
+//TO BE OR NOT TO BE
+void		ft_print_2d_char_array(char **array_2d);
 
 #endif

@@ -1,43 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   add_token_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:26:27 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/20 14:11:34 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:43:56 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-bool	is_redirection(t_token *token)
-{
-	if (token == NULL)
-		return (false);
-	if (token->type == HEREDOC
-		|| token->type == APPEND
-		|| token->type == INPUT
-		|| token->type == OUTPUT)
-		return (true);
-	return (false);
-}
-
-int	token_list_size(t_token *token)
-{
-	int		i;
-	t_token	*curr;
-
-	i = 0;
-	curr = token;
-	while (curr->next != NULL)
-	{
-		i++;
-		curr = curr->next;
-	}
-	return (i + 1);
-}
 
 t_token	*get_new_token(char *str, t_type type)
 {
@@ -69,16 +42,30 @@ t_token	*add_new_token(t_token *token, char *str, t_type type)
 	return (token);
 }
 
-void	print_tokens(t_token *token)
+t_token	*add_new_token2(t_token *tokens, t_token *new)
 {
 	t_token	*curr;
-	
-	curr = token;
-	while (curr != NULL)
-	{
-		printf("%s ", curr->content);
-		// printf("%s: %d\n", curr->content, curr->type);
+
+	if (tokens == NULL)
+		return (new);
+	curr = tokens;
+	while (curr->next != NULL)
 		curr = curr->next;
-	}
-	printf("\n");
+	curr->next = new;
+	new->prev = curr;
+	return (tokens);
+}
+
+t_token	*copy_token(t_token *token)
+{
+	t_token	*new;
+
+	new = malloc(sizeof(t_token));
+	if (new == NULL)
+		printf("copy token malloc error\n");
+	new->content = ft_strdup(token->content);
+	new->type = token->type;
+	new->next = NULL;
+	new->prev = NULL;
+	return (new);
 }

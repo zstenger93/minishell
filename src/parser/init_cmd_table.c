@@ -1,16 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_table.c                                        :+:      :+:    :+:   */
+/*   init_cmd_table.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 08:16:47 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/20 15:11:15 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:38:47 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens)
+{
+	t_cmd_tbl	*new;
+	t_token		*curr;
+
+	new = get_empty_cmd_table();
+	curr = tokens;
+	while (curr != NULL)
+	{
+		// printf("NEW TOKEN\n");
+		curr = assign_cmd(new, curr);
+		curr = assign_args(new, curr);
+		curr = assign_redirs(new, curr);
+	}
+	new->cmd_args = get_cmd_args_from_token(new->args);
+	cmd_tbls = add_new_cmd_tbl(cmd_tbls, new);
+	return (cmd_tbls);
+}
 
 t_token	*assign_cmd(t_cmd_tbl *cmd_tbl, t_token *token)
 {
@@ -79,23 +98,4 @@ char	**get_cmd_args_from_token(t_token *token)
 		token = token->next;
 	}
 	return (result);
-}
-
-t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens)
-{
-	t_cmd_tbl	*new;
-	t_token		*curr;
-
-	new = get_empty_cmd_table();
-	curr = tokens;
-	while (curr != NULL)
-	{
-		// printf("NEW TOKEN\n");
-		curr = assign_cmd(new, curr);
-		curr = assign_args(new, curr);
-		curr = assign_redirs(new, curr);
-	}
-	new->cmd_args = get_cmd_args_from_token(new->args);
-	cmd_tbls = add_new_cmd_tbl(cmd_tbls, new);
-	return (cmd_tbls);
 }

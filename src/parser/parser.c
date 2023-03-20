@@ -1,54 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/20 15:28:31 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:38:51 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	tokenizer(t_shell *shell)
+void	parser(t_shell *shell)
 {
 	char	**tokens;
 
 	tokens = split_with_pipes(shell->trimmed_prompt);
 	// ft_print_2d_char_array(tokens);
-	tokenize(tokens);
-}
-
-int	skip_quotes(char *str, int index)
-{
-	int	quote;
-
-	if (str[index] != SQUOTE && str[index] != DQUOTE)
-		return (index);
-	quote = str[index++];
-	while (str[index] != quote
-		&& nb_esc_chars(str, index) % 2 == 1)
-		index++;
-	return (index + 1);
-}
-
-int	count_pipes(char *str)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = -1;
-	while (str[++i] != '\0')
-	{
-		i = skip_quotes(str, i);
-		if (str[i] == '|'
-			&& nb_esc_chars(str, i) % 2 == 0)
-			count++;
-	}
-	return (count + 1);
+	create_cmd_table(tokens);
 }
 
 char	**split_with_pipes(char *str)
@@ -82,4 +52,34 @@ char	**split_with_pipes(char *str)
 	free(tmp);
 	tokens[++index] = NULL;
 	return (tokens);
+}
+
+int	skip_quotes(char *str, int index)
+{
+	int	quote;
+
+	if (str[index] != SQUOTE && str[index] != DQUOTE)
+		return (index);
+	quote = str[index++];
+	while (str[index] != quote
+		&& nb_esc_chars(str, index) % 2 == 1)
+		index++;
+	return (index + 1);
+}
+
+int	count_pipes(char *str)
+{
+	int	i;
+	int	count;
+
+	count = 0;
+	i = -1;
+	while (str[++i] != '\0')
+	{
+		i = skip_quotes(str, i);
+		if (str[i] == '|'
+			&& nb_esc_chars(str, i) % 2 == 0)
+			count++;
+	}
+	return (count + 1);
 }

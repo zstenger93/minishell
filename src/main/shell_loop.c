@@ -6,13 +6,12 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/20 14:51:21 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:50:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// MAKE OUR FPRINTF TO PRINT ERRORS TO STDERR
 void	shell_loop(t_shell *shell)
 {
 	t_cmd_tbl *table;
@@ -25,13 +24,11 @@ void	shell_loop(t_shell *shell)
 			break ;
 		// expander(&shell->trimmed_prompt, shell);
 		lexer(shell);
-		tokenizer(shell);
-		// parser(shell);
+		parser(shell);
 		// executor(shell);
 		addhistory(shell);
 	}
 }
-		// printf("RESULT : %s\n", shell->trimmed_prompt);
 
 int	*read_line(t_shell *shell)
 {

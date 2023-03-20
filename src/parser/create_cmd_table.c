@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new.c                                              :+:      :+:    :+:   */
+/*   create_cmd_table.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:29:18 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/20 15:18:45 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:10:38 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	tokenize(char **str_arr)
+void	create_cmd_table(char **str_arr)
 {
 	int			i;
 	t_token		*token;
@@ -28,25 +28,7 @@ void	tokenize(char **str_arr)
 		cmd_tbls = init_cmd_table(cmd_tbls, token);
 		print_cmd_tbl(cmd_tbls);
 		free_tokens(token);
+		free(cmd_tbls);
 		printf("\n");
 	}
-}
-
-t_token	*split_elements_to_tokens(char *str, t_token *token) // check if index returned by functions is correct
-{
-	int	i;
-	int	old_i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		old_i = i;
-		token = add_quote_token(str, &i, &old_i, token);
-		token = add_word_token(str, &i, &old_i, token);
-		token = add_redirection_token(str, &i, &old_i, token);
-		token = add_flag_token(str, &i, &old_i, token);
-		i = skip_spaces(str, i);
-	}
-	// print_tokens(token);
-	return (token);
 }

@@ -3,24 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_table_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:09:42 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/20 15:10:03 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:44:00 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	print_cmd_tbl(t_cmd_tbl *cmd_tbl)
+t_cmd_tbl	*add_new_cmd_tbl(t_cmd_tbl *cmd_tbl, t_cmd_tbl *new)
 {
+	t_cmd_tbl	*curr;
+
+	curr = cmd_tbl;
 	if (cmd_tbl == NULL)
-		return ;
-	printf("CMD: %s\n", cmd_tbl->cmd);
-	printf("ARGS: ");
-	print_tokens(cmd_tbl->args);
-	printf("REDIRECTIONS: ");
-	print_tokens(cmd_tbl->redirs);
+		return (new);
+	while (curr->next != NULL)
+		curr = curr->next;
+	curr->next = new;
+	return (cmd_tbl);
 }
 
 t_cmd_tbl	*get_empty_cmd_table()
@@ -38,27 +40,48 @@ t_cmd_tbl	*get_empty_cmd_table()
 	return (cmd_tbl);
 }
 
-t_cmd_tbl	*get_last_cmd_tbl(t_cmd_tbl *cmd_tbl)
+int	token_list_size(t_token *token)
 {
-	t_cmd_tbl	*curr;
+	int		i;
+	t_token	*curr;
 
-	if (cmd_tbl == NULL)
-		return (NULL);
-	curr = cmd_tbl;
+	i = 0;
+	curr = token;
 	while (curr->next != NULL)
+	{
+		i++;
 		curr = curr->next;
-	return (curr);
+	}
+	return (i + 1);
 }
 
-t_cmd_tbl	*add_new_cmd_tbl(t_cmd_tbl *cmd_tbl, t_cmd_tbl *new)
+bool is_printable(char c)
 {
-	t_cmd_tbl	*curr;
+	int	ascii;
 
-	curr = cmd_tbl;
-	if (cmd_tbl == NULL)
-		return (new);
-	while (curr->next != NULL)
-		curr = curr->next;
-	curr->next = new;
-	return (cmd_tbl);
+	ascii = (int)c;
+
+	if ((ascii >= 33 && ascii <= 47)
+		|| (ascii >= 58 && ascii <= 59)
+		|| (ascii >= 63 && ascii <= 64)
+		|| ascii == 61
+		|| (ascii >= 91 && ascii <= 94)
+		|| (ascii >= 123 && ascii <= 126)
+		|| ascii == 96)
+		return true;
+	return false;
 }
+
+// WTF ??? NEED IT ??
+
+// t_cmd_tbl	*get_last_cmd_tbl(t_cmd_tbl *cmd_tbl)
+// {
+// 	t_cmd_tbl	*curr;
+
+// 	if (cmd_tbl == NULL)
+// 		return (NULL);
+// 	curr = cmd_tbl;
+// 	while (curr->next != NULL)
+// 		curr = curr->next;
+// 	return (curr);
+// }

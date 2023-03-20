@@ -3,29 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   add_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:16:07 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/20 15:17:04 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:24:31 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool is_printable(char c) {
-	int	ascii;
+t_token	*split_elements_to_tokens(char *str, t_token *token) // check if index returned by functions is correct
+{
+	int	i;
+	int	old_i;
 
-	ascii = (int)c;
-
-	if ((ascii >= 33 && ascii <= 47)
-		|| (ascii >= 58 && ascii <= 59)
-		|| (ascii >= 63 && ascii <= 64)
-		|| ascii == 61
-		|| (ascii >= 91 && ascii <= 94)
-		|| (ascii >= 123 && ascii <= 126)
-		|| ascii == 96)
-		return true;
-	return false;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		old_i = i;
+		token = add_quote_token(str, &i, &old_i, token);
+		token = add_word_token(str, &i, &old_i, token);
+		token = add_redirection_token(str, &i, &old_i, token);
+		token = add_flag_token(str, &i, &old_i, token);
+		i = skip_spaces(str, i);
+	}
+	// print_tokens(token);
+	return (token);
 }
 
 t_token *add_quote_token(char *str, int *i, int *old_i, t_token *token)

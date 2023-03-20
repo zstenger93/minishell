@@ -9,10 +9,12 @@ LIBFT			= libft/libft.a
 OS				= $(shell uname)
 USER			= $(shell whoami)
 
+#DELETE THE PRINT FUNCTIONS FILE
 MAIN			= main/prompt \
 				  main/minishell \
 				  main/shell_loop \
 				  main/main_utils \
+				  main/print_functions \
 
 BUILTINS		= builtins/cd/cd \
 				  builtins/env/env \
@@ -30,17 +32,17 @@ BUILTINS		= builtins/cd/cd \
 INIT 			= init/init \
 
 LEXER			= lexer/lexer \
-				  lexer/tokenizer \
 				  lexer/lexer_utils \
 				  lexer/syntax_check \
 				  lexer/syntax_utils \
 
-PARSER			= parser/tokenize \
-				  parser/add_token \
-				  parser/token_utils_1 \
-				  parser/token_utils_2 \
-				  parser/cmd_table \
+PARSER			= parser/parser \
+				  parser/token_utils \
+				  parser/create_tokens \
+				  parser/init_cmd_table \
+				  parser/add_token_utils \
 				  parser/cmd_table_utils \
+				  parser/create_cmd_table \
 
 EXPANDER		= expander/expander \
 				  expander/extra_utils \
@@ -50,8 +52,8 @@ EXECUTOR		= executor/heredoc/here_doc \
 
 SIGNALS			= signals/signals \
 
-CLEANUP_TOOLS	= cleanup_tools/free_at_error/free_at_error \
-				  cleanup_tools/free/free \
+CLEANUP_TOOLS	= cleanup_tools/free/free \
+				  cleanup_tools/free_at_error/free_at_error \
 
 GENERAL_UTILS	= general_utils/error \
 				  general_utils/general_utils \
