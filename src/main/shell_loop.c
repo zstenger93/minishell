@@ -6,7 +6,7 @@
 /*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/19 10:03:08 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:51:21 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	addhistory(t_shell *shell)
 
 bool	builtins(t_shell *shell)
 {
-	if (cmd(shell, "<<", 2) == TRUE)
-		heredoc(shell, "stop");
+	// if (cmd(shell, "<<", 2) == TRUE)
+	// 	heredoc(shell, "stop");
 	if (cmd(shell, "export", 6) == TRUE)
 		return (export(shell), TRUE);
 	else if (cmd(shell, "cd", 2) == TRUE)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:22:11 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/19 03:09:02 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/20 07:46:33 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	execute(t_shell *shell, t_lexer *tokens)
+void	execute(t_shell *shell, t_token *tokens)
 {
 	int	cmd_nb;
 
@@ -24,7 +24,7 @@ void	execute(t_shell *shell, t_lexer *tokens)
 		exec_on_pipeline(shell, tokens);
 }
 
-void	exec_smple_cmd(t_shell *shell, t_lexer *tokens)
+void	exec_smple_cmd(t_shell *shell, t_token *tokens)
 {
 	char	*cmd_path;
 
@@ -43,11 +43,11 @@ void	exec_smple_cmd(t_shell *shell, t_lexer *tokens)
 	}
 }
 
-void	exec_smple_cmd_wth_redir(t_shell *shell, t_lexer *tokens)
+void	exec_smple_cmd_wth_redir(t_shell *shell, t_token *tokens)
 {
 }
 
-void	exec_on_pipeline(t_shell *shell, t_lexer *tokens)
+void	exec_on_pipeline(t_shell *shell, t_token *tokens)
 {
 	
 }

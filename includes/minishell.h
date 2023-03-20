@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/19 11:45:36 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:29:10 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@
 typedef enum e_type
 {
 	WORD,
-	ARG,
 	HEREDOC,
 	APPEND,
 	INPUT,
@@ -64,20 +63,23 @@ typedef enum e_type
 	UKNOWN
 }	t_type;
 
-typedef struct s_cmd_tbl
-{
-	char				*cmd;
-	t_token				*args;
-	t_token				*redirs;
-	struct s_cmd_tbl	*next;
-}	t_cmd_tbl;
-
 typedef struct s_token
 {
 	char			*content;
 	t_type			type;
 	struct s_token	*next;
+	struct s_token	*prev;
 }	t_token;
+
+typedef struct s_cmd_tbl
+{
+	char				*cmd;
+	char				**cmd_args;
+	t_token				*args;
+	t_token				*redirs;
+	struct s_cmd_tbl	*next;
+}	t_cmd_tbl;
+
 
 typedef struct s_parser
 {
@@ -95,7 +97,6 @@ typedef struct s_shell
 	char	*prompt;
 	t_cmd_tbl	**tokens;
 	char	*heredoc;
-	t_token	**tokens;
 	t_env	*env_head;
 	int		echo_flag;
 	int		exit_code;
@@ -258,16 +259,16 @@ bool		convert_to_lower(char *str, int until);
 //TO BE OR NOT TO BE
 void		ft_print_2d_char_array(char **array_2d);
 
-char		**get_tokens(char *str);
+char		**split_with_pipes(char *str);
 
-char	**get_tokens(char *str);
-
-t_token	*split_elements(char *str, t_token *lexer);
-void	tokenize(char **str_arr);
+t_token		*split_elements_to_tokens(char *str, t_token *token);
+void		tokenize(char **str_arr);
 
 // LEXER UTILS
-t_token	*add_new_token(t_token *lexer, char *str, t_type type);
-void	print_tokens(t_token *lexer);
+t_token		*add_new_token(t_token *lexer, char *str, t_type type);
+void		print_tokens(t_token *lexer);
+bool		is_redirection(t_token *token);
+int			token_list_size(t_token *token);
 
 
 
@@ -275,10 +276,10 @@ void	print_tokens(t_token *lexer);
 int			skip_quotes(char *str, int index);
 
 //EXECUTOR
-void		execute(t_shell *shell, t_lexer *tokens);
-void		exec_smple_cmd(t_shell *shell, t_lexer *tokens);
-void		exec_on_pipeline(t_shell *shell, t_lexer *tokens);
-void		exec_smple_cmd_wth_redir(t_shell *shell, t_lexer *tokens);
+void		execute(t_shell *shell, t_token *tokens);
+void		exec_smple_cmd(t_shell *shell, t_token *tokens);
+void		exec_on_pipeline(t_shell *shell, t_token *tokens);
+void		exec_smple_cmd_wth_redir(t_shell *shell, t_token *tokens);
 	//HEREDOC
 void		set_heredoc_to_null(t_shell *shell);
 void		heredoc(t_shell *shell, char *delimeter);
@@ -290,4 +291,15 @@ void		invalid_command(t_shell *shell, char *command);
 int			path_check(char *cmd_path);
 int			path_with_bin_check(char **commands);
 int			no_such_file_or_folder(char *command);
+
+// TOKEN_UTILS
+t_token		*copy_token(t_token *token);
+void		free_tokens(t_token *token);
+t_token		*add_new_token2(t_token *tokens, t_token *new);
+
+
+// COMMAND_TABLES.C
+t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens);
+void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
+
 #endif

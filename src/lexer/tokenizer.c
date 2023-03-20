@@ -6,7 +6,7 @@
 /*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 07:52:55 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:28:31 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	tokenizer(t_shell *shell)
 {
 	char	**tokens;
 
-	tokens = get_tokens(shell->trimmed_prompt);
+	tokens = split_with_pipes(shell->trimmed_prompt);
 	// ft_print_2d_char_array(tokens);
 	tokenize(tokens);
 }
@@ -51,7 +51,7 @@ int	count_pipes(char *str)
 	return (count + 1);
 }
 
-char	**get_tokens(char *str)
+char	**split_with_pipes(char *str)
 {
 	char	**tokens;
 	int		start;
