@@ -31,6 +31,7 @@
 #  include <readline/history.h>
 #  include <readline/readline.h>
 # else
+#  include <sys/wait.h>
 #  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/readline.h>
 #  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/history.h>
 # endif
