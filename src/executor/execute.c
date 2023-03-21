@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:22:11 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 17:34:45 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:11:00 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void	exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell)
 void	smpl_child_process(t_cmd_tbl *table, t_shell *shell)
 {
 	char	*cmd_path;
+	int		fd;
 
-	handle_redirections(shell);
+	fd = handle_redirections(shell);
 	if (path_check(table->cmd, shell) == TRUE)
 	{
 		shell->cmd_has_been_executed = 1;
@@ -63,9 +64,13 @@ void	smpl_child_process(t_cmd_tbl *table, t_shell *shell)
 		else if (access(cmd_path, X_OK) == 0)
 		{
 			shell->cmd_has_been_executed = 1;
+			close(STDOUT_FILENO);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
 			execve(cmd_path, table->cmd_args, shell->env);
 		}
 	}
+	dup2(STDOUT_FILENO, STDOUT_FILENO);
 }
 
 // void	exec_smple_cmd_wth_redir(t_cmd_tbl *table, t_shell *shell)
