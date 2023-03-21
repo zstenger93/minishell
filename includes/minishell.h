@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/20 18:47:50 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 08:13:32 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,7 +286,6 @@ void		invalid_command(t_shell *shell, char *command);
 	//PATH CHECK
 int			path_check(char *cmd_path);
 int			no_such_file_or_folder(char *command);
-
 
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
