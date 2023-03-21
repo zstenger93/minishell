@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 17:33:39 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/20 17:55:12 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 08:55:35 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,19 @@ void	print_tokens(t_token *token)
 
 void	print_cmd_tbl(t_cmd_tbl *cmd_tbl)
 {
+	t_cmd_tbl	*curr;
 	if (cmd_tbl == NULL)
 		return ;
-	printf("CMD: %s\n", cmd_tbl->cmd);
-	printf("ARGS: ");
-	print_tokens(cmd_tbl->args);
-	printf("REDIRECTIONS: ");
-	print_tokens(cmd_tbl->redirs);
+	curr = cmd_tbl;
+	while (curr != NULL)
+	{
+		printf("CMD: %s\n", curr->cmd);
+		printf("ARGS: ");
+		print_tokens(curr->args);
+		printf("REDIRECTIONS: ");
+		print_tokens(curr->redirs);
+		ft_print_2d_char_array(curr->cmd_args);
+		curr = curr->next;
+	}
+	printf("\n");
 }

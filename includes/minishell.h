@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/20 18:47:50 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:00:53 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct s_env
 typedef struct s_shell
 {
 	char		*prompt;
-	t_cmd_tbl	**tokens;
+	t_cmd_tbl	*cmd_tbls;
 	char		*heredoc;
 	t_env		*env_head;
 	int			echo_flag;
@@ -214,10 +214,10 @@ int			count_pipes(char *str);
 char		**split_with_pipes(char *str);
 int			skip_quotes(char *str, int index);
 	//COMMAND TABLE
-void		create_cmd_table(char **str_arr);
+t_cmd_tbl	*create_cmd_table(char **str_arr);
 t_token		*split_elements_to_tokens(char *str, t_token *token);
 	//INIT TABLE
-char		**get_cmd_args_from_token(t_token *token);
+char	**get_cmd_args_from_token(char *cmd, t_token *token);
 t_token		*assign_cmd(t_cmd_tbl *cmd_tbl, t_token *token);
 t_token		*assign_args(t_cmd_tbl *cmd_tbl, t_token *token);
 t_token		*assign_redirs(t_cmd_tbl *cmd_tbl, t_token *token);
@@ -286,7 +286,6 @@ void		invalid_command(t_shell *shell, char *command);
 	//PATH CHECK
 int			path_check(char *cmd_path);
 int			no_such_file_or_folder(char *command);
-
 
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
