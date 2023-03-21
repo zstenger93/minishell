@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_table_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:09:42 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/20 17:44:00 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:54:48 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_cmd_tbl	*add_new_cmd_tbl(t_cmd_tbl *cmd_tbl, t_cmd_tbl *new)
 {
 	t_cmd_tbl	*curr;
 
-	curr = cmd_tbl;
 	if (cmd_tbl == NULL)
 		return (new);
+	curr = cmd_tbl;
 	while (curr->next != NULL)
 		curr = curr->next;
 	curr->next = new;
@@ -29,6 +29,7 @@ t_cmd_tbl	*get_empty_cmd_table()
 {
 	t_cmd_tbl	*cmd_tbl;
 
+	printf("+1 table\n");
 	cmd_tbl = malloc(sizeof(t_cmd_tbl));
 	if (cmd_tbl == NULL)
 		printf("get empty cmd table malloc error\n");
@@ -45,6 +46,8 @@ int	token_list_size(t_token *token)
 	int		i;
 	t_token	*curr;
 
+	if (token == NULL)
+		return (0);
 	i = 0;
 	curr = token;
 	while (curr->next != NULL)
@@ -73,7 +76,7 @@ bool is_printable(char c)
 }
 
 // WTF ??? NEED IT ??
-
+// 
 // t_cmd_tbl	*get_last_cmd_tbl(t_cmd_tbl *cmd_tbl)
 // {
 // 	t_cmd_tbl	*curr;

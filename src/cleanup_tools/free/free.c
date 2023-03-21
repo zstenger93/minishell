@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:08:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/19 00:05:44 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 10:07:19 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,24 @@ void	free_env(t_env *head)
 		free(head->content);
 		free(head);
 		head = next;
+	}
+}
+
+void	free_cmd_tbls(t_cmd_tbl *cmd_tbls)
+{
+	t_cmd_tbl	*curr;
+
+	curr = cmd_tbls;
+	while (curr != NULL)
+	{
+		printf("\t\t+1 free\n");
+		free_tokens(curr->args);
+		free_tokens(curr->redirs);
+		free_char_array(curr->cmd_args);
+		free(curr->cmd);
+		curr = curr->next;
+		free(cmd_tbls);
+		cmd_tbls = curr;
 	}
 }
 
@@ -82,6 +100,7 @@ void	free_at_exit(t_shell *shell)
 	free(shell->prev_prompt);
 	free(shell->heredoc);
 	free(shell->prompt);
+	free_cmd_tbls(shell->cmd_tbls);
 	rl_clear_history();
 	printf("exit\n");
 }

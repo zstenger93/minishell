@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd_table.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 08:16:47 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/20 17:38:47 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:58:51 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens)
 	t_cmd_tbl	*new;
 	t_token		*curr;
 
+	if (tokens == NULL)
+		return (cmd_tbls);
 	new = get_empty_cmd_table();
+	printf("GOT AN EMPTY TABLE\n");
 	curr = tokens;
 	while (curr != NULL)
 	{
@@ -26,7 +29,7 @@ t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens)
 		curr = assign_args(new, curr);
 		curr = assign_redirs(new, curr);
 	}
-	new->cmd_args = get_cmd_args_from_token(new->args);
+	new->cmd_args = get_cmd_args_from_token(new->cmd, new->args);
 	cmd_tbls = add_new_cmd_tbl(cmd_tbls, new);
 	return (cmd_tbls);
 }
@@ -76,26 +79,24 @@ t_token	*assign_redirs(t_cmd_tbl *cmd_tbl, t_token *token)
 	return (token->next);
 }
 
-char	**get_cmd_args_from_token(t_token *token)
+char	**get_cmd_args_from_token(char *cmd, t_token *token)
 {
 	int		size;
 	char	**result;
 	int		i;
 
-	if (token == NULL)
-	{
-		// printf("NO ARGS!\n");
-		return (NULL);
-	}
-	size = token_list_size(token);
+	size = token_list_size(token) + 1;
 	result = malloc(sizeof(char *) * (size + 1));
 	if (result == NULL)
 		printf("get_cmd_args_from_token error\n");
-	i = 0;
-	while (token != NULL)
+	result[size] = NULL;
+	result[0] = ft_strdup(cmd);
+	i = 1;
+	while (token != NULL && i < size)
 	{
 		result[i] = ft_strdup(token->content);
 		token = token->next;
+		i++;
 	}
 	return (result);
 }
