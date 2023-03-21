@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:26:27 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/20 17:43:56 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:43:09 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_token	*get_new_token(char *str, t_type type)
 	t_token	*token;
 
 	token = malloc(sizeof(t_token));
-	if (token == NULL) // something
-		return (NULL);
+	if (token == NULL)
+		p_err("%s%s\n", SHELL, MALLOC_FAIL);
 	token->content = str;
 	token->next = NULL;
 	token->prev = NULL;
@@ -62,7 +62,7 @@ t_token	*copy_token(t_token *token)
 
 	new = malloc(sizeof(t_token));
 	if (new == NULL)
-		printf("copy token malloc error\n");
+		p_err("%s%s\n", SHELL, MALLOC_FAIL);
 	new->content = ft_strdup(token->content);
 	new->type = token->type;
 	new->next = NULL;

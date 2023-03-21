@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_token.c                                        :+:      :+:    :+:   */
+/*   create_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:16:07 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/20 17:24:31 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:46:09 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_token	*split_elements_to_tokens(char *str, t_token *token) // check if index returned by functions is correct
+t_token	*split_elements_to_tokens(char *str, t_token *token)
 {
 	int	i;
 	int	old_i;
@@ -27,11 +27,10 @@ t_token	*split_elements_to_tokens(char *str, t_token *token) // check if index r
 		token = add_flag_token(str, &i, &old_i, token);
 		i = skip_spaces(str, i);
 	}
-	// print_tokens(token);
 	return (token);
 }
 
-t_token *add_quote_token(char *str, int *i, int *old_i, t_token *token)
+t_token	*add_quote_token(char *str, int *i, int *old_i, t_token *token)
 {
 	char	quote;
 	bool	stop;
@@ -53,10 +52,10 @@ t_token *add_quote_token(char *str, int *i, int *old_i, t_token *token)
 	return (token);
 }
 
-t_token *add_word_token(char *str, int *i, int *old_i, t_token *token)
+t_token	*add_word_token(char *str, int *i, int *old_i, t_token *token)
 {
 	while ((ft_isalpha(str[*i]) || ft_isalnum(str[*i])
-		|| is_printable(str[*i]))
+			|| is_printable(str[*i]))
 		&& str[*i] != '\0')
 		(*i)++;
 	if (*i != *old_i)
@@ -67,25 +66,25 @@ t_token *add_word_token(char *str, int *i, int *old_i, t_token *token)
 	return (token);
 }
 
-t_token *add_redirection_token(char *str, int *i, int *old_i, t_token *token) // add paranthases
+t_token	*add_redirection_token(char *str, int *i, int *old_i, t_token *tk)
 {
 	char	redirection;
 	t_type	red_type;
 
 	if (str[*i] == '\0'
 		|| ft_pf_strchr(REDIRECTIONS, str[*i]) == NULL)
-		return (token);
+		return (tk);
 	redirection = str[*i];
 	while (str[*i] == redirection
 		&& str[*i] != '\0')
 		(*i)++;
 	red_type = get_redirection_type(str, *old_i, *i);
-	token = add_new_token(token, ft_strdup2(str, *old_i, *i), red_type);
+	tk = add_new_token(tk, ft_strdup2(str, *old_i, *i), red_type);
 	*old_i = *i;
-	return (token);
+	return (tk);
 }
 
-t_token *add_flag_token(char *str, int *i, int *old_i, t_token *token)
+t_token	*add_flag_token(char *str, int *i, int *old_i, t_token *token)
 {
 	if (str[*i] != '-')
 		return (token);
@@ -102,4 +101,3 @@ t_token *add_flag_token(char *str, int *i, int *old_i, t_token *token)
 	*old_i = *i;
 	return (token);
 }
-

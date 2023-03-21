@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:29:18 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/21 12:25:17 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:44:51 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ t_cmd_tbl	*create_cmd_table(char **str_arr)
 		token = split_elements_to_tokens(str_arr[i++], token);
 		cmd_tbls = init_cmd_table(cmd_tbls, token);
 		free_tokens(token);
-		// printf("\n");
 	}
-	// print_cmd_tbl(cmd_tbls);
 	return (cmd_tbls);
 }
 

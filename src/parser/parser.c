@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 12:22:55 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:54:56 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,26 @@
 void	parser(t_shell *shell)
 {
 	char	**tokens;
-
-	tokens = split_with_pipes(shell->trimmed_prompt);
-	// ft_print_2d_char_array(tokens);
-	shell->cmd_tbls = create_cmd_table(tokens);
-	free_char_array(tokens);
-	// print_cmd_tbl(shell->cmd_tbls);
-}
-
-char	**split_with_pipes(char *str)
-{
-	char	**tokens;
 	int		start;
 	int		end;
 	int		index;
+
+	end = -1;
+	start = 0;
+	index = -1;
+	tokens = split_with_pipes(shell->trimmed_prompt, start, end, index);
+	shell->cmd_tbls = create_cmd_table(tokens);
+	free_char_array(tokens);
+}
+
+char	**split_with_pipes(char *str, int start, int end, int index)
+{
+	char	**tokens;
 	char	*tmp;
 
 	tokens = malloc(sizeof(char *) * (count_pipes(str) + 1));
 	if (tokens == NULL)
 		return (p_err("%s%s\n", SHELL, MALLOC_FAIL), NULL);
-	end = -1;
-	start = 0;
-	index = -1;
 	while (str[++end] != '\0')
 	{
 		end = skip_quotes(str, end);
@@ -51,9 +49,8 @@ char	**split_with_pipes(char *str)
 	}
 	tmp = ft_strdup2(str, start, end);
 	tokens[++index] = ft_strtrim(tmp, SPACES);
-	free(tmp);
 	tokens[++index] = NULL;
-	return (tokens);
+	return (free(tmp), tokens);
 }
 
 int	skip_quotes(char *str, int index)

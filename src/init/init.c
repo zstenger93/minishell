@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 08:25:40 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:12:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_shell(t_shell *shell, char **env)
 	shell->user_name = getenv("USER");
 	shell->cmd_has_been_executed = TRUE;
 	shell->cmd_paths = ft_split(get_path(env), ':');
+	shell->env = NULL;
 }
 
 //segfaults in iterm except if the file doesnt exist

@@ -50,10 +50,11 @@ EXPANDER		= expander/expander \
 
 EXECUTOR		= executor/heredoc/here_doc \
 				  executor/execute \
+				  executor/redirections/redirections \
 				  executor/path_check \
 				  executor/open \
 				  executor/execute_utils \
-				  executor/cmd_validator \
+				  executor/extract_path \
 
 SIGNALS			= signals/signals \
 

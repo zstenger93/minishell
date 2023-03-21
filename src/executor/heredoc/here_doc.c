@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 22:47:23 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/19 00:20:48 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 17:48:30 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	heredoc(t_shell *shell, char *delimeter)
 		free(input_line);
 		write(1, "> ", 2);
 	}
-	printf("%s", shell->heredoc);
 }
+	// printf("%s", shell->heredoc);
 
 void	set_heredoc_to_null(t_shell *shell)
 {

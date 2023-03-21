@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:09:42 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/21 12:25:36 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:44:37 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ t_cmd_tbl	*add_new_cmd_tbl(t_cmd_tbl *cmd_tbl, t_cmd_tbl *new)
 	return (cmd_tbl);
 }
 
-t_cmd_tbl	*get_empty_cmd_table()
+t_cmd_tbl	*get_empty_cmd_table(void)
 {
 	t_cmd_tbl	*cmd_tbl;
 
 	cmd_tbl = malloc(sizeof(t_cmd_tbl));
 	if (cmd_tbl == NULL)
-		printf("get empty cmd table malloc error\n");
+		p_err("%s%s\n", SHELL, MALLOC_FAIL);
 	cmd_tbl->cmd = NULL;
 	cmd_tbl->cmd_args = NULL;
 	cmd_tbl->args = NULL;
@@ -57,12 +57,11 @@ int	token_list_size(t_token *token)
 	return (i + 1);
 }
 
-bool is_printable(char c)
+bool	is_printable(char c)
 {
 	int	ascii;
 
 	ascii = (int)c;
-
 	if ((ascii >= 33 && ascii <= 47)
 		|| (ascii >= 58 && ascii <= 59)
 		|| (ascii >= 63 && ascii <= 64)
@@ -70,8 +69,8 @@ bool is_printable(char c)
 		|| (ascii >= 91 && ascii <= 94)
 		|| (ascii >= 123 && ascii <= 126)
 		|| ascii == 96)
-		return true;
-	return false;
+		return (true);
+	return (false);
 }
 
 // WTF ??? NEED IT ??

@@ -6,14 +6,14 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:31:10 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/12 13:10:23 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 17:06:00 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 //make the color of the arrow change depending if the prev command exit code is
-// 0 or something else
+// 0 or 1 else
 void	terminal_prompt(t_shell *shell)
 {
 	char	*half;

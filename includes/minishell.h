@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 12:33:38 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 17:58:58 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ typedef enum e_type
 {
 	WORD,
 	HEREDOC,
+	OUTPUT,
 	APPEND,
 	INPUT,
-	OUTPUT,
 	UKNOWN
 }	t_type;
 
@@ -80,7 +80,6 @@ typedef struct s_cmd_tbl
 	char				**cmd_args;
 }	t_cmd_tbl;
 
-
 typedef struct s_parser
 {
 }	t_parser;
@@ -94,9 +93,11 @@ typedef struct s_env
 
 typedef struct s_shell
 {
+	int			fd[2];
+	char		**env;
 	char		*prompt;
-	t_cmd_tbl	*cmd_tbls;
 	char		*heredoc;
+	t_cmd_tbl	*cmd_tbls;
 	t_env		*env_head;
 	int			echo_flag;
 	int			exit_code;
@@ -116,6 +117,7 @@ bool		add_history_if(char *prompt, char *prev_prompt);
 int			*read_line(t_shell *shell);
 void		shell_loop(t_shell *shell);
 void		addhistory(t_shell *shell);
+bool		is_builtin(t_shell *shell);
 
 //PROMPT
 char		*get_curr_dir(t_shell *shell);
@@ -129,7 +131,10 @@ void		env(t_shell *shell);
 char		*get_path(char **env);
 t_env		*init_env(char **env);
 t_env		*init_env_node(char *str);
+char		*get_full_env(t_env *env);
 void		print_env_vars(t_env *head);
+char		**env_list_to_char(t_env *env);
+int			get_env_list_size(t_env *head);
 void		add_back_env_node(t_env	*head, t_env *new);
 
 //BUILTIN EXPORT
@@ -211,27 +216,27 @@ char		*ft_strdup2(char *str, int start, int end);
 void		parser(t_shell *shell);
 	//PIPE TOKENS
 int			count_pipes(char *str);
-char		**split_with_pipes(char *str);
 int			skip_quotes(char *str, int index);
+char		**split_with_pipes(char *str, int start, int end, int index);
 	//COMMAND TABLE
 t_cmd_tbl	*create_cmd_table(char **str_arr);
 t_token		*split_elements_to_tokens(char *str, t_token *token);
 	//INIT TABLE
-char	**get_cmd_args_from_token(char *cmd, t_token *token);
+char		**get_cmd_args_from_token(char *cmd, t_token *token);
 t_token		*assign_cmd(t_cmd_tbl *cmd_tbl, t_token *token);
 t_token		*assign_args(t_cmd_tbl *cmd_tbl, t_token *token);
 t_token		*assign_redirs(t_cmd_tbl *cmd_tbl, t_token *token);
 t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens);
 	// CMD TABLE UTILS
-bool 		is_printable(char c);
-t_cmd_tbl	*get_empty_cmd_table();
+bool		is_printable(char c);
+t_cmd_tbl	*get_empty_cmd_table(void);
 int			token_list_size(t_token *token);
 t_cmd_tbl	*add_new_cmd_tbl(t_cmd_tbl *cmd_tbl, t_cmd_tbl *new);
 	//ADD TOKEN
-t_token 	*add_flag_token(char *str, int *i, int *old_i, t_token *token);
-t_token 	*add_word_token(char *str, int *i, int *old_i, t_token *token);
-t_token 	*add_quote_token(char *str, int *i, int *old_i, t_token *token);
-t_token 	*add_redirection_token(char *str, int *i, int *old_i, t_token *token);
+t_token		*add_flag_token(char *str, int *i, int *old_i, t_token *token);
+t_token		*add_word_token(char *str, int *i, int *old_i, t_token *token);
+t_token		*add_quote_token(char *str, int *i, int *old_i, t_token *token);
+t_token		*add_redirection_token(char *str, int *i, int *old_i, t_token *tk);
 	//ADD TOKEN UTILS
 t_token		*copy_token(t_token *token);
 t_token		*get_new_token(char *str, t_type type);
@@ -274,18 +279,23 @@ bool		convert_to_lower(char *str, int until);
 
 //EXECUTOR
 void		execute(t_shell *shell, t_cmd_tbl *cmd_table);
-void	exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell, char **env);
+void		exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell);
+void		smpl_child_process(t_cmd_tbl *table, t_shell *shell);
+
 void		exec_on_pipeline(t_cmd_tbl *table, t_shell *shell);
 void		exec_smple_cmd_wth_redir(t_cmd_tbl *table, t_shell *shell);
-	//HEREDOC
-void		set_heredoc_to_null(t_shell *shell);
-void		heredoc(t_shell *shell, char *delimeter);
-	//COMMAND VALIDATING
+	//COMMAND HANDLING
 char		*extract_path(t_shell *shell, char *command);
 void		invalid_command(t_shell *shell, char *command);
 	//PATH CHECK
-int			path_check(char *cmd_path);
-int			no_such_file_or_folder(char *command);
+int			path_check(char *cmd_path, t_shell *shell);
+int			no_such_file_or_folder(char *command, t_shell *shell);
+	//HANDLE REDIRECTIONS
+int			handle_redirections(t_shell *shell);
+int			open_file(t_type type, char *file_name, t_shell *shell);
+	//HEREDOC
+void		set_heredoc_to_null(t_shell *shell);
+void		heredoc(t_shell *shell, char *delimeter);
 
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
@@ -293,11 +303,8 @@ void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
 
-bool	is_builtin(t_shell *shell);
+void		free_at_child(t_shell *shell);
 
-char	**env_list_to_char(t_env *env);
-char	*get_full_env(t_env *env);
-int	get_env_list_size(t_env *head);
-void	free_at_child(t_shell *shell);
+void		update_env(t_shell *shell);
 
 #endif

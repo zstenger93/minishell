@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 08:16:47 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/21 12:23:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:33:25 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens)
 	curr = tokens;
 	while (curr != NULL)
 	{
-		// printf("NEW TOKEN\n");
 		curr = assign_cmd(new, curr);
 		curr = assign_args(new, curr);
 		curr = assign_redirs(new, curr);
@@ -68,9 +67,11 @@ t_token	*assign_redirs(t_cmd_tbl *cmd_tbl, t_token *token)
 
 	if (token == NULL)
 		return (token);
-	else if (is_redirection(token) == false && is_redirection(token->prev) == false)
+	else if (is_redirection(token) == false
+		&& is_redirection(token->prev) == false)
 		return (token);
-	else if (is_redirection(token) == true || is_redirection(token->prev) == true)
+	else if (is_redirection(token) == true
+		|| is_redirection(token->prev) == true)
 	{
 		new = copy_token(token);
 		cmd_tbl->redirs = add_new_token2(cmd_tbl->redirs, new);
