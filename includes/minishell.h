@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 09:00:53 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:33:38 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,7 @@ bool		convert_to_lower(char *str, int until);
 
 //EXECUTOR
 void		execute(t_shell *shell, t_cmd_tbl *cmd_table);
-void		exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell);
+void	exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell, char **env);
 void		exec_on_pipeline(t_cmd_tbl *table, t_shell *shell);
 void		exec_smple_cmd_wth_redir(t_cmd_tbl *table, t_shell *shell);
 	//HEREDOC
@@ -292,5 +292,12 @@ int			no_such_file_or_folder(char *command);
 void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
+
+bool	is_builtin(t_shell *shell);
+
+char	**env_list_to_char(t_env *env);
+char	*get_full_env(t_env *env);
+int	get_env_list_size(t_env *head);
+void	free_at_child(t_shell *shell);
 
 #endif

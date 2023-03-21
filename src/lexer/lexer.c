@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:17:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/20 15:24:53 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:34:57 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	lexer(t_shell *shell)
 	else if (expander(&shell->trimmed_prompt, shell) == FALSE)
 		shell->cmd_has_been_executed = FALSE;
 	if ((builtins(shell) == TRUE && cmd(shell, "echo", 4) == FALSE)
-		|| builtins(shell) == FALSE)
+		|| is_builtin(shell) == FALSE)
 	{
 		if (wrong_operator_check(shell->trimmed_prompt) == TRUE)
 			shell->cmd_has_been_executed = FALSE;

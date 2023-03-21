@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 09:29:26 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:22:55 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	parser(t_shell *shell)
 	// ft_print_2d_char_array(tokens);
 	shell->cmd_tbls = create_cmd_table(tokens);
 	free_char_array(tokens);
-	print_cmd_tbl(shell->cmd_tbls);
+	// print_cmd_tbl(shell->cmd_tbls);
 }
 
 char	**split_with_pipes(char *str)

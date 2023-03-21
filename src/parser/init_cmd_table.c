@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd_table.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 08:16:47 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/21 09:58:51 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:23:57 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens)
 	if (tokens == NULL)
 		return (cmd_tbls);
 	new = get_empty_cmd_table();
-	printf("GOT AN EMPTY TABLE\n");
 	curr = tokens;
 	while (curr != NULL)
 	{

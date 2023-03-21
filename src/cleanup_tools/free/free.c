@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:08:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 10:07:19 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:23:30 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	free_cmd_tbls(t_cmd_tbl *cmd_tbls)
 	curr = cmd_tbls;
 	while (curr != NULL)
 	{
-		printf("\t\t+1 free\n");
 		free_tokens(curr->args);
 		free_tokens(curr->redirs);
 		free_char_array(curr->cmd_args);
@@ -103,4 +102,19 @@ void	free_at_exit(t_shell *shell)
 	free_cmd_tbls(shell->cmd_tbls);
 	rl_clear_history();
 	printf("exit\n");
+}
+
+void	free_at_child(t_shell *shell)
+{
+	t_token	*token;
+
+	if (shell->trimmed_prompt != NULL)
+		free(shell->trimmed_prompt);
+	free_char_array(shell->cmd_paths);
+	free(shell->terminal_prompt);
+	free_env(shell->env_head);
+	free(shell->prev_prompt);
+	free(shell->heredoc);
+	free(shell->prompt);
+	free_cmd_tbls(shell->cmd_tbls);
 }

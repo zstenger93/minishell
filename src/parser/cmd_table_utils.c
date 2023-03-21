@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_table_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:09:42 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/21 09:54:48 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:25:36 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_cmd_tbl	*get_empty_cmd_table()
 {
 	t_cmd_tbl	*cmd_tbl;
 
-	printf("+1 table\n");
 	cmd_tbl = malloc(sizeof(t_cmd_tbl));
 	if (cmd_tbl == NULL)
 		printf("get empty cmd table malloc error\n");
