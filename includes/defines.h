@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:45:33 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 18:22:45 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:30:35 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@
 
 //PROMPT
 	//ARROW GREEN
-# define G_ARROW_SGN "\001\e[1m\e[32m\002➜  \001\e[1m\e[34m\002"
+# define G_ARROW_SGN "\001\e[1m\e[32m\002\001\u279c\002  \001\e[1m\e[34m\002"
 	//ARROW RED
-# define R_ARROW_SIGN "\001\e[1m\e[31m\002➜  \001\e[1m\e[34m\002"
+# define R_ARROW_SIGN "\001\e[1m\e[31m\002\001\u279c\002  \001\e[1m\e[34m\002"
 # define SPACE_SIGN "\001\033[1;96m\002 "
-# define X_SIGN "\001\e[1m\e[33m\002 ✗ \001\e[0m\002"
+# define X_SIGN "\001\e[1m\e[33m\002 \001\u2718\002 \001\e[0m\002"
 
 //PARSE ERROR
-# define SYNTAX_ERROR "minishell: syntax error near unexpected token"
+# define SYNTAX_ERROR "syntax error near unexpected token"
 # define SYNTAX_ERROR_NEWLINE "syntax error near unexpected token `newline'"
 
 //STDERRORS

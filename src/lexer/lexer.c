@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:17:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 18:05:20 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:55:08 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ bool	wrong_operator_check(char *str)
 	i = 0;
 	if (str[0] == '|')
 		return (syntax_error(str[0]), TRUE);
-	if (is_operator(str[ft_strlen(str) - 1]))
-		return (syntax_error_newline(), TRUE);
 	if (has_wrong_pipe(str))
 		p_err("%s%s\n", SHELL, PIPE_ERROR);
 	while (str[++i])
@@ -57,5 +55,7 @@ bool	wrong_operator_check(char *str)
 			}
 		}
 	}
+	if (is_operator(str[ft_strlen(str) - 1]))
+		return (syntax_error_newline(), TRUE);
 	return (FALSE);
 }

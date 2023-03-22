@@ -6,11 +6,11 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 01:44:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 18:29:17 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:28:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 // set exit code at return
 int	open_file(t_type type, char *file_name, t_shell *shell)

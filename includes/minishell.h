@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 18:49:03 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:04:18 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,7 @@ void		copy_dollar_from_string(char **dst, char **s, int index);
 void		extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest);
 
 //EXECUTOR
+void		child_exit(t_shell *shell);
 void		close_and_dup(t_shell *shell);
 void		execute(t_shell *shell, t_cmd_tbl *cmd_table);
 void		exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell);

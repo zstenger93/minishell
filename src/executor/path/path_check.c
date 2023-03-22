@@ -6,11 +6,11 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:27:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 15:43:45 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:29:00 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 int	path_check(char *cmd_path, t_shell *shell)
 {

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:41:43 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 18:02:48 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:54:12 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	is_special_char(char c)
 
 bool	syntax_error(char c)
 {
-	return (p_err(BOLD"%s `%c'\n"C_END, SYNTAX_ERROR, c), TRUE);
+	return (p_err(BOLD"%s%s `%c'\n"C_END, SHELL, SYNTAX_ERROR, c), TRUE);
 }
 
 bool	syntax_error_newline(void)

@@ -48,15 +48,15 @@ EXPANDER		= expander/expander \
 				  expander/extra_utils \
 				  expander/expander_utils \
 
-EXECUTOR		= executor/open \
-				  executor/execute \
-				  executor/path_check \
-				  executor/extract_path \
-				  executor/execute_utils \
+EXECUTOR		= executor/open/open \
+				  executor/execute/execute \
+				  executor/path/path_check \
 				  executor/heredoc/here_doc \
-				  executor/execute_simple_cmd \
+				  executor/path/extract_path \
+				  executor/execute/execute_utils \
 				  executor/redirections/wrong_redirs \
 				  executor/redirections/handle_redirs \
+				  executor/execute/execute_simple_cmds \
 
 SIGNALS			= signals/signals \
 

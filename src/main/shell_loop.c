@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 17:32:08 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:10:39 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ bool	builtins(t_shell *shell)
 		return (unset(shell), TRUE);
 	else if (convert_to_lower(shell->trimmed_prompt, 4)
 		&& cmd(shell, "echo", 4) == TRUE)
-		return (echo(shell), TRUE);
+	{
+		echo(shell);
+		if (shell->exit_code != 127)
+			shell->exit_code = 0;
+		return (TRUE);
+	}
 	return (FALSE);
 }
