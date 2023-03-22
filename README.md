@@ -87,10 +87,10 @@
 <h3>Working main loop with readline :white_check_mark:</h3>
 <h3>Custom prompt with curr User and Dir :white_check_mark:</h3>
 <h3>Working redirections as:</h3>
-	<h3>< redirect output :x:</h3>
-	<h3>> redirect input :x:</h3>
+	<h3>< redirect output :white_check_mark:</h3>
+	<h3>> redirect input :white_check_mark:</h3>
 	<h3><< (heredoc) but doesn't have to update the history :white_check_mark:</h3>
-	<h3>>> should redirect in append mode to the file :x:</h3>
+	<h3>>> should redirect in append mode to the file :white_check_mark:</h3>
 <h3>Handle environment variables with expander :white_check_mark:</h3>
 <h3>SIGNALS:</h3>
 <h3>Handle ctrl-C, ctrl-D and ctrl-\ the way it works in bash:</h3>
@@ -98,7 +98,7 @@
 	<h3>ctrl + d exits the shell :white_check_mark:</h3>
 	<h3>ctrl + \ does nothing :white_check_mark:</h3>
 <h3>LEXER:</h3>
-	<h3>heredoc arg :x:</h3>
+	<h3>heredoc arg :white_check_mark:</h3>
 	<h3>chechk valid operators :white_check_mark:</h3>
 	<h3>tokenize the prompt using 4 different token type :white_check_mark:</h3>
 <h3>EXPANDER:</h3>
@@ -107,7 +107,7 @@
 <h3>PARSER:</h3>
 	<h3>check for edge, error cases and what we dont have to handle :x:</h3>
 <h3>EXECUTOR:</h3>
-	<h3>check for valid commands after split while turning them into lowercase :x:</h3>
+	<h3>turn builtins which accepted with uppercase letters as well into lowercase :white_check_mark:</h3>
 	<h3>split heredoc arg for execute :white_check_mark:</h3>
 	<h3>split arguments to pass for execve :white_check_mark:</h3>
 	<h3>Implement pipes :x:</h3>
