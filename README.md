@@ -80,12 +80,13 @@
 
 <h3>Getting a headache from deciding who does what :white_check_mark:</h3>
 <h3>Using one global variable :white_check_mark:</h3>
+<h3>Be able to run without environment :white_check_mark:</h3>
 <h3>Have a working history :white_check_mark:</h3>
 <h3>Working relative or absolute PATH :white_check_mark:</h3>
 <h3>Check for unclosed quotes :white_check_mark:</h3>
 <h3>Handle ' and " so shell won't interpret with it's content :x::white_check_mark:</h3>
 <h3>Working main loop with readline :white_check_mark:</h3>
-<h3>Custom prompt with curr User and Dir :white_check_mark:</h3>
+<h3>Custom prompt with curr User and CWD :white_check_mark:</h3>
 <h3>Working redirections as:</h3>
 	<h3>< redirect output :white_check_mark:</h3>
 	<h3>> redirect input :white_check_mark:</h3>

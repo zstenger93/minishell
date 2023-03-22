@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 18:03:36 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:49:03 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 #  include <readline/readline.h>
 # else
 #  include <sys/wait.h>
-#  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/readline.h>
 #  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/history.h>
+#  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/readline.h>
 # endif
 
 //STANDARD HEADERS
@@ -94,7 +94,6 @@ typedef struct s_env
 
 typedef struct s_shell
 {
-	int			std_fds[2];
 	char		**env;
 	char		*prompt;
 	char		*heredoc;
@@ -102,6 +101,7 @@ typedef struct s_shell
 	t_env		*env_head;
 	int			echo_flag;
 	int			exit_code;
+	int			std_fds[2];
 	char		*user_name;
 	char		**cmd_paths;
 	char		*prev_prompt;
@@ -267,9 +267,6 @@ void		close_and_dup(t_shell *shell);
 void		execute(t_shell *shell, t_cmd_tbl *cmd_table);
 void		exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell);
 void		smpl_child_process(t_cmd_tbl *table, t_shell *shell, int fd);
-
-void		exec_on_pipeline(t_cmd_tbl *table, t_shell *shell);
-void		exec_smple_cmd_wth_redir(t_cmd_tbl *table, t_shell *shell);
 	//COMMAND HANDLING
 char		*extract_path(t_shell *shell, char *command);
 void		invalid_command(t_shell *shell, char *command);
@@ -286,6 +283,7 @@ bool		change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val);
 	//HEREDOC
 void		set_heredoc_to_null(t_shell *shell);
 int			heredoc(t_shell *shell, char *delimeter);
+	//PIPELINE
 
 //GENERAL UTILS
 int			ft_isupper(char c);
