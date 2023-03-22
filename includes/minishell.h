@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 17:58:58 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:03:36 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ typedef struct s_env
 
 typedef struct s_shell
 {
-	int			fd[2];
+	int			std_fds[2];
 	char		**env;
 	char		*prompt;
 	char		*heredoc;
@@ -133,6 +133,7 @@ char		*get_path(char **env);
 t_env		*init_env(char **env);
 t_env		*init_env_node(char *str);
 char		*get_full_env(t_env *env);
+void		update_env(t_shell *shell);
 void		print_env_vars(t_env *head);
 char		**env_list_to_char(t_env *env);
 int			get_env_list_size(t_env *head);
@@ -223,10 +224,10 @@ char		**split_with_pipes(char *str, int start, int end, int index);
 t_cmd_tbl	*create_cmd_table(char **str_arr);
 t_token		*split_elements_to_tokens(char *str, t_token *token);
 	//INIT TABLE
-char		**get_cmd_args_from_token(char *cmd, t_token *token);
 t_token		*assign_cmd(t_cmd_tbl *cmd_tbl, t_token *token);
 t_token		*assign_args(t_cmd_tbl *cmd_tbl, t_token *token);
 t_token		*assign_redirs(t_cmd_tbl *cmd_tbl, t_token *token);
+char		**get_cmd_args_from_token(char *cmd, t_token *token);
 t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens);
 	// CMD TABLE UTILS
 bool		is_printable(char c);
@@ -261,27 +262,11 @@ char		*type_to_expand(char *dollar_to_expand, t_shell *shell);
 void		copy_dollar_from_string(char **dst, char **s, int index);
 void		extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest);
 
-//CLEANUP TOOLS
-void		free_env(t_env *head);
-void		free_at_exit(t_shell *shell);
-void		free_char_array(char **array);
-
-//ERROR HANDLING
-void		print_in(void);
-void		print_shell(void);
-void		how_to_use(int argc);
-bool		syntax_error(char c);
-
-//GENERAL UTILS
-int			ft_isupper(char c);
-bool		unclosed_quotes(char *str);
-int			skip_spaces(char *str, int index);
-bool		convert_to_lower(char *str, int until);
-
 //EXECUTOR
+void		close_and_dup(t_shell *shell);
 void		execute(t_shell *shell, t_cmd_tbl *cmd_table);
 void		exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell);
-void		smpl_child_process(t_cmd_tbl *table, t_shell *shell);
+void		smpl_child_process(t_cmd_tbl *table, t_shell *shell, int fd);
 
 void		exec_on_pipeline(t_cmd_tbl *table, t_shell *shell);
 void		exec_smple_cmd_wth_redir(t_cmd_tbl *table, t_shell *shell);
@@ -292,20 +277,39 @@ void		invalid_command(t_shell *shell, char *command);
 int			path_check(char *cmd_path, t_shell *shell);
 int			no_such_file_or_folder(char *command, t_shell *shell);
 	//HANDLE REDIRECTIONS
+void		set_curr(t_token *curr);
 int			handle_redirections(t_shell *shell);
+bool		is_good_redirection(t_token	*token);
+bool		has_wrong_redir(t_shell *shell, t_token *token);
 int			open_file(t_type type, char *file_name, t_shell *shell);
+bool		change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val);
 	//HEREDOC
 void		set_heredoc_to_null(t_shell *shell);
-void		heredoc(t_shell *shell, char *delimeter);
+int			heredoc(t_shell *shell, char *delimeter);
+
+//GENERAL UTILS
+int			ft_isupper(char c);
+bool		unclosed_quotes(char *str);
+int			skip_spaces(char *str, int index);
+bool		convert_to_lower(char *str, int until);
+
+//ERROR HANDLING
+void		print_in(void);
+void		print_shell(void);
+void		how_to_use(int argc);
+bool		syntax_error(char c);
+bool		syntax_error_newline(void);
+
+//CLEANUP TOOLS
+void		free_env(t_env *head);
+void		free_at_exit(t_shell *shell);
+void		free_at_child(t_shell *shell);
+void		free_char_array(char **array);
 
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
-
-void		free_at_child(t_shell *shell);
-
-void		update_env(t_shell *shell);
 
 #endif

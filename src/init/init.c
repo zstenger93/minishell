@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 14:12:45 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:53:58 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_shell(t_shell *shell, char **env)
 		init_missing_environment(shell, env);
 	else
 		shell->env_head = init_env(env);
+	shell->env = NULL;
 	shell->exit_code = 0;
 	shell->echo_flag = 0;
 	shell->heredoc = NULL;
@@ -28,8 +29,9 @@ void	init_shell(t_shell *shell, char **env)
 	shell->terminal_prompt = NULL;
 	shell->user_name = getenv("USER");
 	shell->cmd_has_been_executed = TRUE;
+	shell->std_fds[0] = dup(STDIN_FILENO);
+	shell->std_fds[1] = dup(STDOUT_FILENO);
 	shell->cmd_paths = ft_split(get_path(env), ':');
-	shell->env = NULL;
 }
 
 //segfaults in iterm except if the file doesnt exist

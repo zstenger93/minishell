@@ -6,18 +6,22 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 22:47:23 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 17:48:30 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:35:37 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	heredoc(t_shell *shell, char *delimeter)
+int	heredoc(t_shell *shell, char *delimeter)
 {
+	int		fd;
 	char	*input_line;
-	char	*tmp;
 
-	set_heredoc_to_null(shell);
+	close(STDIN_FILENO);
+	dup2(shell->std_fds[0], STDIN_FILENO);
+	fd = open("/tmp/heredoc.XXXXXX", O_RDWR | O_CREAT | O_EXCL, 0600);
+	if (fd == -1)
+		return (-1);
 	write(1, "> ", 2);
 	while (1)
 	{
@@ -27,19 +31,14 @@ void	heredoc(t_shell *shell, char *delimeter)
 			free(input_line);
 			break ;
 		}
-		if (shell->heredoc == NULL)
-			shell->heredoc = ft_strdup(input_line);
-		else
-		{
-			tmp = ft_nm_strjoin(shell->heredoc, input_line);
-			free(shell->heredoc);
-			shell->heredoc = tmp;
-		}
+		write(fd, input_line, ft_strlen(input_line));
 		free(input_line);
 		write(1, "> ", 2);
 	}
+	close(fd);
+	fd = open("/tmp/heredoc.XXXXXX", O_RDONLY);
+	return (fd);
 }
-	// printf("%s", shell->heredoc);
 
 void	set_heredoc_to_null(t_shell *shell)
 {

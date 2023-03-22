@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:44:08 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 16:31:59 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:58:06 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int	skip_spaces(char *str, int index)
 int	ft_isupper(char c)
 {
 	return (c >= 'A' && c <= 'Z');
+}
+
+bool	is_space(char c)
+{
+	return (ft_pf_strchr(SPACES, c));
 }
 
 bool	convert_to_lower(char *str, int until)

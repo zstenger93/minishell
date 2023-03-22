@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:31:10 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 17:06:00 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:49:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	terminal_prompt(t_shell *shell)
 		free(shell->terminal_prompt);
 	curr_dir = get_curr_dir(shell);
 	if (shell->cmd_has_been_executed == TRUE)
-		username = ft_nm_strjoin(G_ARROW_SIGN, shell->user_name);
+		username = ft_nm_strjoin(G_ARROW_SGN, shell->user_name);
 	else
 		username = ft_nm_strjoin(R_ARROW_SIGN, shell->user_name);
 	directory = ft_nm_strjoin(SPACE_SIGN, curr_dir);

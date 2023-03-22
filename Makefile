@@ -1,13 +1,13 @@
-NAME			= minishell
 CC				= cc
-FLAGS			= -Wall -Werror -Wextra
-DN				= > /dev/null
-RM				= rm -rf
 SRC_DIR			= src/
 OBJ_DIR			= obj/
+RM				= rm -rf
+NAME			= minishell
+DN				= > /dev/null
 LIBFT			= libft/libft.a
 OS				= $(shell uname)
 USER			= $(shell whoami)
+FLAGS			= -Wall -Werror -Wextra
 
 #DELETE THE PRINT FUNCTIONS FILE
 MAIN			= main/prompt \
@@ -48,13 +48,15 @@ EXPANDER		= expander/expander \
 				  expander/extra_utils \
 				  expander/expander_utils \
 
-EXECUTOR		= executor/heredoc/here_doc \
+EXECUTOR		= executor/open \
 				  executor/execute \
-				  executor/redirections/redirections \
 				  executor/path_check \
-				  executor/open \
-				  executor/execute_utils \
 				  executor/extract_path \
+				  executor/execute_utils \
+				  executor/heredoc/here_doc \
+				  executor/execute_simple_cmd \
+				  executor/redirections/wrong_redirs \
+				  executor/redirections/handle_redirs \
 
 SIGNALS			= signals/signals \
 
@@ -64,8 +66,8 @@ CLEANUP_TOOLS	= cleanup_tools/free/free \
 GENERAL_UTILS	= general_utils/error \
 				  general_utils/general_utils \
 
-SOURCE			= $(MAIN) $(INIT) $(BUILTINS) $(EXPANDER) $(LEXER) $(PARSER) \
-				  $(SIGNALS) $(GENERAL_UTILS) $(CLEANUP_TOOLS) $(EXECUTOR)
+SOURCE			= $(MAIN) $(INIT) $(SIGNALS) $(EXPANDER) $(LEXER) $(PARSER) \
+				  $(EXECUTOR) $(BUILTINS) $(GENERAL_UTILS) $(CLEANUP_TOOLS) \
 
 SRC				= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SOURCE)))
 OBJ				= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SOURCE)))

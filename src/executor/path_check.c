@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:27:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 17:00:10 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:43:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	path_check(char *cmd_path, t_shell *shell)
 	return (FALSE);
 }
 
-//exit status?
 int	no_such_file_or_folder(char *command, t_shell *shell)
 {
 	p_err("%s%s: %s\n", SHELL, command, strerror(ENOENT));

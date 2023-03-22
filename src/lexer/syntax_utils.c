@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:41:43 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 15:07:44 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:02:48 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ bool	syntax_error(char c)
 	return (p_err(BOLD"%s `%c'\n"C_END, SYNTAX_ERROR, c), TRUE);
 }
 
+bool	syntax_error_newline(void)
+{
+	return (p_err(BOLD"%s%s\n"C_END, SHELL, SYNTAX_ERROR_NEWLINE), TRUE);
+}
+
 bool	is_operator(char c)
 {
 	return (ft_pf_strchr(OPERATORS, c));
-}
-
-bool	is_space(char c)
-{
-	return (ft_pf_strchr(SPACES, c));
 }

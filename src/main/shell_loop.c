@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 16:32:04 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:32:08 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	update_env(t_shell *shell)
 	shell->env = env_list_to_char(shell->env_head);
 }
 
+// CHECK THE PROMPT, SPECIAL CHARS AND COLORS
+// \[   \] str join it without putting it into header
 int	*read_line(t_shell *shell)
 {
 	shell->prompt = readline(shell->terminal_prompt);

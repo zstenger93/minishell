@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:45:33 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/19 02:09:02 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:22:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@
 
 //PROMPT
 	//ARROW GREEN
-# define G_ARROW_SIGN "\033[1;32m➜  \033[38;5;75m"
+# define G_ARROW_SGN "\001\e[1m\e[32m\002➜  \001\e[1m\e[34m\002"
 	//ARROW RED
-# define R_ARROW_SIGN "\033[1;31m➜  \033[38;5;75m"
-# define SPACE_SIGN "\033[1;96m "
-# define X_SIGN "\033[1;33m ✗ \033[0m"
+# define R_ARROW_SIGN "\001\e[1m\e[31m\002➜  \001\e[1m\e[34m\002"
+# define SPACE_SIGN "\001\033[1;96m\002 "
+# define X_SIGN "\001\e[1m\e[33m\002 ✗ \001\e[0m\002"
 
 //PARSE ERROR
 # define SYNTAX_ERROR "minishell: syntax error near unexpected token"
+# define SYNTAX_ERROR_NEWLINE "syntax error near unexpected token `newline'"
 
 //STDERRORS
 # define FORK_ERROR "fork faild, no child has been created, we used protection"
