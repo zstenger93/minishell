@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 20:10:39 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/23 11:11:09 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@ void	shell_loop(t_shell *shell)
 	}
 }
 
-void	update_env(t_shell *shell)
-{
-	if (shell->env != NULL)
-		free_char_array(shell->env);
-	shell->env = env_list_to_char(shell->env_head);
-}
-
-// CHECK THE PROMPT, SPECIAL CHARS AND COLORS
-// \[   \] str join it without putting it into header
 int	*read_line(t_shell *shell)
 {
 	shell->prompt = readline(shell->terminal_prompt);
@@ -44,6 +35,13 @@ int	*read_line(t_shell *shell)
 	if (shell->prompt == NULL)
 		return (NULL);
 	return ((void *)1);
+}
+
+void	update_env(t_shell *shell)
+{
+	if (shell->env != NULL)
+		free_char_array(shell->env);
+	shell->env = env_list_to_char(shell->env_head);
 }
 
 void	addhistory(t_shell *shell)

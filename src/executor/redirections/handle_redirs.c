@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirections.c                                     :+:      :+:    :+:   */
+/*   handle_redirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:12:52 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 15:37:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/23 15:30:41 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int	handle_redirections(t_shell *shell)
+void	handle_redirections(t_shell *shell)
 {
 	t_token	*curr;
 	int		fd;
@@ -23,7 +23,7 @@ int	handle_redirections(t_shell *shell)
 		if (is_good_redirection(curr) == false)
 		{
 			shell->exit_code = 258;
-			return (-2);
+			return ;
 		}
 		if (curr->type == HEREDOC && curr->next->type == WORD)
 			fd = heredoc(shell, curr->next->content);
@@ -35,9 +35,8 @@ int	handle_redirections(t_shell *shell)
 			fd = open_file(INPUT, curr->next->content, shell);
 		if (change_stdin_out(curr->type, fd, shell, 0) == FALSE)
 			break ;
-		set_curr(curr);
+		curr = set_curr(curr);
 	}
-	return (fd);
 }
 
 bool	change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val)
@@ -76,10 +75,11 @@ bool	is_good_redirection(t_token	*token)
 	return (false);
 }
 
-void	set_curr(t_token *curr)
+t_token	*set_curr(t_token *curr)
 {
 	if (curr->next != NULL)
 		curr = curr->next->next;
 	else
 		curr = curr->next;
+	return (curr);
 }

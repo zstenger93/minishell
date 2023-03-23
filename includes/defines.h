@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:45:33 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 19:30:35 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/23 10:57:28 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 //PROMPT
 	//ARROW GREEN
-# define G_ARROW_SGN "\001\e[1m\e[32m\002\001\u279c\002  \001\e[1m\e[34m\002"
+# define G_ARROW_SIGN "\001\e[1m\e[32m\002\001\u279c\002  \001\e[1m\e[34m\002"
 	//ARROW RED
 # define R_ARROW_SIGN "\001\e[1m\e[31m\002\001\u279c\002  \001\e[1m\e[34m\002"
 # define SPACE_SIGN "\001\033[1;96m\002 "
@@ -50,7 +50,7 @@
 # define CMD_NOT_FND "command not found"
 # define INVALID_CMD "command not found"
 # define TMA "too many arguments"
-# define PIPE_ERROR "pipe failed"
+# define PIPE_ERROR "pipe failed, the pipeline is broken"
 # define HOMELESS "HOME not set"
 # define DNE "does not exist."
 # define PWNED "PWD not set"

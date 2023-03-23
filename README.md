@@ -123,7 +123,8 @@
 	<h3>turn builtins which accepted with uppercase letters as well into lowercase :white_check_mark:</h3>
 	<h3>split redir args for execute :white_check_mark:</h3>
 	<h3>get arguments on **char to pass for execve :white_check_mark:</h3>
-	<h3>Implement pipes :x:</h3>
+	<h3>Execute simple cmd without pipes :white_check_mark:</h3>
+	<h3>Execute on pipeline :x:</h3>
 <h3>Implement the followiung BUILTINS:</h3>
 	<h3>echo with option -n :white_check_mark:</h3>
 	<h3>cd with relative or absolute path :white_check_mark:</h3>

@@ -7,6 +7,7 @@ DN				= > /dev/null
 LIBFT			= libft/libft.a
 OS				= $(shell uname)
 USER			= $(shell whoami)
+BREW			= $(shell brew help)
 FLAGS			= -Wall -Werror -Wextra
 
 #DELETE THE PRINT FUNCTIONS FILE
@@ -57,6 +58,7 @@ EXECUTOR		= executor/open/open \
 				  executor/redirections/wrong_redirs \
 				  executor/redirections/handle_redirs \
 				  executor/execute/execute_simple_cmds \
+				  executor/pipe_handling/exec_only_heredoc \
 
 SIGNALS			= signals/signals \
 
@@ -80,9 +82,12 @@ INCL_RDL_HEADER	= -I /Users/$(USER)/.brew/opt/readline/include
 INCL_RDL_LIB	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 endif
 
+
+# curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+
 all: $(NAME)
 
-$(NAME): $(BIN) $(RD) $(LIBFT) $(OBJ)
+$(NAME): $(LIBFT) $(OBJ)
 	@echo ""
 # @echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)

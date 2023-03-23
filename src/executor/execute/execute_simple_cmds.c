@@ -6,17 +6,16 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 15:43:25 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 20:03:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:17:51 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell)
+void	exec_simple_cmd(t_cmd_tbl *table, t_shell *shell)
 {
 	int		status;
 	pid_t	pid;
-	int		fd;
 
 	pid = fork();
 	if (pid == -1)
@@ -25,8 +24,8 @@ void	exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell)
 	{
 		if (has_wrong_redir(shell, table->redirs) == false)
 		{
-			fd = handle_redirections(shell);
-			smpl_child_process(table, shell, fd);
+			handle_redirections(shell);
+			smpl_child_process(table, shell);
 		}
 		else
 			child_exit(shell);
@@ -34,19 +33,11 @@ void	exec_smpl_cmd(t_cmd_tbl *table, t_shell *shell)
 	waitpid(pid, &status, 0);
 	if (has_wrong_redir(shell, table->redirs) == false)
 		close_and_dup(shell);
-	shell->exit_code = WEXITSTATUS(status);
-	if (shell->cmd_has_been_executed == FALSE && shell->exit_code == 2)
+	else
 		shell->exit_code = 258;
 }
 
-void	child_exit(t_shell *shell)
-{
-	free_at_child(shell);
-	shell->exit_code = 258;
-	exit(shell->exit_code);
-}
-
-void	smpl_child_process(t_cmd_tbl *table, t_shell *shell, int fd)
+void	smpl_child_process(t_cmd_tbl *table, t_shell *shell)
 {
 	char	*cmd_path;
 
@@ -72,6 +63,13 @@ void	smpl_child_process(t_cmd_tbl *table, t_shell *shell, int fd)
 			execve(cmd_path, table->cmd_args, shell->env);
 		}
 	}
+}
+
+void	child_exit(t_shell *shell)
+{
+	free_at_child(shell);
+	shell->exit_code = 258;
+	exit(shell->exit_code);
 }
 
 void	close_and_dup(t_shell *shell)
