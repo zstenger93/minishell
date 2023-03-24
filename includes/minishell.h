@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/23 16:17:23 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:41:14 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@
 # include <limits.h>
 # include <termios.h>
 
-# define REDIRECTIONS "><"
 # define PIPE "|"
 # define OPERATORS "|><"
+# define REDIRECTIONS "><"
 # define SPACES " \t\n\v\r\f"
 # define SPECIAL_CHARSET "*()#@:;%`&{}"
 
@@ -80,10 +80,6 @@ typedef struct s_cmd_tbl
 	t_token				*redirs;
 	char				**cmd_args;
 }	t_cmd_tbl;
-
-typedef struct s_parser
-{
-}	t_parser;
 
 typedef struct s_env
 {
@@ -264,10 +260,11 @@ void		extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest);
 
 //EXECUTOR
 void		child_exit(t_shell *shell);
+int			table_size(t_cmd_tbl *table);
 void		close_and_dup(t_shell *shell);
-void		execute(t_shell *shell, t_cmd_tbl *cmd_table);
-void		exec_simple_cmd(t_cmd_tbl *table, t_shell *shell);
-void		smpl_child_process(t_cmd_tbl *table, t_shell *shell);
+void		execute(t_shell *shell, t_cmd_tbl *table);
+void		execute_command(t_cmd_tbl *table, t_shell *shell);
+void		exec_without_pipes(t_cmd_tbl *table, t_shell *shell);
 	//COMMAND HANDLING
 char		*extract_path(t_shell *shell, char *command);
 void		invalid_command(t_shell *shell, char *command);
@@ -276,9 +273,9 @@ int			path_check(char *cmd_path, t_shell *shell);
 int			no_such_file_or_folder(char *command, t_shell *shell);
 	//HANDLE REDIRECTIONS
 t_token		*set_curr(t_token *curr);
-void		handle_redirections(t_shell *shell);
 bool		is_good_redirection(t_token	*token);
 bool		has_wrong_redir(t_shell *shell, t_token *token);
+void		handle_redirections(t_shell *shell, t_cmd_tbl *table);
 int			open_file(t_type type, char *file_name, t_shell *shell);
 bool		change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val);
 	//HEREDOC
@@ -286,14 +283,14 @@ void		set_heredoc_to_null(t_shell *shell);
 int			heredoc(t_shell *shell, char *delimeter);
 	//PIPELINE
 		//EXEC ONLY HEREDOC
-bool	has_wrong_redir_2(t_token *token);
-bool	tables_have_wrong_redir(t_cmd_tbl *table, t_shell *shell);
-void	run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shell);
-
-void	exec_on_pipeline(t_cmd_tbl *table, t_shell *shell);
-void	redirect_and_execute(t_cmd_tbl *table, t_shell *shell, int fd[2]);
-void	child_process_on_pipeline(t_cmd_tbl *table, t_shell *shell);
-void	exec_last_pipe(t_cmd_tbl *table, t_shell *shell);
+bool		has_wrong_redir_2(t_token *token);
+bool		tables_have_wrong_redir(t_cmd_tbl *table, t_shell *shell);
+void		run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shll);
+		//EXEC PIPES
+bool		pipe_has_redirs(t_token *token);
+void		exec_pipes(t_cmd_tbl *table, t_shell *shell);
+void		exec_last_pipe(t_cmd_tbl *table, t_shell *shell);
+void		pipe_child_process(t_cmd_tbl *table, t_shell *shell);
 
 //GENERAL UTILS
 int			ft_isupper(char c);

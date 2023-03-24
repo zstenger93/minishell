@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:11:27 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/23 16:12:28 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:30:48 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	tables_have_wrong_redir(t_cmd_tbl *table, t_shell *shell)
 {
-	bool	flag;
+	bool		flag;
 	t_cmd_tbl	*curr;
 
 	flag = false;
@@ -22,6 +22,7 @@ bool	tables_have_wrong_redir(t_cmd_tbl *table, t_shell *shell)
 	while (curr != NULL && flag == false)
 	{
 		flag = has_wrong_redir_2(curr->redirs);
+		curr = curr->next;
 	}
 	if (flag == true && curr != NULL)
 	{
@@ -42,7 +43,7 @@ bool	has_wrong_redir_2(t_token *token)
 	return (false);
 }
 
-void	run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shell)
+void	run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shll)
 {
 	t_token	*token;
 
@@ -54,7 +55,7 @@ void	run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shell)
 			if (is_redirection(token) && is_redirection(token->next))
 				break ;
 			if (token->type == HEREDOC)
-				heredoc(shell, token->next->content);
+				heredoc(shll, token->next->content);
 			token = token->next;
 		}
 		start = start->next;
