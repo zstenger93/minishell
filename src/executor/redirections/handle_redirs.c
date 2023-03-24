@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:12:52 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/24 14:15:15 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:39:20 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	handle_redirections(t_shell *shell, t_cmd_tbl *table)
 	curr = table->redirs;
 	while (curr != NULL)
 	{
-		// write(2, "inside", 7);
-		// write(2, ft_strdup(shel))
 		if (is_good_redirection(curr) == false)
 		{
 			shell->exit_code = 258;
@@ -39,6 +37,15 @@ void	handle_redirections(t_shell *shell, t_cmd_tbl *table)
 			break ;
 		curr = set_curr(curr);
 	}
+}
+
+bool	is_good_redirection(t_token	*token)
+{
+	if (is_redirection(token)
+		&& token->next != NULL
+		&& !is_redirection(token->next))
+		return (true);
+	return (false);
 }
 
 bool	change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val)
@@ -66,15 +73,6 @@ bool	change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val)
 		return (FALSE);
 	}
 	return (TRUE);
-}
-
-bool	is_good_redirection(t_token	*token)
-{
-	if (is_redirection(token)
-		&& token->next != NULL
-		&& !is_redirection(token->next))
-		return (true);
-	return (false);
 }
 
 t_token	*set_curr(t_token *curr)

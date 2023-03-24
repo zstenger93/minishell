@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_simple_cmds.c                              :+:      :+:    :+:   */
+/*   execute_without_pipes.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 15:43:25 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/24 14:24:21 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:24:47 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	exec_simple_cmd(t_cmd_tbl *table, t_shell *shell)
+void	exec_without_pipes(t_cmd_tbl *table, t_shell *shell)
 {
 	int		status;
 	pid_t	pid;
@@ -24,8 +24,8 @@ void	exec_simple_cmd(t_cmd_tbl *table, t_shell *shell)
 	{
 		if (has_wrong_redir(shell, table->redirs) == false)
 		{
-			handle_redirections(shell);
-			smpl_child_process(table, shell);
+			handle_redirections(shell, table);
+			execute_command(table, shell);
 		}
 		else
 			child_exit(shell);
@@ -37,7 +37,7 @@ void	exec_simple_cmd(t_cmd_tbl *table, t_shell *shell)
 		shell->exit_code = 258;
 }
 
-void	smpl_child_process(t_cmd_tbl *table, t_shell *shell)
+void	execute_command(t_cmd_tbl *table, t_shell *shell)
 {
 	char	*cmd_path;
 
@@ -76,8 +76,8 @@ void	close_and_dup(t_shell *shell)
 {
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
-	// dup2(shell->std_fds[0], STDIN_FILENO);
-	// dup2(shell->std_fds[1], STDOUT_FILENO);
+	dup2(shell->std_fds[0], STDIN_FILENO);
+	dup2(shell->std_fds[1], STDOUT_FILENO);
 	if (shell->exit_code != 0)
 		shell->cmd_has_been_executed = 0;
 }
