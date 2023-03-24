@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/23 16:17:23 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/24 14:14:52 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,7 +276,7 @@ int			path_check(char *cmd_path, t_shell *shell);
 int			no_such_file_or_folder(char *command, t_shell *shell);
 	//HANDLE REDIRECTIONS
 t_token		*set_curr(t_token *curr);
-void		handle_redirections(t_shell *shell);
+void	handle_redirections(t_shell *shell, t_cmd_tbl *table);
 bool		is_good_redirection(t_token	*token);
 bool		has_wrong_redir(t_shell *shell, t_token *token);
 int			open_file(t_type type, char *file_name, t_shell *shell);

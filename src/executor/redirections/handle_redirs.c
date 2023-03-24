@@ -3,23 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:12:52 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/23 15:30:41 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/24 14:15:15 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	handle_redirections(t_shell *shell)
+void	handle_redirections(t_shell *shell, t_cmd_tbl *table)
 {
 	t_token	*curr;
 	int		fd;
 
-	curr = shell->cmd_tbls->redirs;
+	curr = table->redirs;
 	while (curr != NULL)
 	{
+		// write(2, "inside", 7);
+		// write(2, ft_strdup(shel))
 		if (is_good_redirection(curr) == false)
 		{
 			shell->exit_code = 258;

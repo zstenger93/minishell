@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_simple_cmds.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 15:43:25 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/23 16:17:51 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/24 14:24:21 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	close_and_dup(t_shell *shell)
 {
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
-	dup2(shell->std_fds[0], STDIN_FILENO);
-	dup2(shell->std_fds[1], STDOUT_FILENO);
+	// dup2(shell->std_fds[0], STDIN_FILENO);
+	// dup2(shell->std_fds[1], STDOUT_FILENO);
 	if (shell->exit_code != 0)
 		shell->cmd_has_been_executed = 0;
 }
