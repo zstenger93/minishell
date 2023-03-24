@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/23 16:17:23 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/24 13:31:39 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,16 @@ typedef struct s_env
 	char			*var_name;
 }	t_env;
 
+typedef struct s_fds
+{
+	int				fd[2];
+	struct s_fds	*prev;
+	struct s_fds	*next;
+}	t_fds;
+
 typedef struct s_shell
 {
+	t_fds		*pipe;
 	char		**env;
 	char		*prompt;
 	char		*heredoc;
@@ -320,4 +328,8 @@ void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
 
+
+void	pipeline_loop(t_cmd_tbl *table, t_shell *shell);
+void	execute_pipe(t_cmd_tbl *table, t_shell *shell);
+void	execute_last_pipe(t_cmd_tbl *table, t_shell *shell);
 #endif
