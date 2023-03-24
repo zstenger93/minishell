@@ -6,13 +6,13 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 15:43:25 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/24 18:46:31 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/24 19:13:34 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	exec_simple_cmd(t_cmd_tbl *table, t_shell *shell)
+void	exec_without_pipes(t_cmd_tbl *table, t_shell *shell)
 {
 	int		status;
 	pid_t	pid;
@@ -24,8 +24,8 @@ void	exec_simple_cmd(t_cmd_tbl *table, t_shell *shell)
 	{
 		if (has_wrong_redir(shell, table->redirs) == false)
 		{
-			handle_redirections(shell);
-			smpl_child_process(table, shell);
+			handle_redirections(shell, table);
+			execute_command(table, shell);
 		}
 		else
 			child_exit(shell);
@@ -37,7 +37,7 @@ void	exec_simple_cmd(t_cmd_tbl *table, t_shell *shell)
 		shell->exit_code = 258;
 }
 
-void	smpl_child_process(t_cmd_tbl *table, t_shell *shell)
+void	execute_command(t_cmd_tbl *table, t_shell *shell)
 {
 	char	*cmd_path;
 

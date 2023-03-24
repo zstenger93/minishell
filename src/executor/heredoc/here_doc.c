@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 22:47:23 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/24 17:39:51 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/24 19:14:27 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ int	heredoc(t_shell *shell, char *delimeter)
 {
 	int		fd;
 	char	*input_line;
+	char	*expanded_line;
 
-	close(STDIN_FILENO);
+	// close(STDIN_FILENO);
 	dup2(shell->std_fds[0], STDIN_FILENO);
 	fd = open("/tmp/heredoc.XXXXXX", O_RDWR | O_CREAT | O_EXCL, 0600);
 	if (fd == -1)
@@ -31,6 +32,7 @@ int	heredoc(t_shell *shell, char *delimeter)
 			free(input_line);
 			break ;
 		}
+		expander(&input_line, shell);
 		write(fd, input_line, ft_strlen(input_line));
 		free(input_line);
 		write(1, "> ", 2);

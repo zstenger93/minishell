@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/24 18:45:42 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/24 19:03:01 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,8 +325,4 @@ void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
 
-
-void	pipeline_loop(t_cmd_tbl *table, t_shell *shell);
-void	execute_pipe(t_cmd_tbl *table, t_shell *shell);
-void	execute_last_pipe(t_cmd_tbl *table, t_shell *shell);
 #endif

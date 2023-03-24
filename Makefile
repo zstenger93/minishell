@@ -140,6 +140,9 @@ run: all
 	clear
 	@./$(NAME)
 
+r:
+	@./$(NAME)
+
 v:
 	valgrind --read-var-info=yes --leak-check=full --track-origins=yes ./minishell
 
@@ -153,4 +156,4 @@ GREEN = \033[4;92m
 CYAN2 = \x1B[1;36m
 CYAN = \033[1;96m
 
-.PHONY: all clean fclean re run v
+.PHONY: all clean fclean re run r v

@@ -92,8 +92,10 @@
 	<h3>> redirect input :white_check_mark:</h3>
 	<h3><< (heredoc) but doesn't have to update the history :white_check_mark:</h3>
 	<h3>>> should redirect in append mode to the file :white_check_mark:</h3>
-	<h3>>> do not create or do anything in case of error in redirs :white_check_mark:</h3>
-	<h3>>> only execute heredocs but only until the faulty redir and return prompt :white_check_mark:</h3>
+	<h3> do not create or do anything in case of error in redirs :white_check_mark:</h3>
+	<h3> only execute heredocs but only until the faulty redir and return prompt :white_check_mark:</h3>
+	<h3>exapand variables in heredoc :white_check_mark:</h3>
+	<h3>execute heredocs before anything else :x:</h3>
 <h3>Handle environment variables with expander :white_check_mark:</h3>
 <h3>SIGNALS:</h3>
 <h3>Handle ctrl-C, ctrl-D and ctrl-\ the way it works in bash:</h3>
@@ -124,7 +126,7 @@
 	<h3>split redir args for execute :white_check_mark:</h3>
 	<h3>get arguments on **char to pass for execve :white_check_mark:</h3>
 	<h3>Execute simple cmd without pipes :white_check_mark:</h3>
-	<h3>Execute on pipeline :x:</h3>
+	<h3>Execute on pipeline :white_check_mark:</h3>
 <h3>Implement the followiung BUILTINS:</h3>
 	<h3>echo with option -n :white_check_mark:</h3>
 	<h3>cd with relative or absolute path :white_check_mark:</h3>
