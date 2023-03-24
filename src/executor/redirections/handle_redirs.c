@@ -6,18 +6,18 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:12:52 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/24 08:33:38 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/24 18:42:21 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	handle_redirections(t_shell *shell)
+void	handle_redirections(t_shell *shell, t_cmd_tbl *table)
 {
 	t_token	*curr;
 	int		fd;
 
-	curr = shell->cmd_tbls->redirs;
+	curr = table->redirs;
 	while (curr != NULL)
 	{
 		if (is_good_redirection(curr) == false)
@@ -37,6 +37,15 @@ void	handle_redirections(t_shell *shell)
 			break ;
 		curr = set_curr(curr);
 	}
+}
+
+bool	is_good_redirection(t_token	*token)
+{
+	if (is_redirection(token)
+		&& token->next != NULL
+		&& !is_redirection(token->next))
+		return (true);
+	return (false);
 }
 
 bool	change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val)
@@ -64,15 +73,6 @@ bool	change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val)
 		return (FALSE);
 	}
 	return (TRUE);
-}
-
-bool	is_good_redirection(t_token	*token)
-{
-	if (is_redirection(token)
-		&& token->next != NULL
-		&& !is_redirection(token->next))
-		return (true);
-	return (false);
 }
 
 t_token	*set_curr(t_token *curr)

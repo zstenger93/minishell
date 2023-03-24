@@ -7,7 +7,6 @@ DN				= > /dev/null
 LIBFT			= libft/libft.a
 OS				= $(shell uname)
 USER			= $(shell whoami)
-BREW			= $(shell brew help)
 FLAGS			= -Wall -Werror -Wextra
 
 #DELETE THE PRINT FUNCTIONS FILE
@@ -54,10 +53,10 @@ EXECUTOR		= executor/open/open \
 				  executor/path/path_check \
 				  executor/heredoc/here_doc \
 				  executor/path/extract_path \
-				  executor/execute/execute_utils \
+				  executor/pipe_handling/pipe \
 				  executor/redirections/wrong_redirs \
 				  executor/redirections/handle_redirs \
-				  executor/execute/execute_simple_cmds \
+				  executor/execute/execute_without_pipes \
 				  executor/pipe_handling/exec_only_heredoc \
 
 SIGNALS			= signals/signals \
@@ -81,7 +80,6 @@ else
 INCL_RDL_HEADER	= -I /Users/$(USER)/.brew/opt/readline/include
 INCL_RDL_LIB	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 endif
-
 
 # curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
 
