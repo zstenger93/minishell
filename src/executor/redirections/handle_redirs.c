@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:12:52 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/24 18:42:21 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:04:26 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	handle_redirections(t_shell *shell, t_cmd_tbl *table)
 			return ;
 		}
 		if (curr->type == HEREDOC && curr->next->type == WORD)
-			fd = heredoc(shell, curr->next->content);
+			fd = open_heredoc(table, shell, curr);
 		else if (curr->type == OUTPUT && curr->next->type == WORD)
 			fd = open_file(OUTPUT, curr->next->content, shell);
 		else if (curr->type == APPEND && curr->next->type == WORD)
 			fd = open_file(APPEND, curr->next->content, shell);
 		else if (curr->type == INPUT && curr->next->type == WORD)
 			fd = open_file(INPUT, curr->next->content, shell);
-		if (change_stdin_out(curr->type, fd, shell, 0) == FALSE)
+		if (fd != -99 && change_stdin_out(curr->type, fd, shell, 0) == FALSE)
 			break ;
 		curr = set_curr(curr);
 	}
@@ -58,6 +58,8 @@ bool	change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val)
 	}
 	if (type == INPUT)
 	{
+		if (fd == -1)
+			return (FALSE);
 		ret_val = dup2(fd, STDIN_FILENO);
 		close(fd);
 	}

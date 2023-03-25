@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:45:33 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/23 10:57:28 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 14:45:39 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 
 //OPEN
 # define GIVE_PERM_WTH_RW 0644
+
+# define TMP_S "/tmp/heredoc"
+# define TMP_E ".XXXXXX"
 
 //HEREDOC TYPE
 # define HD_PIPE "\033[1;34mpipe heredoc> \033[0m"

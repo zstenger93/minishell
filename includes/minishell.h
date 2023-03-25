@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/24 19:03:01 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:31:56 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct s_cmd_tbl
 	struct s_cmd_tbl	*next;
 	t_token				*redirs;
 	char				**cmd_args;
+	char				*heredoc_name;
+	int					index;
 }	t_cmd_tbl;
 
 typedef struct s_env
@@ -129,10 +131,9 @@ char		*get_curr_dir(t_shell *shell);
 void		terminal_prompt(t_shell *shell);
 
 //BUILTINS
-bool		builtins(t_shell *shell);
+bool		builtins(t_shell *shell, char *cmd, char **args);
 
 //BUILTIN ENV
-void		env(t_shell *shell);
 char		*get_path(char **env);
 t_env		*init_env(char **env);
 t_env		*init_env_node(char *str);
@@ -141,6 +142,7 @@ void		update_env(t_shell *shell);
 void		print_env_vars(t_env *head);
 char		**env_list_to_char(t_env *env);
 int			get_env_list_size(t_env *head);
+void		env(t_shell *shell, char **args);
 void		add_back_env_node(t_env	*head, t_env *new);
 
 //BUILTIN EXPORT
@@ -160,12 +162,12 @@ void		delete_env_var(t_env *head, t_env *del);
 t_env		*find_env_var(t_env *head, char *var_name);
 
 //BUILTIN PWD
-void		pwd(t_shell *shell);
+void		pwd(t_shell *shell, char **args);
 
 //BUILTIN EXIT
-void		exit_code(t_shell *shell);
-void		exit_shell(t_shell *shell);
 int			is_wrong_command(char *s, char c);
+void		exit_code(t_shell *shell, char **args);
+void		exit_shell(t_shell *shell, char *cmd, char **args);
 
 //BUILTIN CD
 void		cd(t_shell *shell);
@@ -181,7 +183,6 @@ void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 //BUILTIN ECHO
 void		echo(t_shell *shell);
 bool		is_in_dq(char *s, int i);
-void		print_with_quotes(char *str);
 bool		wrong_echo_cmd(t_shell *shell);
 bool		has_quote_in_string(char *str);
 void		print_without_quotes(char *str);
@@ -271,8 +272,10 @@ void		child_exit(t_shell *shell);
 int			table_size(t_cmd_tbl *table);
 void		close_and_dup(t_shell *shell);
 void		execute(t_shell *shell, t_cmd_tbl *table);
-void		execute_command(t_cmd_tbl *table, t_shell *shell);
 void		exec_without_pipes(t_cmd_tbl *table, t_shell *shell);
+	//EXECUTE CMD
+void		clear_and_exit(t_shell *shell, char *cmd_path);
+void		execute_command(t_cmd_tbl *table, t_shell *shell);
 	//COMMAND HANDLING
 char		*extract_path(t_shell *shell, char *command);
 void		invalid_command(t_shell *shell, char *command);
@@ -282,16 +285,22 @@ int			no_such_file_or_folder(char *command, t_shell *shell);
 	//HANDLE REDIRECTIONS
 t_token		*set_curr(t_token *curr);
 bool		is_good_redirection(t_token	*token);
-bool		has_wrong_redir(t_shell *shell, t_token *token);
 void		handle_redirections(t_shell *shell, t_cmd_tbl *table);
 int			open_file(t_type type, char *file_name, t_shell *shell);
+bool		has_wrong_redir(t_shell *shell, t_token *token, t_cmd_tbl *table);
 bool		change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val);
-	//HEREDOC
-void		set_heredoc_to_null(t_shell *shell);
-int			heredoc(t_shell *shell, char *delimeter);
+	//HEREDOC EXEC
+char		*filename(t_cmd_tbl *table);
+bool		cmd_tbl_has_heredoc(t_cmd_tbl *cmd_tbl);
+void		handle_heredocs(t_cmd_tbl *cmd_tbl, t_shell *shell);
+void		execute_heredocs(t_cmd_tbl *cmd_tbl, t_shell *shell);
+char		*heredoc(t_cmd_tbl *cmd_tbl, char *stop_word, t_shell *shell);
+		//OPEN HEREDOC
+bool		is_last_heredoc(t_token *token, t_token *redirs);
+int			open_heredoc(t_cmd_tbl *table, t_shell *shell, t_token *token);
 	//PIPELINE
 		//EXEC ONLY HEREDOC
-bool		has_wrong_redir_2(t_token *token);
+bool		has_heredoc_and_wrong_redir(t_token *token);
 bool		tables_have_wrong_redir(t_cmd_tbl *table, t_shell *shell);
 void		run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shll);
 		//EXEC PIPES
@@ -324,5 +333,11 @@ void		free_char_array(char **array);
 void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
+
+
+
+
+
+
 
 #endif

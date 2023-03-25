@@ -6,28 +6,32 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 15:14:45 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:04:26 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
 //does bash write exit after exit?
-void	exit_shell(t_shell *shell)
+void	exit_shell(t_shell *shell, char *cmd, char **args)
 {
-	if (is_wrong_command(shell->trimmed_prompt, ' ') > 2)
-		return ;
-	if (ft_strcmp(shell->trimmed_prompt, "exit") == 1
-		&& ft_strncmp(shell->trimmed_prompt, "exit ", 5) != 0)
+	// if (is_wrong_command(shell->trimmed_prompt, ' ') > 2)
+	// 	return ;
+	if (ft_strcmp(cmd, "exit") == TRUE && args[1] == NULL)
 	{
 		free_at_exit(shell);
 		exit(shell->exit_code);
 	}
-	else if (ft_strncmp(shell->trimmed_prompt, "exit ", 5) == 0)
-		exit_code(shell);
+	else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL)
+		exit_code(shell, args);
+	else
+	{
+		p_err("exit: %s\n", TMA);
+		return ;
+	}
 }
 
-void	exit_code(t_shell *shell)
+void	exit_code(t_shell *shell, char **args)
 {
 	int		i;
 	int		len;
@@ -35,14 +39,14 @@ void	exit_code(t_shell *shell)
 	char	*code_str;
 
 	i = 5;
-	len = ft_strlen(shell->trimmed_prompt + i);
+	len = ft_strlen(args[1]);
 	code_str = (char *)malloc(sizeof(char) * (len + 1));
 	if (code_str == NULL)
 	{
 		free_at_exit(shell);
 		exit(EXIT_FAILURE);
 	}
-	strcpy(code_str, shell->trimmed_prompt + i);
+	strcpy(code_str, args[1]);
 	code = ft_atoi(code_str);
 	free_at_exit(shell);
 	free(code_str);

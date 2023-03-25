@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:16:07 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/21 16:46:09 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 11:14:43 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_token	*add_quote_token(char *str, int *i, int *old_i, t_token *token)
 			stop = true;
 		(*i)++;
 	}
-	token = add_new_token(token, ft_strdup2(str, *old_i, *i), WORD);
+	token = add_new_token(token, ft_strdup2(str, *old_i + 1, *i - 1), WORD);
 	*old_i = *i;
 	return (token);
 }

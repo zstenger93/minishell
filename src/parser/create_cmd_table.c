@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:29:18 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/21 16:44:51 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 10:39:22 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,3 @@ t_cmd_tbl	*create_cmd_table(char **str_arr)
 	}
 	return (cmd_tbls);
 }
-
-// cat Makefile | grep word | wc -l > out
-// cat Makefile file 2 | grep word | wc -l -r > out
-// t_cmd_tbl	*create_cmd_table(char **str_arr)
-// t_cmd_tbl	create_cmd_table(char str_arr)

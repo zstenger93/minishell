@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/23 11:11:09 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:34:29 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	shell_loop(t_shell *shell)
 		update_env(shell);
 		lexer(shell);
 		parser(shell);
-		if (!is_builtin(shell))
-			execute(shell, shell->cmd_tbls);
+		execute(shell, shell->cmd_tbls);
 		addhistory(shell);
 	}
 }
@@ -55,24 +54,24 @@ void	addhistory(t_shell *shell)
 	free(shell->trimmed_prompt);
 }
 
-bool	builtins(t_shell *shell)
+bool	builtins(t_shell *shell, char *cmd, char **args)
 {
-	if (cmd(shell, "export", 6) == TRUE)
+	if (ft_strncmp(cmd, "export", 6) == 0)
 		return (export(shell), TRUE);
-	else if (cmd(shell, "cd", 2) == TRUE)
+	else if (ft_strncmp(cmd, "cd", 2) == 0)
 		return (cd(shell), TRUE);
 	else if (convert_to_lower(shell->trimmed_prompt, 3)
-		&& cmd(shell, "pwd", 3) == TRUE)
-		return (pwd(shell), TRUE);
-	else if (convert_to_lower(shell->trimmed_prompt, 3)
-		&& cmd(shell, "env", 3) == TRUE)
-		return (env(shell), TRUE);
-	else if (cmd(shell, "exit", 4) == TRUE)
-		return (exit_shell(shell), TRUE);
-	else if (cmd(shell, "unset", 5) == TRUE)
+		&& ft_strncmp(cmd, "pwd", 3) == 0)
+		return (pwd(shell, args), TRUE);
+	else if (convert_to_lower(cmd, 3)
+		&& ft_strncmp(cmd, "env", 3) == 0)
+		return (env(shell, args), TRUE);
+	else if (ft_strncmp(cmd, "exit", 4) == 0)
+		return (TRUE);
+	else if (ft_strncmp(cmd, "unset", 5) == 0)
 		return (unset(shell), TRUE);
 	else if (convert_to_lower(shell->trimmed_prompt, 4)
-		&& cmd(shell, "echo", 4) == TRUE)
+		&& ft_strncmp(cmd, "echo", 4) == 0)
 	{
 		echo(shell);
 		if (shell->exit_code != 127)

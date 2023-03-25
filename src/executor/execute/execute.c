@@ -6,18 +6,19 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:22:11 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/24 19:09:49 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:28:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+//wrong check doesnt work
 void	execute(t_shell *shell, t_cmd_tbl *table)
 {
-	if (tables_have_wrong_redir(table, shell) == true)
-		shell->exit_code = 258;
+	// if (tables_have_wrong_redir(table, shell) == true)
+	// 	shell->exit_code = 258;
 	// else
-	// 	handle_heredocs(table, shell);
+		handle_heredocs(table, shell);
 	if (table != NULL && table->next == NULL && table_size(table) == 1)
 		exec_without_pipes(table, shell);
 	else if (table != NULL && table->next != NULL)
@@ -36,7 +37,3 @@ int	table_size(t_cmd_tbl *table)
 	}
 	return (i);
 }
-
-// void	handle_heredocs(t_cmd_tbl *table, t_shell *shell)
-// {
-// }

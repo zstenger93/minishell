@@ -6,17 +6,17 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:54:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 16:22:00 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:22:33 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	env(t_shell *shell)
+void	env(t_shell *shell, char **args)
 {
 	t_env	*curr;
 
-	if (ft_strlen(shell->trimmed_prompt) > 3)
+	if (args[1] != NULL)
 	{
 		p_err("env: %s\n", TMA);
 		return ;

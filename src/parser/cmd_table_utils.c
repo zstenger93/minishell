@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:09:42 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/21 16:44:37 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 14:06:27 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@ t_cmd_tbl	*add_new_cmd_tbl(t_cmd_tbl *cmd_tbl, t_cmd_tbl *new)
 	t_cmd_tbl	*curr;
 
 	if (cmd_tbl == NULL)
+	{
+		new->index = 0;
 		return (new);
+	}
 	curr = cmd_tbl;
 	while (curr->next != NULL)
 		curr = curr->next;
 	curr->next = new;
+	new->index = curr->index + 1;
 	return (cmd_tbl);
 }
 
@@ -37,6 +41,8 @@ t_cmd_tbl	*get_empty_cmd_table(void)
 	cmd_tbl->args = NULL;
 	cmd_tbl->redirs = NULL;
 	cmd_tbl->next = NULL;
+	cmd_tbl->heredoc_name = NULL;
+	cmd_tbl->index = -1;
 	return (cmd_tbl);
 }
 
@@ -66,9 +72,8 @@ bool	is_printable(char c)
 		|| (ascii >= 58 && ascii <= 59)
 		|| (ascii >= 63 && ascii <= 64)
 		|| ascii == 61
-		|| (ascii >= 91 && ascii <= 94)
-		|| (ascii >= 123 && ascii <= 126)
-		|| ascii == 96)
+		|| (ascii >= 91 && ascii <= 96)
+		|| (ascii >= 123 && ascii <= 126))
 		return (true);
 	return (false);
 }

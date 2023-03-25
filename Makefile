@@ -54,6 +54,8 @@ EXECUTOR		= executor/open/open \
 				  executor/heredoc/here_doc \
 				  executor/path/extract_path \
 				  executor/pipe_handling/pipe \
+				  executor/execute/execute_cmd \
+				  executor/heredoc/open_heredoc \
 				  executor/redirections/wrong_redirs \
 				  executor/redirections/handle_redirs \
 				  executor/execute/execute_without_pipes \

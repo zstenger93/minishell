@@ -80,7 +80,7 @@
 
 <h3>Getting a headache from deciding who does what :white_check_mark:</h3>
 
-<h3>check redirections at start :x:</h3>
+<h3>check redirections at start :white_check_mark:</h3>
 <h3>check how is awk being splitted for args :x:</h3>
 <h3>assign the correct exit codes :x:</h3>
 <h3>set the executed variable for prompt at executions :x:</h3>

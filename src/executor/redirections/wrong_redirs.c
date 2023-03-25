@@ -6,13 +6,13 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 13:52:51 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 15:21:26 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:09:05 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-bool	has_wrong_redir(t_shell *shell, t_token *token)
+bool	has_wrong_redir(t_shell *shell, t_token *token, t_cmd_tbl *table)
 {
 	t_token	*wrong;
 	t_token	*curr;
@@ -35,7 +35,7 @@ bool	has_wrong_redir(t_shell *shell, t_token *token)
 	while (curr != wrong)
 	{
 		if (curr->type == HEREDOC)
-			heredoc(shell, curr->next->content);
+			heredoc(table, curr->next->content, shell);
 		curr = curr->next->next;
 	}
 	return (true);

@@ -6,17 +6,17 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:38:18 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/18 22:08:35 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:21:44 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	pwd(t_shell *shell)
+void	pwd(t_shell *shell, char **args)
 {
 	t_env	*curr;
 
-	if (ft_strlen(shell->trimmed_prompt) > 3)
+	if (args[1] != NULL)
 	{
 		p_err("pwd: %s\n", TMA);
 		return ;

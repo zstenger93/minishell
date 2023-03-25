@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:08:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 14:29:35 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:42:36 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	free_at_exit(t_shell *shell)
 {
 	t_token	*token;
 
+	printf("exit\n");
 	if (shell->trimmed_prompt != NULL)
 		free(shell->trimmed_prompt);
 	free_char_array(shell->cmd_paths);
@@ -102,7 +103,6 @@ void	free_at_exit(t_shell *shell)
 	free_cmd_tbls(shell->cmd_tbls);
 	free_char_array(shell->env);
 	rl_clear_history();
-	printf("exit\n");
 }
 
 void	free_at_child(t_shell *shell)

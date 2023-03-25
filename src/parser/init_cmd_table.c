@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 08:16:47 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/21 16:33:25 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/25 10:14:27 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens)
 t_token	*assign_cmd(t_cmd_tbl *cmd_tbl, t_token *token)
 {
 	if (token == NULL)
-		return (token);
+		return (NULL);
 	if (cmd_tbl->cmd != NULL || token->type != WORD)
 		return (token);
 	if (is_redirection(token->prev) == true)
@@ -85,13 +85,17 @@ char	**get_cmd_args_from_token(char *cmd, t_token *token)
 	char	**result;
 	int		i;
 
-	size = token_list_size(token) + 1;
+	if (cmd == NULL)
+		size = token_list_size(token);
+	else
+		size = token_list_size(token) + 1;
 	result = malloc(sizeof(char *) * (size + 1));
 	if (result == NULL)
 		printf("get_cmd_args_from_token error\n");
 	result[size] = NULL;
-	result[0] = ft_strdup(cmd);
-	i = 1;
+	i = 0;
+	if (cmd != NULL)
+		result[i++] = ft_strdup(cmd);
 	while (token != NULL && i < size)
 	{
 		result[i] = ft_strdup(token->content);
