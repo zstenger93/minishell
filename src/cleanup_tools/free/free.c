@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:08:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/25 19:42:36 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 12:01:00 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	free_cmd_tbls(t_cmd_tbl *cmd_tbls)
 		free_char_array(curr->cmd_args);
 		free(curr->cmd);
 		curr = curr->next;
+		free(cmd_tbls->heredoc_name);
 		free(cmd_tbls);
 		cmd_tbls = curr;
 	}

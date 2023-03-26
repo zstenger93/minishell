@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/25 20:31:56 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 12:02:11 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,6 +327,8 @@ void		free_env(t_env *head);
 void		free_at_exit(t_shell *shell);
 void		free_at_child(t_shell *shell);
 void		free_char_array(char **array);
+void		free_cmd_tbls(t_cmd_tbl *cmd_tbls);
+
 
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
