@@ -80,6 +80,9 @@
 
 <h3>Getting a headache from deciding who does what :white_check_mark:</h3>
 
+<h3>check for leaks :x:</h3>
+<h3>builtins executed in child process :white_check_mark:</h3>
+
 <h3>check redirections at start :white_check_mark:</h3>
 <h3>check how is awk being splitted for args :x:</h3>
 <h3>assign the correct exit codes :x:</h3>
@@ -87,14 +90,14 @@
 <h3>make sure special chars are being ignored or causing errors when its needed :x:</h3>
 <h3>check thru while running wtihout env :x:</h3>
 <h3>when no env, might store the user in struct and not in ENV :x:</h3>
-<h3>execute builtins in child if they are called in pipes :x:</h3>
+<h3>execute builtins in child if they are called in pipes :white_check_mark:</h3>
 
 <h3>Using one global variable :white_check_mark:</h3>
 <h3>Be able to run without environment :white_check_mark:</h3>
 <h3>Have a working history :white_check_mark:</h3>
 <h3>Working relative or absolute PATH :white_check_mark:</h3>
 <h3>Check for unclosed quotes :white_check_mark:</h3>
-<h3>Handle ' and " so shell won't interpret with it's content :x::white_check_mark:</h3>
+<h3>Handle ' and " so shell won't interpret with it's content :white_check_mark:</h3>
 <h3>Working main loop with readline :white_check_mark:</h3>
 <h3>Custom prompt with curr User and CWD :white_check_mark:</h3>
 <h3>Working redirections as:</h3>
@@ -105,7 +108,7 @@
 	<h3> do not create or do anything in case of error in redirs :white_check_mark:</h3>
 	<h3> only execute heredocs but only until the faulty redir and return prompt :white_check_mark:</h3>
 	<h3>exapand variables in heredoc :white_check_mark:</h3>
-	<h3>execute heredocs before anything else :x:</h3>
+	<h3>execute heredocs before anything else :white_check_mark:</h3>
 <h3>Handle environment variables with expander :white_check_mark:</h3>
 <h3>SIGNALS:</h3>
 <h3>Handle ctrl-C, ctrl-D and ctrl-\ the way it works in bash:</h3>

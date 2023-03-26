@@ -5,7 +5,8 @@
 		"sstream": "c",
 		"ioctl.h": "c",
 		"system_error": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"locale": "c"
 	},
 	"editor.insertSpaces": false,
 	"editor.suggest.showStatusBar": true,
