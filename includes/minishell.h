@@ -6,7 +6,7 @@
 /*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 12:02:11 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/26 14:41:57 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_fds
 
 typedef struct s_shell
 {
+	int			print;
 	t_fds		*pipe;
 	char		**env;
 	char		*prompt;
@@ -111,6 +112,8 @@ typedef struct s_shell
 	char		*user_name;
 	char		**cmd_paths;
 	char		*prev_prompt;
+	int			exec_on_pipe;
+	int			should_execute;
 	char		*trimmed_prompt;
 	char		*terminal_prompt;
 	int			cmd_has_been_executed;
@@ -146,31 +149,31 @@ void		env(t_shell *shell, char **args);
 void		add_back_env_node(t_env	*head, t_env *new);
 
 //BUILTIN EXPORT
-void		export(t_shell *shell);
 char		*get_variable(char *prompt);
 void		print_export(t_shell *shell);
 int			count_equal_sign(t_shell *shell);
-void		export_new_variables(t_shell *shell);
 void		add_new_variable(t_shell *shell, char *str);
 char		*get_env_content(char *full, char *var_name);
+void		export(t_shell *shell, char *cmd, char **args);
+void		export_new_variables(t_shell *shell, char **args);
 void		replace_var_content(t_shell *shell, char *str, char *var);
 
 //BUILTIN UNSET
-void		unset(t_shell *shell);
-void		unset_all_vars(t_shell *shell);
+void		free_env_var(t_env *env);
 void		delete_env_var(t_env *head, t_env *del);
 t_env		*find_env_var(t_env *head, char *var_name);
+void		unset_all_vars(t_shell *shell, char **args);
+void		unset(t_shell *shell, char *cmd, char **args);
 
 //BUILTIN PWD
 void		pwd(t_shell *shell, char **args);
 
 //BUILTIN EXIT
-int			is_wrong_command(char *s, char c);
 void		exit_code(t_shell *shell, char **args);
+void		exit_code_on_pipe(t_shell *shell, char **args);
 void		exit_shell(t_shell *shell, char *cmd, char **args);
 
 //BUILTIN CD
-void		cd(t_shell *shell);
 void		cd_home(t_shell *shell);
 void		cd_oldpwd(t_shell *shell);
 void		cd_forward(char *folder_path);
@@ -178,10 +181,11 @@ bool		strcmp_2(char *str1, char *str2);
 void		add_oldpwd_to_env(t_shell *shell);
 int			nb_delimited_words(char *s, char c);
 void		cd_back(char *dotdot, char *folder_path);
+void		cd(t_shell *shell, char *cmd, char **args);
 void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 
 //BUILTIN ECHO
-void		echo(t_shell *shell);
+void		echo(t_shell *shell, char *cmd, char **args);
 bool		is_in_dq(char *s, int i);
 bool		wrong_echo_cmd(t_shell *shell);
 bool		has_quote_in_string(char *str);

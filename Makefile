@@ -23,6 +23,7 @@ BUILTINS		= builtins/cd/cd \
 				  builtins/echo/echo \
 				  builtins/unset/unset \
 				  builtins/cd/cd_utils \
+				  builtins/run_builtins \
 				  builtins/export/export \
 				  builtins/env/env_utils \
 				  builtins/echo/echo_trim_n \

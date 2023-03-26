@@ -24,7 +24,10 @@ void	execute(t_shell *shell, t_cmd_tbl *table)
 	if (table != NULL && table->next == NULL && table_size(table) == 1)
 		exec_without_pipes(table, shell);// do we need this function?
 	else if (table != NULL && table->next != NULL)
+	{
+		shell->exec_on_pipe = TRUE;	
 		exec_pipes(table, shell);
+	}
 }
 
 int	table_size(t_cmd_tbl *table)

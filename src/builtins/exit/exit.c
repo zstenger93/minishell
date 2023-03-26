@@ -6,29 +6,31 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/25 20:04:26 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 14:43:52 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-//does bash write exit after exit?
 void	exit_shell(t_shell *shell, char *cmd, char **args)
 {
-	// if (is_wrong_command(shell->trimmed_prompt, ' ') > 2)
-	// 	return ;
-	if (ft_strcmp(cmd, "exit") == TRUE && args[1] == NULL)
+	if (shell->exec_on_pipe == FALSE)
 	{
-		free_at_exit(shell);
-		exit(shell->exit_code);
+		if (ft_strcmp(cmd, "exit") == TRUE && args[1] == NULL)
+		{
+			free_at_exit(shell);
+			exit(shell->exit_code);
+		}
+		else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL)
+			exit_code(shell, args);
+		else
+		{
+			p_err("exit: %s\n", TMA);
+			return ;
+		}
 	}
 	else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL)
-		exit_code(shell, args);
-	else
-	{
-		p_err("exit: %s\n", TMA);
-		return ;
-	}
+		exit_code_on_pipe(shell, args);
 }
 
 void	exit_code(t_shell *shell, char **args)
@@ -53,27 +55,21 @@ void	exit_code(t_shell *shell, char **args)
 	exit(code);
 }
 
-int	is_wrong_command(char *s, char c)
+void	exit_code_on_pipe(t_shell *shell, char **args)
 {
-	int	boo;
-	int	count;
-	int	index;
+	int		i;
+	int		len;
+	char	*code_str;
 
-	boo = 0;
-	index = 0;
-	count = 0;
-	while (s[index] != '\0')
+	i = 5;
+	len = ft_strlen(args[1]);
+	code_str = (char *)malloc(sizeof(char) * (len + 1));
+	if (code_str == NULL)
 	{
-		if (s[index] == c)
-			boo = 0;
-		else if (s[index] != c && boo == 0)
-		{
-			count++;
-			boo = -1;
-		}
-		index++;
+		free_at_exit(shell);
+		exit(EXIT_FAILURE);
 	}
-	if (count > 2)
-		p_err("exit: %s", TMA);
-	return (count);
+	strcpy(code_str, args[1]);
+	shell->exit_code = ft_atoi(code_str);
+	free(code_str);
 }
