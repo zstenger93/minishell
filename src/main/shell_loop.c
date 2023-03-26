@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/25 19:34:29 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 14:30:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	shell_loop(t_shell *shell)
 
 int	*read_line(t_shell *shell)
 {
+	shell->exec_on_pipe = FALSE;
+	shell->should_execute = FALSE;
 	shell->prompt = readline(shell->terminal_prompt);
 	shell->trimmed_prompt = ft_strtrim(shell->prompt, "\t ");
 	if (shell->prompt == NULL)
@@ -52,31 +54,4 @@ void	addhistory(t_shell *shell)
 	else
 		free(shell->prompt);
 	free(shell->trimmed_prompt);
-}
-
-bool	builtins(t_shell *shell, char *cmd, char **args)
-{
-	if (ft_strncmp(cmd, "export", 6) == 0)
-		return (export(shell), TRUE);
-	else if (ft_strncmp(cmd, "cd", 2) == 0)
-		return (cd(shell), TRUE);
-	else if (convert_to_lower(shell->trimmed_prompt, 3)
-		&& ft_strncmp(cmd, "pwd", 3) == 0)
-		return (pwd(shell, args), TRUE);
-	else if (convert_to_lower(cmd, 3)
-		&& ft_strncmp(cmd, "env", 3) == 0)
-		return (env(shell, args), TRUE);
-	else if (ft_strncmp(cmd, "exit", 4) == 0)
-		return (TRUE);
-	else if (ft_strncmp(cmd, "unset", 5) == 0)
-		return (unset(shell), TRUE);
-	else if (convert_to_lower(shell->trimmed_prompt, 4)
-		&& ft_strncmp(cmd, "echo", 4) == 0)
-	{
-		echo(shell);
-		if (shell->exit_code != 127)
-			shell->exit_code = 0;
-		return (TRUE);
-	}
-	return (FALSE);
 }

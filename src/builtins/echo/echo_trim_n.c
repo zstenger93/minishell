@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo_utils.c                                       :+:      :+:    :+:   */
+/*   echo_trim_n.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:59:29 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 08:19:59 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 12:21:39 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+
+// TO BE CHECKED AND DELETED
 
 static int	ft_char_in_set(char c, char const *set)
 {
@@ -26,6 +29,7 @@ static int	ft_char_in_set(char c, char const *set)
 	return (0);
 }
 
+//THIS CAN BE DELETED
 char	*trim_echo(char const *s1, char const *set, size_t start)
 {
 	char	*trim_result;

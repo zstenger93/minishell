@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:54:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/25 18:22:33 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 12:49:59 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ void	env(t_shell *shell, char **args)
 		return ;
 	}
 	curr = shell->env_head;
-	while (curr != NULL)
+	if (shell->print == TRUE)
 	{
-		if (curr->content == NULL)
-			;
-		else
-			printf("%s=%s\n", curr->var_name, curr->content);
-		curr = curr->next;
+		while (curr != NULL)
+		{
+			if (curr->content == NULL)
+				;
+			else
+				printf("%s=%s\n", curr->var_name, curr->content);
+			curr = curr->next;
+		}
 	}
 }
 

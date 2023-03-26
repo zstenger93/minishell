@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo_utils2.c                                      :+:      :+:    :+:   */
+/*   echo_trim_n_edge_cases.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:45:47 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 08:20:34 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 12:21:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+//TO BE CHECKED AND DELETED
+
 
 bool	breaking_bad(const char *s1, size_t start, t_shell *shell)
 {
