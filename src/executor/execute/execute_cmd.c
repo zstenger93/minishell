@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:34:04 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 10:52:23 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:31:48 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,19 @@
 void	execute_command(t_cmd_tbl *table, t_shell *shell)
 {
 	char	*cmd_path;
+	int		exit_code;
 
 	if (builtins(shell, table->cmd, table->cmd_args) == TRUE)
-		exit(shell->exit_code);
+	{
+		exit_code = shell->exit_code;
+		free_at_child(shell);
+		exit(exit_code);
+	}
 	else if (path_check(table->cmd, shell) == TRUE)
 	{
+		cmd_path = ft_strdup(table->cmd);
 		shell->cmd_has_been_executed = 1;
-		execve(table->cmd, table->cmd_args, shell->env);
+		final_exec(cmd_path, table, shell);
 	}
 	else if (table->cmd[0] != '.' && table->cmd[0] != '/')
 	{
@@ -31,8 +37,46 @@ void	execute_command(t_cmd_tbl *table, t_shell *shell)
 		else if (access(cmd_path, X_OK) == 0)
 		{
 			shell->cmd_has_been_executed = 1;
-			execve(cmd_path, table->cmd_args, shell->env);
+			final_exec(cmd_path, table, shell);
 		}
+	}
+}
+
+char	**copy_2d_char_array(char **array)
+{
+	int		i;
+	char	**result;
+
+	i = 0;
+	while (array[i] != NULL)
+		i++;
+	result = malloc(sizeof(char *) * (i + 1));
+	if (result == NULL)
+		p_err("%s%s\n", SHELL, MALLOC_FAIL);
+	i = -1;
+	while (array[++i] != NULL)
+		result[i] = ft_strdup(array[i]);
+	result[i] = NULL;
+	return (result);
+}
+
+void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell)
+{
+	char	**cmd_args;
+	char	**env;
+	int		exit_code;
+
+	exit_code = shell->exit_code;
+	cmd_args = copy_2d_char_array(table->cmd_args);
+	env = copy_2d_char_array(shell->env);
+	free_at_child(shell);
+	if (execve(cmd_path, cmd_args, env) == -1)
+	{
+		p_err("%s%s\n", SHELL, strerror(errno));
+		free(cmd_path);
+		free_char_array(cmd_args);
+		free_char_array(env);
+		exit(exit_code);
 	}
 }
 

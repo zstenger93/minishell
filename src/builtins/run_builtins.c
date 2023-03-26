@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 08:40:41 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 14:31:23 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 15:57:36 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ bool	builtins(t_shell *shell, char *cmd, char **args)
 	else if (convert_to_lower(cmd, 3)
 		&& ft_strcmp(cmd, "env") == TRUE && shell->should_execute == TRUE)
 		return (env(shell, args), TRUE);
-	else if (ft_strcmp(cmd, "exit") == TRUE && shell->should_execute == TRUE)
-		return (TRUE);
+	else if (ft_strcmp(cmd, "exit") == TRUE)
+		return (exit_shell(shell, cmd, args), TRUE);
 	else if (ft_strcmp(cmd, "unset") == TRUE && shell->should_execute == TRUE)
 		return (unset(shell, cmd, args), TRUE);
 	else if (convert_to_lower(cmd, 4)

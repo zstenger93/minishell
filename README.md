@@ -82,6 +82,8 @@
 
 <h3>check for leaks :x:</h3>
 <h3>builtins executed in child process :white_check_mark:</h3>
+<h3>delete unused code :x:</h3>
+<h3>fix norm :x:</h3>
 
 <h3>check redirections at start :white_check_mark:</h3>
 <h3>check how is awk being splitted for args :x:</h3>

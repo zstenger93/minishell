@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:08:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 12:01:00 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:20:39 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,40 +59,12 @@ void	free_cmd_tbls(t_cmd_tbl *cmd_tbls)
 	}
 }
 
-// void	free_tokens(t_token *token, t_token **tokens)
-// {
-// 	t_token	*next;
-
-// 	while (token != NULL)
-// 	{
-// 		next = token->next;
-// 		free(token->content);
-// 		free(token);
-// 		token = next;
-// 	}
-// 	free_token_array(tokens);
-// }
-
-// void	free_token_array(t_token **array)
-// {
-// 	int	i;
-
-// 	if (array == NULL)
-// 		return ;
-// 	i = 0;
-// 	while (array[i] != NULL)
-// 	{
-// 		free(array[i]);
-// 		i++;
-// 	}
-// 	free(array);
-// }
-
 void	free_at_exit(t_shell *shell)
 {
 	t_token	*token;
 
-	printf("exit\n");
+	if (shell->print == FALSE)
+		printf("exit\n");
 	if (shell->trimmed_prompt != NULL)
 		free(shell->trimmed_prompt);
 	free_char_array(shell->cmd_paths);

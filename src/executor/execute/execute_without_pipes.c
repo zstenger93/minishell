@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 15:43:25 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 14:30:41 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:51:08 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	exec_without_pipes(t_cmd_tbl *table, t_shell *shell)
 	pid_t	pid;
 
 	pid = fork();
+	shell->exec_on_pipe = FALSE;
 	shell->should_execute = TRUE;
 	if (pid == -1)
 		p_err("%s%s\n", SHELL, FORK_ERROR);
@@ -44,8 +45,7 @@ void	exec_without_pipes(t_cmd_tbl *table, t_shell *shell)
 void	child_exit(t_shell *shell)
 {
 	free_at_child(shell);
-	shell->exit_code = 258;
-	exit(shell->exit_code);
+	exit(258);
 }
 
 void	close_and_dup(t_shell *shell)

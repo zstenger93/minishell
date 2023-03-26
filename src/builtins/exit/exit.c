@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 14:43:52 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:12:38 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	exit_shell(t_shell *shell, char *cmd, char **args)
 			free_at_exit(shell);
 			exit(shell->exit_code);
 		}
-		else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL)
+		else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL
+			&& args[1] != NULL)
 			exit_code(shell, args);
 		else
 		{
@@ -29,7 +30,8 @@ void	exit_shell(t_shell *shell, char *cmd, char **args)
 			return ;
 		}
 	}
-	else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL)
+	else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL 
+		&& args[1] != NULL)
 		exit_code_on_pipe(shell, args);
 }
 
@@ -72,4 +74,5 @@ void	exit_code_on_pipe(t_shell *shell, char **args)
 	strcpy(code_str, args[1]);
 	shell->exit_code = ft_atoi(code_str);
 	free(code_str);
+	exit(shell->exit_code);
 }

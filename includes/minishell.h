@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 14:41:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:20:47 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,8 +342,8 @@ void		ft_print_2d_char_array(char **array_2d);
 
 
 
-
-
+void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell);
+char	**copy_2d_char_array(char **array);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:54:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 14:14:16 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:51:07 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	pipe_child_process(t_cmd_tbl *table, t_shell *shell)
 	int		status;
 	int		fd[2];
 
-	shell->print = FALSE;
-	builtins(shell, table->cmd, table->cmd_args);
 	if (pipe(fd) == -1)
 		p_err("%s%s\n", SHELL, PIPE_ERROR);
 	pid = fork();
@@ -51,6 +49,8 @@ void	pipe_child_process(t_cmd_tbl *table, t_shell *shell)
 		handle_redirections(shell, table);
 		execute_command(table, shell);
 	}
+	shell->print = FALSE;
+	builtins(shell, table->cmd, table->cmd_args);
 	waitpid(pid, &status, 0);
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
