@@ -22,7 +22,6 @@ void	init_shell(t_shell *shell, char **env)
 		shell->env_head = init_env(env);
 	shell->env = NULL;
 	shell->exit_code = 0;
-	shell->echo_flag = 0;
 	shell->heredoc = NULL;
 	shell->prev_prompt = NULL;
 	shell->trimmed_prompt = NULL;
@@ -34,8 +33,6 @@ void	init_shell(t_shell *shell, char **env)
 	shell->cmd_paths = ft_split(get_path(env), ':');
 }
 
-//segfaults in iterm except if the file doesnt exist
-//check for leaks and to copy directly to our env or not
 void	init_missing_environment(t_shell *shell, char **env)
 {
 	char	*user;

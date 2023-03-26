@@ -19,7 +19,7 @@ t_env	*init_env_node(char *str)
 
 	env_node = malloc(sizeof(t_env));
 	if (env_node == NULL)
-		return (NULL);
+		p_err("%s%s\n", SHELL, MALLOC_FAIL);
 	split = ft_split(str, '=');
 	env_node->var_name = ft_strdup(split[0]);
 	env_node->content = get_env_content(str, split[0]);

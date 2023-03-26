@@ -28,7 +28,6 @@ BUILTINS		= builtins/cd/cd \
 				  builtins/env/env_utils \
 				  builtins/echo/echo_trim_n \
 				  builtins/export/export_utils \
-				  builtins/echo/echo_trim_n_edge_cases \
 
 INIT 			= init/init \
 

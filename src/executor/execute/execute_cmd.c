@@ -42,24 +42,6 @@ void	execute_command(t_cmd_tbl *table, t_shell *shell)
 	}
 }
 
-char	**copy_2d_char_array(char **array)
-{
-	int		i;
-	char	**result;
-
-	i = 0;
-	while (array[i] != NULL)
-		i++;
-	result = malloc(sizeof(char *) * (i + 1));
-	if (result == NULL)
-		p_err("%s%s\n", SHELL, MALLOC_FAIL);
-	i = -1;
-	while (array[++i] != NULL)
-		result[i] = ft_strdup(array[i]);
-	result[i] = NULL;
-	return (result);
-}
-
 void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell)
 {
 	char	**cmd_args;
@@ -78,6 +60,24 @@ void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell)
 		free_char_array(env);
 		exit(exit_code);
 	}
+}
+
+char	**copy_2d_char_array(char **array)
+{
+	int		i;
+	char	**result;
+
+	i = 0;
+	while (array[i] != NULL)
+		i++;
+	result = malloc(sizeof(char *) * (i + 1));
+	if (result == NULL)
+		p_err("%s%s\n", SHELL, MALLOC_FAIL);
+	i = -1;
+	while (array[++i] != NULL)
+		result[i] = ft_strdup(array[i]);
+	result[i] = NULL;
+	return (result);
 }
 
 void	clear_and_exit(t_shell *shell, char *cmd_path)

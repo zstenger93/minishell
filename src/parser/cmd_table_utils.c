@@ -77,17 +77,3 @@ bool	is_printable(char c)
 		return (true);
 	return (false);
 }
-
-// WTF ??? NEED IT ??
-// 
-// t_cmd_tbl	*get_last_cmd_tbl(t_cmd_tbl *cmd_tbl)
-// {
-// 	t_cmd_tbl	*curr;
-
-// 	if (cmd_tbl == NULL)
-// 		return (NULL);
-// 	curr = cmd_tbl;
-// 	while (curr->next != NULL)
-// 		curr = curr->next;
-// 	return (curr);
-// }

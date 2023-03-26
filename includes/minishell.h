@@ -106,7 +106,6 @@ typedef struct s_shell
 	char		*heredoc;
 	t_cmd_tbl	*cmd_tbls;
 	t_env		*env_head;
-	int			echo_flag;
 	int			exit_code;
 	int			std_fds[2];
 	char		*user_name;
@@ -185,17 +184,13 @@ void		cd(t_shell *shell, char *cmd, char **args);
 void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 
 //BUILTIN ECHO
-void		echo(t_shell *shell, char *cmd, char **args);
 bool		is_in_dq(char *s, int i);
-bool		wrong_echo_cmd(t_shell *shell);
+bool		is_flag_valid(char *arg);
 bool		has_quote_in_string(char *str);
 void		print_without_quotes(char *str);
-bool		slash_n_checker(const char *str, int i);
-char		*trim_result_malloc(const char *s1, size_t start);
-bool		no_space_after_n(const char *s1, int i, t_shell *shell);
+int			echo_n_flag_validator(char **args);
+void		echo(t_shell *shell, char *cmd, char **args);
 char		*trim_echo(char const *s1, char const *set, size_t start);
-bool		breaking_bad(const char *s1, size_t start, t_shell *shell);
-char		*trim_slash_n(char const *s1, char const *t, size_t i, t_shell *s);
 
 //INITIALIZE
 char		*extract_user(t_shell *shell);
@@ -309,9 +304,11 @@ bool		tables_have_wrong_redir(t_cmd_tbl *table, t_shell *shell);
 void		run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shll);
 		//EXEC PIPES
 bool		pipe_has_redirs(t_token *token);
+char		**copy_2d_char_array(char **array);
 void		exec_pipes(t_cmd_tbl *table, t_shell *shell);
 void		exec_last_pipe(t_cmd_tbl *table, t_shell *shell);
 void		pipe_child_process(t_cmd_tbl *table, t_shell *shell);
+void		final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell);
 
 //GENERAL UTILS
 int			ft_isupper(char c);
@@ -333,17 +330,10 @@ void		free_at_child(t_shell *shell);
 void		free_char_array(char **array);
 void		free_cmd_tbls(t_cmd_tbl *cmd_tbls);
 
-
 //what does the philosopher pigeon say?
 //TO BE OR NOT TO BE
 void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
-
-
-
-void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell);
-char	**copy_2d_char_array(char **array);
-
 
 #endif

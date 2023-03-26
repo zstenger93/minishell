@@ -12,9 +12,6 @@
 
 #include "../../../includes/minishell.h"
 
-int	echo_n_flag_validator(char **args);
-bool	is_flag_valid(char *arg);
-
 void	echo(t_shell *shell, char *cmd, char **args)
 {
 	int		i;
@@ -90,27 +87,6 @@ bool	is_flag_valid(char *arg)
 	}
 	return (FALSE);
 }
-
-//CAN BE DELETED PROBABLY
-// bool	wrong_echo_cmd(t_shell *shell)
-// {
-// 	char	**shit_cmd;
-
-// 	if (cmd(shell, "echo", 4) && ft_strlen(shell->trimmed_prompt) == 4)
-// 	{
-// 		write(1, "\n", 1);
-// 		return (TRUE);
-// 	}
-// 	if (ft_strcmp(cmd, "echo") == FALSE)
-// 	{
-// 		shit_cmd = ft_split(shell->trimmed_prompt, ' ');
-// 		p_err("%s: %s\n", shit_cmd[0], CMD_NOT_FND);
-// 		shell->exit_code = 127;
-// 		free_char_array(shit_cmd);
-// 		return (TRUE);
-// 	}
-// 	return (FALSE);
-// }
 
 void	print_without_quotes(char *str)
 {

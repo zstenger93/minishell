@@ -91,7 +91,7 @@ char	**get_cmd_args_from_token(char *cmd, t_token *token)
 		size = token_list_size(token) + 1;
 	result = malloc(sizeof(char *) * (size + 1));
 	if (result == NULL)
-		printf("get_cmd_args_from_token error\n");
+		p_err("%s%s\n", SHELL, MALLOC_FAIL);
 	result[size] = NULL;
 	i = 0;
 	if (cmd != NULL)

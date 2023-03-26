@@ -12,7 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-//check exit status
 void	signals(void)
 {
 	struct sigaction	ctrl_c;

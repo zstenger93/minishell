@@ -20,16 +20,12 @@ void	lexer(t_shell *shell)
 		shell->cmd_has_been_executed = FALSE;
 	else if (expander(&shell->trimmed_prompt, shell) == FALSE)
 		shell->cmd_has_been_executed = FALSE;
-	// if ((builtins(shell) == TRUE && cmd(shell, "echo", 4) == FALSE)
-	// 	|| is_builtin(shell) == FALSE)
-	// {
-		if (wrong_operator_check(shell->trimmed_prompt) == TRUE)
-			shell->cmd_has_been_executed = FALSE;
-		if (special_char_check(shell->trimmed_prompt) == TRUE)
-			shell->cmd_has_been_executed = FALSE;
-		if (redir_check(shell->trimmed_prompt) == TRUE)
-			shell->cmd_has_been_executed = FALSE;
-	// }
+	if (wrong_operator_check(shell->trimmed_prompt) == TRUE)
+		shell->cmd_has_been_executed = FALSE;
+	if (special_char_check(shell->trimmed_prompt) == TRUE)
+		shell->cmd_has_been_executed = FALSE;
+	if (redir_check(shell->trimmed_prompt) == TRUE)
+		shell->cmd_has_been_executed = FALSE;
 }
 
 bool	wrong_operator_check(char *str)

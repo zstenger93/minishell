@@ -47,6 +47,7 @@ void	exit_code(t_shell *shell, char **args)
 	code_str = (char *)malloc(sizeof(char) * (len + 1));
 	if (code_str == NULL)
 	{
+		p_err("%s%s\n", SHELL, MALLOC_FAIL);
 		free_at_exit(shell);
 		exit(EXIT_FAILURE);
 	}
@@ -68,6 +69,7 @@ void	exit_code_on_pipe(t_shell *shell, char **args)
 	code_str = (char *)malloc(sizeof(char) * (len + 1));
 	if (code_str == NULL)
 	{
+		p_err("%s%s\n", SHELL, MALLOC_FAIL);
 		free_at_exit(shell);
 		exit(EXIT_FAILURE);
 	}

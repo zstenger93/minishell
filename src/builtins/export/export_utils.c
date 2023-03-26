@@ -56,6 +56,8 @@ char	*get_env_content(char *full, char *var_name)
 	{
 		content_len = ft_strlen(full) - var_name_len - 1;
 		content = malloc(sizeof(char) * (content_len + 1));
+		if (content == NULL)
+			p_err("%s%s\n", SHELL, MALLOC_FAIL);
 		i = var_name_len + 1;
 		j = -1;
 		while (full[i + ++j] != '\0')
