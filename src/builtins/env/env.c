@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:54:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 12:49:59 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:20:29 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	env(t_shell *shell, char **args)
 	{
 		while (curr != NULL)
 		{
-			if (curr->content == NULL)
+			if (curr->content == NULL
+				|| (ft_strcmp(curr->var_name, "TERM") == TRUE
+				&& shell->color_codes == FALSE))
 				;
 			else
 				printf("%s=%s\n", curr->var_name, curr->content);

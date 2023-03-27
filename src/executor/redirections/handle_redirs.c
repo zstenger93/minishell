@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:12:52 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/25 17:04:26 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:57:34 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	handle_redirections(t_shell *shell, t_cmd_tbl *table)
 		else if (curr->type == INPUT && curr->next->type == WORD)
 			fd = open_file(INPUT, curr->next->content, shell);
 		if (fd != -99 && change_stdin_out(curr->type, fd, shell, 0) == FALSE)
-			break ;
+			exit(1);
 		curr = set_curr(curr);
 	}
 }
@@ -72,7 +72,7 @@ bool	change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val)
 	{
 		shell->exit_code = errno;
 		p_err("%s%s\n", SHELL, strerror(errno));
-		return (FALSE);
+		return (free_at_child(shell), FALSE);
 	}
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 17:53:43 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:18:21 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_shell
 	int			exit_code;
 	int			std_fds[2];
 	char		*user_name;
+	int			color_codes;
 	char		**cmd_paths;
 	char		*prev_prompt;
 	int			exec_on_pipe;

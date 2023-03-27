@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:34:04 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 17:48:31 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:31:47 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,5 @@ void	clear_and_exit(t_shell *shell, char *cmd_path)
 {
 	free(cmd_path);
 	free_at_child(shell);
-	shell->exit_code = 127;
-	shell->cmd_has_been_executed = 0;
-	exit(shell->exit_code);
+	exit(127);
 }

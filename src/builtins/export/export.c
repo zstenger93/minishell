@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:27:28 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 14:15:45 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:22:57 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ void	print_export(t_shell *shell)
 	curr = shell->env_head;
 	while (curr != NULL)
 	{
-		if (curr->content == NULL)
+		if (ft_strcmp(curr->var_name, "TERM") == TRUE
+			&& shell->color_codes == FALSE)
+			;
+		else if (curr->content == NULL)
 			printf("declare -x %s\n", curr->var_name);
 		else
 			printf("declare -x %s=\"%s\"\n", curr->var_name, curr->content);

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 16:13:37 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:21:00 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ void	init_shell(t_shell *shell, char **env)
 	if (getenv("USER") == NULL)
 		init_missing_environment(shell, env);
 	else
+	{
 		shell->env_head = init_env(env);
+		shell->user_name = getenv("USER");
+	}
 	shell->env = NULL;
 	shell->exit_code = 0;
 	shell->heredoc = NULL;
 	shell->prev_prompt = NULL;
 	shell->trimmed_prompt = NULL;
 	shell->terminal_prompt = NULL;
-	shell->user_name = getenv("USER");
 	shell->cmd_has_been_executed = TRUE;
 	shell->std_fds[0] = dup(STDIN_FILENO);
 	shell->std_fds[1] = dup(STDOUT_FILENO);
@@ -35,26 +37,18 @@ void	init_shell(t_shell *shell, char **env)
 
 void	init_missing_environment(t_shell *shell, char **env)
 {
-	char	*user;
 	char	*get_path;
-	char	*username;
-	char	*home;
 	char	path[PATH_MAX];
 
 	get_path = NULL;
 	get_path = getcwd(get_path, sizeof(path));
-	user = extract_user(shell);
-	home = ft_nm_strjoin("HOME=/Users/", user);
-	username = ft_nm_strjoin("USER=", user);
+	shell->color_codes = FALSE;
+	shell->user_name = extract_user(shell);
 	env[0] = ft_nm_strjoin("PWD=", get_path);
-	env[1] = ft_strdup(home);
-	env[2] = ft_strdup("SHLVL=1");
-	env[3] = ft_strdup("_=/usr/bin/env");
-	env[4] = ft_strdup(username);
-	env[5] = NULL;
-	free(home);
-	free(user);
-	free(username);
+	env[1] = ft_strdup("SHLVL=1");
+	env[2] = ft_strdup("_=/usr/bin/env");
+	env[3] = ft_strdup("TERM=xterm-256color");
+	env[4] = NULL;
 	shell->env_head = init_env(env);
 }
 

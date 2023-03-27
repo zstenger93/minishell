@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:22:11 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 14:15:22 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:25:42 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	execute(t_shell *shell, t_cmd_tbl *table)
 	handle_heredocs(table, shell);
 	if (table != NULL && table->next == NULL && table_size(table) == 1)
 		exec_without_pipes(table, shell);
-	if (table != NULL && table->next != NULL)
+	else if (table != NULL && table->next != NULL)
 	{
 		shell->exec_on_pipe = TRUE;
 		exec_pipes(table, shell);
