@@ -175,7 +175,6 @@ void		exit_code_on_pipe(t_shell *shell, char **args);
 void		exit_shell(t_shell *shell, char *cmd, char **args);
 
 //BUILTIN CD
-void	cd_tilde(t_shell *shell, char *folder_path);
 void		cd_home(t_shell *shell);
 void		cd_oldpwd(t_shell *shell);
 void		cd_forward(char *folder_path);
@@ -184,6 +183,7 @@ void		add_oldpwd_to_env(t_shell *shell);
 int			nb_delimited_words(char *s, char c);
 void		cd_back(char *dotdot, char *folder_path);
 void		cd(t_shell *shell, char *cmd, char **args);
+void		cd_tilde(t_shell *shell, char *folder_path);
 void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 
 //BUILTIN ECHO
