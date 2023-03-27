@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:43:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 13:52:11 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 10:55:32 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	cd(t_shell *shell, char *cmd, char **args)
 
 	old_pwd = find_env_var(shell->env_head, "PWD");
 	old_pwd_content = old_pwd->content;
-	if (args[1] == NULL || strcmp_2(args[1], "~" ) == TRUE)
+	if (args[1] == NULL || (args[1][0] == '~' && ft_strlen(args[1]) == 1))
 		cd_home(shell);
+	else if (args[1][0] == '~')
+		cd_tilde(shell, args[1]);
 	else if (strcmp_2(args[1], "-" ) == TRUE)
 		cd_oldpwd(shell);
 	else if (args[2] == NULL && args[1] != NULL
@@ -32,6 +34,28 @@ void	cd(t_shell *shell, char *cmd, char **args)
 		|| (ft_strcmp(args[1], "..") == 1 && args[2] != NULL))
 		cd_back(args[1], args[2]);
 	update_pwd_and_oldpwd(shell, old_pwd->content);
+}
+
+void	cd_tilde(t_shell *shell, char *folder_path)
+{
+	t_env	*home;
+	char	*path;
+	char	*tilde_trimmed;
+
+	home = find_env_var(shell->env_head, "HOME");
+	tilde_trimmed = ft_strtrim(folder_path, "~");
+	path = ft_nm_strjoin(home->content, tilde_trimmed);
+	if (chdir(path) == -1)
+	{
+		p_err("%scd: %s: %s\n", SHELL, path, strerror(errno));
+		free(tilde_trimmed);
+		free(path);
+	}
+	else
+	{
+		free(tilde_trimmed);
+		free(path);
+	}
 }
 
 void	cd_home(t_shell *shell)

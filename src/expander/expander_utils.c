@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:40:39 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 19:53:35 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 10:12:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ bool	has_dollar(char *str, t_shell *shell)
 	i = -1;
 	while (str[++i] != '\0')
 	{
-		if (str[i] == '$' && str[i + 1] == '\0')
+		if (str[0] == '$' && str[i + 1] != ' ' && str[i + 1] != '\0')
+			return (TRUE);
+		else if (str[i] == '$' && str[i + 1] == '\0')
 			break ;
 		else if ((str[i] == '$' && str[i - 1] == 92)
 			|| (str[i] == '$' && dont_expand(str, i) == TRUE))
@@ -98,11 +100,8 @@ bool	expander(char **str, t_shell *shell)
 	char	**before_dollar;
 	char	**after_dollar;
 
-	if (str[0][0] == '$')
-	{
-		shell->cmd_has_been_executed = FALSE;
-		return (syntax_error(str[0][0]), FALSE);
-	}
+	if (str[0][0] == '$' && shell->should_expand == FALSE)
+		return (TRUE);
 	while (has_dollar(*str, shell) == TRUE)
 	{
 		before_dollar = malloc(sizeof(char *));

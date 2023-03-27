@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 17:20:47 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 10:28:25 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_shell
 	char		**cmd_paths;
 	char		*prev_prompt;
 	int			exec_on_pipe;
+	int			should_expand;
 	int			should_execute;
 	char		*trimmed_prompt;
 	char		*terminal_prompt;
@@ -134,6 +135,7 @@ void		terminal_prompt(t_shell *shell);
 
 //BUILTINS
 bool		builtins(t_shell *shell, char *cmd, char **args);
+void		call_echo(t_shell *shell, char *cmd, char **args);
 
 //BUILTIN ENV
 char		*get_path(char **env);
@@ -173,6 +175,7 @@ void		exit_code_on_pipe(t_shell *shell, char **args);
 void		exit_shell(t_shell *shell, char *cmd, char **args);
 
 //BUILTIN CD
+void	cd_tilde(t_shell *shell, char *folder_path);
 void		cd_home(t_shell *shell);
 void		cd_oldpwd(t_shell *shell);
 void		cd_forward(char *folder_path);
@@ -204,7 +207,7 @@ void		handle_sigint(int sig_num);
 //LEXER
 bool		is_space(char c);
 bool		is_operator(char c);
-void		lexer(t_shell *shell);
+int			lexer(t_shell *shell);
 bool		redir_check(char *str);
 bool		is_special_char(char c);
 bool		is_special_char(char c);

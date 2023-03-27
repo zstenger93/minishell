@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:22:11 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 17:51:54 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 09:01:02 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	execute(t_shell *shell, t_cmd_tbl *table)
 {
 	if (tables_have_wrong_redir(table, shell) == true)
 	{
+		redir_check(shell->trimmed_prompt);
 		shell->exit_code = 258;
 		free_cmd_tbls(shell->cmd_tbls);
 		shell->cmd_tbls = NULL;

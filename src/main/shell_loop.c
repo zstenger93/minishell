@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 14:30:45 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 09:25:28 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void	shell_loop(t_shell *shell)
 		if (read_line(shell) == NULL)
 			break ;
 		update_env(shell);
-		lexer(shell);
-		parser(shell);
-		execute(shell, shell->cmd_tbls);
+		if (lexer(shell) == TRUE)
+		{
+			parser(shell);
+			execute(shell, shell->cmd_tbls);
+		}
 		addhistory(shell);
 	}
 }
@@ -32,7 +34,7 @@ int	*read_line(t_shell *shell)
 	shell->exec_on_pipe = FALSE;
 	shell->should_execute = FALSE;
 	shell->prompt = readline(shell->terminal_prompt);
-	shell->trimmed_prompt = ft_strtrim(shell->prompt, "\t ");
+	shell->trimmed_prompt = ft_strtrim(shell->prompt, SPACES);
 	if (shell->prompt == NULL)
 		return (NULL);
 	return ((void *)1);
