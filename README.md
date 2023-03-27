@@ -86,10 +86,10 @@
 <h3>fix norm :x:</h3>
 
 <h3>check redirections at start :white_check_mark:</h3>
-<h3>check how is awk being splitted for args :x:</h3>
+<h3>check how is awk being splitted for args :white_check_mark:</h3>
 <h3>assign the correct exit codes :x:</h3>
 <h3>set the executed variable for prompt at executions :x:</h3>
-<h3>make sure special chars are being ignored or causing errors when its needed :x:</h3>
+<h3>make sure special chars are being ignored or causing errors when its needed :white_check_mark:</h3>
 <h3>check thru while running wtihout env :x:</h3>
 <h3>when no env, might store the user in struct and not in ENV :x:</h3>
 <h3>execute builtins in child if they are called in pipes :white_check_mark:</h3>

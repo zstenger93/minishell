@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 14:08:55 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:13:37 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ char	*extract_user(t_shell *shell)
 		trimmed_user = ft_strdup("Having fun trying to break our code?🤨");
 		return (trimmed_user);
 	}
-	dup2(fd, 666);
-	user = get_next_line(666);
+	user = get_next_line(fd);
 	close(fd);
 	if (ft_strlen(user) == 0 || user[0] == '\n')
 	{
@@ -82,6 +81,5 @@ char	*extract_user(t_shell *shell)
 	}
 	trimmed_user = ft_strtrim(user, "\n");
 	free(user);
-	close(666);
 	return (trimmed_user);
 }

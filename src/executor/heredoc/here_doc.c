@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 22:47:23 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 14:12:48 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:03:22 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ char	*heredoc(t_cmd_tbl *cmd_tbl, char *stop_word, t_shell *shell)
 	while (1)
 	{
 		input_line = get_next_line(STDIN_FILENO);
-		if (ft_strncmp(input_line, stop_word, ft_strlen(stop_word)) == 0)
+		if (ft_strncmp(input_line, stop_word, ft_strlen(stop_word)) == 0
+			&& ((ft_strlen(input_line) - 1) == ft_strlen(stop_word)))
 		{
 			free(input_line);
 			break ;

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 14:18:56 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:53:43 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,10 +189,10 @@ void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 //BUILTIN ECHO
 bool		is_in_dq(char *s, int i);
 bool		is_flag_valid(char *arg);
-void		simple_echo(t_shell *shell);
 bool		has_quote_in_string(char *str);
 void		print_without_quotes(char *str);
 int			echo_n_flag_validator(char **args);
+void		simple_echo(t_shell *shell, char **args);
 void		echo(t_shell *shell, char *cmd, char **args);
 char		*trim_echo(char const *s1, char const *set, size_t start);
 

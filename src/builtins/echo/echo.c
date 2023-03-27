@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:59:01 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 14:21:58 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:52:49 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	echo(t_shell *shell, char *cmd, char **args)
 			}
 		}
 		else
-			simple_echo(shell);
+			simple_echo(shell, args);
 	}
 }
 
@@ -108,12 +108,8 @@ void	print_without_quotes(char *str)
 	}
 }
 
-void	simple_echo(t_shell *shell)
+void	simple_echo(t_shell *shell, char **args)
 {
-	char	*trim;
-
-	trim = trim_echo(shell->trimmed_prompt, " ", 5);
-	print_without_quotes(trim);
-	free(trim);
+	print_without_quotes(args[1]);
 	write(1, "\n", 1);
 }
