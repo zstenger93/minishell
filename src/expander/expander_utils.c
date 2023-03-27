@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:40:39 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 10:12:23 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 12:45:02 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest)
 	i = -1;
 	while (s[0][++i] != '\0')
 	{
-		if (s[0][i] == '$' && s[0][i - 1] != 92 && dont_expand(s[0], i) != TRUE)
+		if (s[0][i] == '$' && nb_esc_chars(s[0], i) % 2 == 0 && dont_expand(s[0], i) != TRUE)
 		{
 			bef_doll[0] = ft_strdup2(s[0], 0, i);
 			copy_dollar_from_string(doll, s, i);
@@ -100,8 +100,8 @@ bool	expander(char **str, t_shell *shell)
 	char	**before_dollar;
 	char	**after_dollar;
 
-	if (str[0][0] == '$' && shell->should_expand == FALSE)
-		return (TRUE);
+	// if (str[0][0] == '$' && shell->should_expand == FALSE)
+	// 	return (TRUE);
 	while (has_dollar(*str, shell) == TRUE)
 	{
 		before_dollar = malloc(sizeof(char *));
