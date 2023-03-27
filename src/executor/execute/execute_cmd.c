@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:34:04 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 17:31:48 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:24:56 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,14 @@ void	execute_command(t_cmd_tbl *table, t_shell *shell)
 		exit(exit_code);
 	}
 	else if (path_check(table->cmd, shell) == TRUE)
-	{
-		cmd_path = ft_strdup(table->cmd);
-		shell->cmd_has_been_executed = 1;
 		final_exec(cmd_path, table, shell);
-	}
 	else if (table->cmd[0] != '.' && table->cmd[0] != '/')
 	{
 		cmd_path = extract_path(shell, table->cmd);
 		if (cmd_path == NULL)
 			clear_and_exit(shell, cmd_path);
 		else if (access(cmd_path, X_OK) == 0)
-		{
-			shell->cmd_has_been_executed = 1;
 			final_exec(cmd_path, table, shell);
-		}
 	}
 }
 
@@ -49,6 +42,7 @@ void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell)
 	int		exit_code;
 
 	exit_code = shell->exit_code;
+	shell->cmd_has_been_executed = 1;
 	cmd_args = copy_2d_char_array(table->cmd_args);
 	env = copy_2d_char_array(shell->env);
 	free_at_child(shell);

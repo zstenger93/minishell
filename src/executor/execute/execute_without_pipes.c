@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 15:43:25 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 17:51:08 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:35:05 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	exec_without_pipes(t_cmd_tbl *table, t_shell *shell)
 			handle_redirections(shell, table);
 			execute_command(table, shell);
 		}
-		else
-			child_exit(shell);
+		child_exit(shell);
 	}
 	shell->print = FALSE;
 	builtins(shell, table->cmd, table->cmd_args);

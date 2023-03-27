@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 12:30:02 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:18:56 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 //BUILTIN ECHO
 bool		is_in_dq(char *s, int i);
 bool		is_flag_valid(char *arg);
+void		simple_echo(t_shell *shell);
 bool		has_quote_in_string(char *str);
 void		print_without_quotes(char *str);
 int			echo_n_flag_validator(char **args);
@@ -263,6 +264,10 @@ char		*copy_variable(char *content);
 char		*return_exit_status(t_shell *shell);
 bool		expander(char **str, t_shell *shell);
 bool		has_dollar(char *str, t_shell *shell);
+void		expand_table(t_cmd_tbl *table, t_shell *shell);
+void		expand_tokens(t_token *tokens, t_shell *shell);
+char		*get_right_cmd(t_cmd_tbl *table, t_shell *shell);
+void		expand_tables(t_cmd_tbl *tables, t_shell *shell);
 char		*replace_variable(char *variable, t_shell *shell);
 char		*expand_dollars(char *doll_to_exp, t_shell *shell);
 char		*type_to_expand(char *dollar_to_expand, t_shell *shell);
@@ -338,8 +343,5 @@ void		free_cmd_tbls(t_cmd_tbl *cmd_tbls);
 void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
-
-
-void	expand_tables(t_cmd_tbl *tables, t_shell *shell);
 
 #endif

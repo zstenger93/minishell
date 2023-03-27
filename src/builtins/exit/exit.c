@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 16:12:38 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:16:09 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	exit_shell(t_shell *shell, char *cmd, char **args)
 			return ;
 		}
 	}
-	else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL 
+	else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL
 		&& args[1] != NULL)
 		exit_code_on_pipe(shell, args);
 }

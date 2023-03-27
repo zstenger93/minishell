@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:17:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 12:05:56 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:13:49 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,8 @@ int	lexer(t_shell *shell)
 		shell->cmd_has_been_executed = FALSE;
 		return (FALSE);
 	}
-	// else if (expander(&shell->trimmed_prompt, shell) == FALSE)
-	// {
-	// 	shell->cmd_has_been_executed = FALSE;
-	// 	return (FALSE);
-	// }
 	if (wrong_operator_check(shell->trimmed_prompt) == TRUE)
 		shell->cmd_has_been_executed = FALSE;
-	// if (special_char_check(shell->trimmed_prompt) == TRUE)
-	// 	shell->cmd_has_been_executed = FALSE;
-	// if (redir_check(shell->trimmed_prompt) == TRUE)
-	// 	shell->cmd_has_been_executed = FALSE;
 	return (TRUE);
 }
 
@@ -42,7 +33,6 @@ bool	wrong_operator_check(char *str)
 	int	i;
 
 	i = 0;
-	
 	if (has_wrong_pipe(str))
 		p_err("%s%s\n", SHELL, PIPE_ERROR);
 	while (str[++i])

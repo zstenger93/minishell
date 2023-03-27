@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd_table.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 08:16:47 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/27 12:25:09 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:09:29 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_cmd_tbl	*init_cmd_table(t_cmd_tbl *cmd_tbls, t_token *tokens)
 		curr = assign_args(new, curr);
 		curr = assign_redirs(new, curr);
 	}
-	// new->cmd_args = get_cmd_args_from_token(new->cmd, new->args);
 	cmd_tbls = add_new_cmd_tbl(cmd_tbls, new);
 	return (cmd_tbls);
 }

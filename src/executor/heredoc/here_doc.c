@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 22:47:23 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 10:07:30 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:12:48 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,15 @@ bool	cmd_tbl_has_heredoc(t_cmd_tbl *cmd_tbl)
 
 void	execute_heredocs(t_cmd_tbl *cmd_tbl, t_shell *shell)
 {
-	t_token	*token;
+	t_token	*tk;
 
-	token = cmd_tbl->redirs;
-	while (token != NULL)
+	tk = cmd_tbl->redirs;
+	while (tk != NULL)
 	{
-		if (token->type == HEREDOC)
-			cmd_tbl->heredoc_name = heredoc(cmd_tbl, token->next->content, shell);
-		token = token->next;
+		if (tk->type == HEREDOC)
+			cmd_tbl->heredoc_name = heredoc(cmd_tbl, tk->next->content, shell);
+		tk = tk->next;
 	}
-	
 }
 
 char	*heredoc(t_cmd_tbl *cmd_tbl, char *stop_word, t_shell *shell)

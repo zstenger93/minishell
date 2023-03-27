@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:27:28 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 14:30:23 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:15:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	export_new_variables(t_shell *shell, char **args)
 {
 	int		i;
 	char	**split_var;
+
 	i = 1;
 	while (args[i] != NULL)
 	{
@@ -76,6 +77,7 @@ void	add_new_variable(t_shell *shell, char *str)
 void	print_export(t_shell *shell)
 {
 	t_env	*curr;
+
 	curr = shell->env_head;
 	while (curr != NULL)
 	{

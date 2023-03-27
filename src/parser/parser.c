@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 12:31:10 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:09:25 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	parser(t_shell *shell)
 	index = -1;
 	tokens = split_with_pipes(shell->trimmed_prompt, start, end, index);
 	shell->cmd_tbls = create_cmd_table(tokens, shell);
-	// print_cmd_tbl(shell->cmd_tbls);
 	free_char_array(tokens);
 }
 

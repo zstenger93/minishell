@@ -24,6 +24,7 @@ BUILTINS		= builtins/cd/cd \
 				  builtins/unset/unset \
 				  builtins/cd/cd_utils \
 				  builtins/run_builtins \
+				  builtins/cd/cd_options \
 				  builtins/export/export \
 				  builtins/env/env_utils \
 				  builtins/echo/echo_trim_n \
@@ -45,8 +46,8 @@ PARSER			= parser/parser \
 				  parser/create_cmd_table \
 
 EXPANDER		= expander/expander \
-				  expander/new \
 				  expander/extra_utils \
+				  expander/expand_tokens \
 				  expander/expander_utils \
 
 EXECUTOR		= executor/open/open \

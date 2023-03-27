@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_only_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:11:27 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 14:49:55 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:14:52 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	has_heredoc_and_wrong_redir(t_token *token)
 	return (false);
 }
 
-void	run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shll)
+void	run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *sh)
 {
 	t_token	*token;
 
@@ -57,7 +57,7 @@ void	run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shll)
 			if (is_redirection(token) && is_redirection(token->next))
 				return ;
 			if (token->type == HEREDOC)
-				start->heredoc_name = heredoc(start, token->next->content, shll);
+				start->heredoc_name = heredoc(start, token->next->content, sh);
 			token = token->next;
 		}
 		start = start->next;

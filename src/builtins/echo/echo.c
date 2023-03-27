@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:59:01 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 12:48:21 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:21:58 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	echo(t_shell *shell, char *cmd, char **args)
 {
 	int		i;
-	char	*trim;
 
 	if (shell->print == TRUE)
 	{
 		if (ft_strcmp(cmd, "echo") == TRUE && args[1] == NULL)
-				write(1, "\n", 1);
-		else if (ft_strcmp(cmd, "echo") == TRUE && is_flag_valid(args[1]) == TRUE)
+			write(1, "\n", 1);
+		else if (ft_strcmp(cmd, "echo") == TRUE
+			&& is_flag_valid(args[1]) == TRUE)
 		{
 			i = echo_n_flag_validator(args);
 			if (i == TRUE)
@@ -36,12 +36,7 @@ void	echo(t_shell *shell, char *cmd, char **args)
 			}
 		}
 		else
-		{
-			trim = trim_echo(shell->trimmed_prompt, " ", 5);
-			print_without_quotes(trim);
-			free(trim);
-			write(1, "\n", 1);
-		}
+			simple_echo(shell);
 	}
 }
 
@@ -111,4 +106,14 @@ void	print_without_quotes(char *str)
 				write(1, &str[i], 1);
 		i++;
 	}
+}
+
+void	simple_echo(t_shell *shell)
+{
+	char	*trim;
+
+	trim = trim_echo(shell->trimmed_prompt, " ", 5);
+	print_without_quotes(trim);
+	free(trim);
+	write(1, "\n", 1);
 }

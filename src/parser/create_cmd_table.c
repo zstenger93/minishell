@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd_table.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:29:18 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/27 12:30:09 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:10:16 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ void	init_cmd_args(t_cmd_tbl *tables)
 {
 	while (tables != NULL)
 	{
-		tables->cmd_args = get_cmd_args_from_token(tables->cmd,
-			tables->args);
+		tables->cmd_args = get_cmd_args_from_token(tables->cmd, tables->args);
 		tables = tables->next;
 	}
-	
 }
