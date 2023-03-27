@@ -45,6 +45,7 @@ PARSER			= parser/parser \
 				  parser/create_cmd_table \
 
 EXPANDER		= expander/expander \
+				  expander/new \
 				  expander/extra_utils \
 				  expander/expander_utils \
 

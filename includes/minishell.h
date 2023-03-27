@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 11:32:00 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/27 12:30:02 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ int			count_pipes(char *str);
 int			skip_quotes(char *str, int index);
 char		**split_with_pipes(char *str, int start, int end, int index);
 	//COMMAND TABLE
-t_cmd_tbl	*create_cmd_table(char **str_arr);
+t_cmd_tbl	*create_cmd_table(char **str_arr, t_shell *shell);
 t_token		*split_elements_to_tokens(char *str, t_token *token);
 	//INIT TABLE
 t_token		*assign_cmd(t_cmd_tbl *cmd_tbl, t_token *token);
@@ -338,5 +338,8 @@ void		free_cmd_tbls(t_cmd_tbl *cmd_tbls);
 void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
+
+
+void	expand_tables(t_cmd_tbl *tables, t_shell *shell);
 
 #endif
