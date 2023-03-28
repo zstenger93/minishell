@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 22:47:23 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 18:03:22 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 08:51:04 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,8 @@ char	*heredoc(t_cmd_tbl *cmd_tbl, char *stop_word, t_shell *shell)
 		free(input_line);
 		write(2, "> ", 2);
 	}
-	close(fd);
 	shell->should_expand = FALSE;
-	return (cmd_tbl->heredoc_name);
+	return (close(fd), cmd_tbl->heredoc_name);
 }
 
 char	*filename(t_cmd_tbl *table)

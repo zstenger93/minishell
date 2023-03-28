@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:54:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 17:51:07 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 09:11:30 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	pipe_child_process(t_cmd_tbl *table, t_shell *shell)
 		execute_command(table, shell);
 	}
 	shell->print = FALSE;
+	waitpid_to_get_exit_status(pid, shell, &status);
 	builtins(shell, table->cmd, table->cmd_args);
-	waitpid(pid, &status, 0);
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);

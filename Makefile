@@ -27,7 +27,6 @@ BUILTINS		= builtins/cd/cd \
 				  builtins/cd/cd_options \
 				  builtins/export/export \
 				  builtins/env/env_utils \
-				  builtins/echo/echo_trim_n \
 				  builtins/export/export_utils \
 
 INIT 			= init/init \
@@ -58,6 +57,7 @@ EXECUTOR		= executor/open/open \
 				  executor/pipe_handling/pipe \
 				  executor/execute/execute_cmd \
 				  executor/heredoc/open_heredoc \
+				  executor/execute/execute_utils \
 				  executor/redirections/wrong_redirs \
 				  executor/redirections/handle_redirs \
 				  executor/execute/execute_without_pipes \

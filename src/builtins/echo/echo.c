@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:59:01 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 17:52:49 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 09:16:40 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,13 @@ bool	is_flag_valid(char *arg)
 	return (FALSE);
 }
 
+void	simple_echo(t_shell *shell, char **args)
+{
+	print_without_quotes(args[1]);
+	write(1, "\n", 1);
+}
+
+//MAYBE IMPROVE THIS BEAUTY OVER HERE
 void	print_without_quotes(char *str)
 {
 	int	i;
@@ -106,10 +113,4 @@ void	print_without_quotes(char *str)
 				write(1, &str[i], 1);
 		i++;
 	}
-}
-
-void	simple_echo(t_shell *shell, char **args)
-{
-	print_without_quotes(args[1]);
-	write(1, "\n", 1);
 }

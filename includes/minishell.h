@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 20:18:21 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 09:18:50 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,6 @@ void		print_without_quotes(char *str);
 int			echo_n_flag_validator(char **args);
 void		simple_echo(t_shell *shell, char **args);
 void		echo(t_shell *shell, char *cmd, char **args);
-char		*trim_echo(char const *s1, char const *set, size_t start);
 
 //INITIALIZE
 char		*extract_user(t_shell *shell);
@@ -276,13 +275,10 @@ void		copy_dollar_from_string(char **dst, char **s, int index);
 void		extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest);
 
 //EXECUTOR
-void		child_exit(t_shell *shell);
 int			table_size(t_cmd_tbl *table);
-void		close_and_dup(t_shell *shell);
 void		execute(t_shell *shell, t_cmd_tbl *table);
 void		exec_without_pipes(t_cmd_tbl *table, t_shell *shell);
 	//EXECUTE CMD
-void		clear_and_exit(t_shell *shell, char *cmd_path);
 void		execute_command(t_cmd_tbl *table, t_shell *shell);
 	//COMMAND HANDLING
 char		*extract_path(t_shell *shell, char *command);
@@ -313,11 +309,16 @@ bool		tables_have_wrong_redir(t_cmd_tbl *table, t_shell *shell);
 void		run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shll);
 		//EXEC PIPES
 bool		pipe_has_redirs(t_token *token);
-char		**copy_2d_char_array(char **array);
 void		exec_pipes(t_cmd_tbl *table, t_shell *shell);
 void		exec_last_pipe(t_cmd_tbl *table, t_shell *shell);
 void		pipe_child_process(t_cmd_tbl *table, t_shell *shell);
 void		final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell);
+	//EXEC UTILS
+void		child_exit(t_shell *shell);
+void		close_and_dup(t_shell *shell);
+char		**copy_2d_char_array(char **array);
+void		clear_and_exit(t_shell *shell, char *cmd_path);
+void		waitpid_to_get_exit_status(pid_t pid, t_shell *shell, int *status);
 
 //GENERAL UTILS
 int			ft_isupper(char c);

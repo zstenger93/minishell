@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:08:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 16:20:39 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 08:45:59 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ void	free_at_exit(t_shell *shell)
 	if (shell->print == FALSE)
 		printf("exit\n");
 	if (shell->trimmed_prompt != NULL)
-		free(shell->trimmed_prompt);
+		free_cmd_tbls(shell->cmd_tbls);
 	free_char_array(shell->cmd_paths);
 	free(shell->terminal_prompt);
+	free(shell->trimmed_prompt);
+	free_char_array(shell->env);
 	free_env(shell->env_head);
 	free(shell->prev_prompt);
 	free(shell->heredoc);
 	free(shell->prompt);
-	free_cmd_tbls(shell->cmd_tbls);
-	free_char_array(shell->env);
 	rl_clear_history();
 }
 
@@ -83,14 +83,14 @@ void	free_at_child(t_shell *shell)
 	t_token	*token;
 
 	if (shell->trimmed_prompt != NULL)
-		free(shell->trimmed_prompt);
+		free_cmd_tbls(shell->cmd_tbls);
 	free_char_array(shell->cmd_paths);
 	free(shell->terminal_prompt);
+	free_char_array(shell->env);
+	free(shell->trimmed_prompt);
 	free_env(shell->env_head);
 	free(shell->prev_prompt);
 	free(shell->heredoc);
 	free(shell->prompt);
-	free_char_array(shell->env);
-	free_cmd_tbls(shell->cmd_tbls);
 	rl_clear_history();
 }

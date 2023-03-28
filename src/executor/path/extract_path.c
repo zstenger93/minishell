@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:34:21 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 19:12:55 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 08:48:57 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,24 @@ char	*extract_path(t_shell *shell, char *command)
 	char	*path;
 	char	*slash_cmd;
 
-	if (shell->cmd_paths == NULL)
-		invalid_command(shell, command);
-	else
+	i = 0;
+	while (shell->cmd_paths[i] != NULL)
 	{
-		i = 0;
-		while (shell->cmd_paths[i] != NULL)
+		slash_cmd = ft_nm_strjoin("/", command);
+		path = ft_nm_strjoin(shell->cmd_paths[i], slash_cmd);
+		free(slash_cmd);
+		if (path == NULL)
 		{
-			slash_cmd = ft_nm_strjoin("/", command);
-			path = ft_nm_strjoin(shell->cmd_paths[i], slash_cmd);
-			free(slash_cmd);
-			if (path == NULL)
-			{
-				free(path);
-				return (invalid_command(shell, command), NULL);
-			}
-			else if (access(path, X_OK) == 0)
-				return (path);
 			free(path);
-			i++;
+			return (invalid_command(shell, command), NULL);
 		}
+		else if (access(path, X_OK) == 0)
+			return (path);
+		free(path);
+		i++;
 	}
+	if (shell->cmd_paths[0] == NULL)
+		invalid_command(shell, command);
 	return (NULL);
 }
 
