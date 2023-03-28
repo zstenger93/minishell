@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:29:18 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/27 14:10:16 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:22:50 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_cmd_tbl	*create_cmd_table(char **str_arr, t_shell *shell)
 		free_tokens(token);
 	}
 	expand_tables(cmd_tbls, shell);
+	rm_quotes_tables(cmd_tbls, shell);
 	init_cmd_args(cmd_tbls);
 	return (cmd_tbls);
 }

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:38:18 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 12:51:26 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:43:47 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ void	pwd(t_shell *shell, char **args)
 {
 	t_env	*curr;
 
-	if (args[1] != NULL)
-	{
-		p_err("pwd: %s\n", TMA);
-		return ;
-	}
 	curr = shell->env_head;
 	if (find_env_var(shell->env_head, "PWD") == NULL)
 	{

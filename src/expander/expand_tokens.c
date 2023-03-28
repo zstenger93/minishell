@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:27:32 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/27 14:07:29 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:25:04 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	expand_tables(t_cmd_tbl *tables, t_shell *shell)
 	while (tables != NULL)
 	{
 		cmd = NULL;
-		cmd = get_right_cmd(tables, shell);
+		cmd = expand_cmd(tables, shell);
 		if (strcmp_2(cmd, "awk") == FALSE)
 			expand_table(tables, shell);
 		tables = tables->next;
@@ -27,7 +27,7 @@ void	expand_tables(t_cmd_tbl *tables, t_shell *shell)
 	}
 }
 
-char	*get_right_cmd(t_cmd_tbl *table, t_shell *shell)
+char	*expand_cmd(t_cmd_tbl *table, t_shell *shell)
 {
 	char	*result;
 	int		i;

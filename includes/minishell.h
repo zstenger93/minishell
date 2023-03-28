@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 09:18:50 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:02:07 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,11 @@ int			count_pipes(char *str);
 int			skip_quotes(char *str, int index);
 char		**split_with_pipes(char *str, int start, int end, int index);
 	//COMMAND TABLE
+char		*rm_quotes(char *str);
+void		rm_quotes_table(t_cmd_tbl *table, t_shell *shell);
+void		rm_quotes_tokens(t_token *tokens, t_shell *shell);
 t_cmd_tbl	*create_cmd_table(char **str_arr, t_shell *shell);
+void		rm_quotes_tables(t_cmd_tbl *table, t_shell *shell);
 t_token		*split_elements_to_tokens(char *str, t_token *token);
 	//INIT TABLE
 t_token		*assign_cmd(t_cmd_tbl *cmd_tbl, t_token *token);
@@ -266,7 +270,7 @@ bool		expander(char **str, t_shell *shell);
 bool		has_dollar(char *str, t_shell *shell);
 void		expand_table(t_cmd_tbl *table, t_shell *shell);
 void		expand_tokens(t_token *tokens, t_shell *shell);
-char		*get_right_cmd(t_cmd_tbl *table, t_shell *shell);
+char		*expand_cmd(t_cmd_tbl *table, t_shell *shell);
 void		expand_tables(t_cmd_tbl *tables, t_shell *shell);
 char		*replace_variable(char *variable, t_shell *shell);
 char		*expand_dollars(char *doll_to_exp, t_shell *shell);

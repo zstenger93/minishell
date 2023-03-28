@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 19:39:21 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:28:06 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,15 @@ int	*read_line(t_shell *shell)
 {
 	shell->exec_on_pipe = FALSE;
 	shell->should_execute = FALSE;
-	shell->prompt = readline(shell->terminal_prompt);
+	if (isatty(fileno(stdin)))
+		shell->prompt = readline(shell->terminal_prompt);
+	else
+	{
+		char *line;
+		line = get_next_line(fileno(stdin));
+		shell->prompt = ft_strtrim(line, "\n");
+		free(line);
+	}
 	shell->trimmed_prompt = ft_strtrim(shell->prompt, SPACES);
 	if (shell->prompt == NULL)
 		return (NULL);

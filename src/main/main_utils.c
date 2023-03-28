@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 11:21:18 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/09 08:09:25 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:42:13 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	ft_print_2d_char_array(char **array_2d)
 {
 	int	i;
 
+	if (array_2d == NULL)
+		return ;
 	i = 0;
 	while (array_2d[i] != NULL)
 		printf("%s\n", array_2d[i++]);
