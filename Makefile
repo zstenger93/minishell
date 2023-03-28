@@ -86,48 +86,52 @@ INCL_RDL_HEADER	= -I /Users/$(USER)/.brew/opt/readline/include
 INCL_RDL_LIB	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 endif
 
-# brew_check: \
-#     @if [ -d $(BREW) ]; then \
-#         echo "Homebrew is already installed in $(BREW)"; \
-#     else \
-#         { \
-#             echo "Installing Homebrew..."; \
-#             curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh; \
-#         }; \
-#     fi
-# 	@$(MAKE) readline_check
+BREW			= /Users/$(USER)/.brew/bin
+READLINE		= /Users/$(USER)/.brew/opt/readline/include/readline
 
-# brew_check:
-# 	@test -d $(BREW) echo "brew exist" || curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
-	
+brew_check:
+	@if [ -d $(BREW) ]; then \
+		echo "$(GREEN)BREW is already installed in $(BREW)$(DEF_COLOR)"; \
+	else \
+		{ \
+			echo "$(YELLOW)Installing Homebrew...$(DEF_COLOR)"; \
+			curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh; \
+		}; \
+	fi
+	@$(MAKE) readline_check
 
-# readline_check:
-# 	@test -d $(READLINE) echo "readline exist" || $(INSTALL_READL);
-# 	@$(MAKE) all
+readline_check:
+	@if [ -d $(READLINE) ]; then \
+		echo "$(GREEN)READLINE is already installed in $(READLINE)$(DEF_COLOR)"; \
+	else \
+		{ \
+			echo "$(YELLOW)Installing Homebrew..."$(DEF_COLOR); \
+			$(INSTALL_READL) \
+		}; \
+	fi
+	@$(MAKE) all
 
-# BREW			= /Users/$(USER)/.brew/bin
-# READLINE		= /Users/$(USER)/.brew/opt/readline/include/readline
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
 	@echo ""
-# @echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
+	@echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)
 	@$(CC) $(CFLAGS) $(OBJ) $(INCL_RDL_LIB) $(LIBFT) -lreadline -o minishell $(DN)
 	@cd obj/general_utils && touch user.txt && echo $$USER > user.txt
-# @echo "$(PURPLE)                       $(NAME) $(DEF_COLOR)$(GREEN)Compiling done.$(DEF_COLOR)"
-# @echo ""
-# @echo "$(RED) ████▒░▒████▒░██▒░███▒░  █▒░██▒░ ████▒░ ██▒░░▒██▒░██████▒░██▒░    ██▒░"
-# @echo " ██▒██▒██▒██▒░██▒░█▒██▒░ █▒░██▒░█▒░ ██▒░██▒░░▒██▒░██▒░    ██▒░    ██▒░"
-# @echo " ██▒░███▒░██▒░██▒░█▒░██▒░█▒░██▒░  ██▒░  ████████▒░████▒░  ██▒░    ██▒░"
-# @echo " ██▒░░█▒░ ██▒░██▒░█▒░ ██▒█▒░██▒░██▒░ █▒░██▒░░▒██▒░██▒░    ██▒░    ██▒░"
-# @echo " ██▒░░░   ██▒░██▒░█▒░  ███▒░██▒░ ████▒░ ██▒░░▒██▒░██████▒░██████▒░██████▒░"
-# @echo " ▓▓▒░░     ▓░▒▓▓▒░    ░▒▓▓▒░▓▒░ ░▒▓▓▒░   ▓▒░░▒▓▒░░▒▓▓▒░░░░░░▒▓▓▒░░░▒▓▓▒░"
-# @echo " ▓▒░░       ░▒▓▒░     ░▒▓▒░      ░▒▓     ▒░   ▒░  ░▒▓▒░   ░░▒▓▒░  ░░▒▓▒░"
-# @echo " ▒░░          ▒░        ▒░        ░░     ░    ░    ░▒░     ░▒▒░    ░▒▒░"
-# @echo " ░░           ░         ░          ░                ░       ░░      ░░"
-# @echo " ░                                                           ░       ░ $(DEF_COLOR)"
+	@echo "$(PURPLE)                       $(NAME) $(DEF_COLOR)$(GREEN)Compiling done.$(DEF_COLOR)"
+	@echo ""
+	@echo "$(RED) ████▒░▒████▒░██▒░███▒░  █▒░██▒░ ████▒░ ██▒░░▒██▒░██████▒░██▒░    ██▒░"
+	@echo " ██▒██▒██▒██▒░██▒░█▒██▒░ █▒░██▒░█▒░ ██▒░██▒░░▒██▒░██▒░    ██▒░    ██▒░"
+	@echo " ██▒░███▒░██▒░██▒░█▒░██▒░█▒░██▒░  ██▒░  ████████▒░████▒░  ██▒░    ██▒░"
+	@echo " ██▒░░█▒░ ██▒░██▒░█▒░ ██▒█▒░██▒░██▒░ █▒░██▒░░▒██▒░██▒░    ██▒░    ██▒░"
+	@echo " ██▒░░░   ██▒░██▒░█▒░  ███▒░██▒░ ████▒░ ██▒░░▒██▒░██████▒░██████▒░██████▒░"
+	@echo " ▓▓▒░░     ▓░▒▓▓▒░    ░▒▓▓▒░▓▒░ ░▒▓▓▒░   ▓▒░░▒▓▒░░▒▓▓▒░░░░░░▒▓▓▒░░░▒▓▓▒░"
+	@echo " ▓▒░░       ░▒▓▒░     ░▒▓▒░      ░▒▓     ▒░   ▒░  ░▒▓▒░   ░░▒▓▒░  ░░▒▓▒░"
+	@echo " ▒░░          ▒░        ▒░        ░░     ░    ░    ░▒░     ░▒▒░    ░▒▒░"
+	@echo " ░░           ░         ░          ░                ░       ░░      ░░"
+	@echo " ░                                                           ░       ░ $(DEF_COLOR)"
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(@D)
@@ -161,7 +165,7 @@ fclean:
 re: fclean all
 	@echo "$(RED)Files have been cleaned and project has been rebuilt!$(DEF_COLOR)"
 
-run: all
+run: brew_check
 	clear
 	@./$(NAME)
 
