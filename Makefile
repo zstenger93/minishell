@@ -89,6 +89,10 @@ endif
 BREW			= /Users/$(USER)/.brew/bin
 READLINE		= /Users/$(USER)/.brew/opt/readline/include/readline
 
+run: brew_check
+	clear
+	@./$(NAME)
+
 brew_check:
 	@if [ -d $(BREW) ]; then \
 		echo "$(GREEN)BREW is already installed in $(BREW)$(DEF_COLOR)"; \
@@ -164,10 +168,6 @@ fclean:
 
 re: fclean all
 	@echo "$(RED)Files have been cleaned and project has been rebuilt!$(DEF_COLOR)"
-
-run: brew_check
-	clear
-	@./$(NAME)
 
 r:
 	@./$(NAME)
