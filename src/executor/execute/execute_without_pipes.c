@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 15:43:25 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 09:09:29 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/28 11:29:25 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	exec_without_pipes(t_cmd_tbl *table, t_shell *shell)
 		child_exit(shell);
 	}
 	shell->print = FALSE;
-	// printf("%d\n", shell->exit_code);
 	waitpid_to_get_exit_status(pid, shell, &status);
-	// printf("%d\n", shell->exit_code);
 	builtins(shell, table->cmd, table->cmd_args);
 	if (has_wrong_redir(shell, table->redirs, table) == false)
 		close_and_dup(shell);

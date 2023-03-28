@@ -7,7 +7,8 @@ DN				= > /dev/null
 LIBFT			= libft/libft.a
 OS				= $(shell uname)
 USER			= $(shell whoami)
-FLAGS			= -Wall -Werror -Wextra
+CFLAGS			= -Wall -Werror -Wextra
+INSTALL_READL	= $(shell brew install readline)
 
 #DELETE THE PRINT FUNCTIONS FILE
 MAIN			= main/prompt \
@@ -85,7 +86,27 @@ INCL_RDL_HEADER	= -I /Users/$(USER)/.brew/opt/readline/include
 INCL_RDL_LIB	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 endif
 
-# curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+# brew_check: \
+#     @if [ -d $(BREW) ]; then \
+#         echo "Homebrew is already installed in $(BREW)"; \
+#     else \
+#         { \
+#             echo "Installing Homebrew..."; \
+#             curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh; \
+#         }; \
+#     fi
+# 	@$(MAKE) readline_check
+
+# brew_check:
+# 	@test -d $(BREW) echo "brew exist" || curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+	
+
+# readline_check:
+# 	@test -d $(READLINE) echo "readline exist" || $(INSTALL_READL);
+# 	@$(MAKE) all
+
+# BREW			= /Users/$(USER)/.brew/bin
+# READLINE		= /Users/$(USER)/.brew/opt/readline/include/readline
 
 all: $(NAME)
 
@@ -93,7 +114,7 @@ $(NAME): $(LIBFT) $(OBJ)
 	@echo ""
 # @echo "$(YELLOW)  Compiling: $(DEF_COLOR)$(PURPLE)$(NAME) Mandatory Part By:$(DEF_COLOR) $(RED)Mr. Minishell Community$(DEF_COLOR)"
 	@echo "$(CYAN2)" $(DN)
-	@$(CC) $(FLAGS) $(OBJ) $(INCL_RDL_LIB) $(LIBFT) -lreadline -o minishell $(DN)
+	@$(CC) $(CFLAGS) $(OBJ) $(INCL_RDL_LIB) $(LIBFT) -lreadline -o minishell $(DN)
 	@cd obj/general_utils && touch user.txt && echo $$USER > user.txt
 # @echo "$(PURPLE)                       $(NAME) $(DEF_COLOR)$(GREEN)Compiling done.$(DEF_COLOR)"
 # @echo ""
@@ -148,7 +169,16 @@ r:
 	@./$(NAME)
 
 v:
+	valgrind ./minishell
+
+vm:
 	valgrind --read-var-info=yes --leak-check=full --track-origins=yes ./minishell
+
+vf:
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --error-limit=no --tool=memcheck ./minishell
+
+ne:
+	env -i ./minishell
 
 DEF_COLOR = \033[0;39m
 CYAN3 = \033[1;4;96m
@@ -160,4 +190,4 @@ GREEN = \033[4;92m
 CYAN2 = \x1B[1;36m
 CYAN = \033[1;96m
 
-.PHONY: all clean fclean re run r v
+.PHONY: brew_check readline_check all clean fclean re run r v vm vf ne
