@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 09:22:15 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:56:42 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,19 @@ void	exit_shell(t_shell *shell, char *cmd, char **args)
 		if (ft_strcmp(cmd, "exit") == TRUE && args[1] == NULL)
 		{
 			free_at_exit(shell);
-			exit(shell->exit_code);
+			exit(0);
+		}
+		if (ft_strcmp(cmd, "exit") == TRUE && ft_strlen(args[1]) == 0)
+		{
+			if (shell->print == TRUE)
+				p_err("%s%s: %s\n", SHELL, cmd, TMA);
+			free_at_exit(shell);
+			exit(255);
 		}
 		else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL
 			&& args[1] != NULL)
 			exit_code(shell, args);
-		else
+		else if (shell->print == TRUE)
 		{
 			p_err("%s%s: %s\n", SHELL, cmd, TMA);
 			return ;
