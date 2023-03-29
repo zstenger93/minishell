@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 20:02:07 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:38:30 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,9 @@ void		export(t_shell *shell, char *cmd, char **args);
 void		export_new_variables(t_shell *shell, char **args);
 void		replace_var_content(t_shell *shell, char *str, char *var);
 
+bool	is_valid_export(t_shell *shell, char *args, int i);
+void	do_not_export(t_shell *shell, char **args, int i);
+
 //BUILTIN UNSET
 void		free_env_var(t_env *env);
 void		delete_env_var(t_env *head, t_env *del);
@@ -173,6 +176,7 @@ void		pwd(t_shell *shell, char **args);
 //BUILTIN EXIT
 void		exit_code(t_shell *shell, char **args);
 void		exit_code_on_pipe(t_shell *shell, char **args);
+bool		is_exit_code_correct(t_shell *shell, char *args);
 void		exit_shell(t_shell *shell, char *cmd, char **args);
 
 //BUILTIN CD
@@ -230,6 +234,7 @@ int			skip_quotes(char *str, int index);
 char		**split_with_pipes(char *str, int start, int end, int index);
 	//COMMAND TABLE
 char		*rm_quotes(char *str);
+void		cmd_to_lover_case(t_cmd_tbl *table);
 void		rm_quotes_table(t_cmd_tbl *table, t_shell *shell);
 void		rm_quotes_tokens(t_token *tokens, t_shell *shell);
 t_cmd_tbl	*create_cmd_table(char **str_arr, t_shell *shell);
@@ -288,6 +293,7 @@ void		execute_command(t_cmd_tbl *table, t_shell *shell);
 char		*extract_path(t_shell *shell, char *command);
 void		invalid_command(t_shell *shell, char *command);
 	//PATH CHECK
+bool		is_a_directory(t_shell *shell, char *cmd);
 int			path_check(char *cmd_path, t_shell *shell);
 int			no_such_file_or_folder(char *command, t_shell *shell);
 	//HANDLE REDIRECTIONS
@@ -321,7 +327,7 @@ void		final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell);
 void		child_exit(t_shell *shell);
 void		close_and_dup(t_shell *shell);
 char		**copy_2d_char_array(char **array);
-void		clear_and_exit(t_shell *shell, char *cmd_path);
+void		clear_and_exit(t_shell *shell, char *cmd_path, t_cmd_tbl *table);
 void		waitpid_to_get_exit_status(pid_t pid, t_shell *shell, int *status);
 
 //GENERAL UTILS

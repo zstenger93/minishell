@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:44:49 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 17:06:28 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:01:40 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,24 @@ void	rm_quotes_tables(t_cmd_tbl *tables, t_shell *shell)// not all cmds can be u
 		tmp = rm_quotes(tables->cmd);
 		free(tables->cmd);
 		tables->cmd = tmp;
-		convert_to_lower(tables->cmd, ft_strlen(tables->cmd));
+		cmd_to_lover_case(tables);
 		if (strcmp_2(tables->cmd, "echo") == FALSE)
 			rm_quotes_table(tables, shell);
 		tables = tables->next;
 	}
+}
+
+void	cmd_to_lover_case(t_cmd_tbl *table)
+{
+	char	*result;
+
+	result = ft_strdup(table->cmd);
+	convert_to_lower(result, ft_strlen(result));
+	if (strcmp_2(result, "echo") ||
+		strcmp_2(result, "pwd") ||
+		strcmp_2(result, "env"))
+		convert_to_lower(table->cmd, ft_strlen(table->cmd));
+	free(result);
 }
 
 char	*rm_quotes(char *str)

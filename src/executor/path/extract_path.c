@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:34:21 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 08:48:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:25:56 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*extract_path(t_shell *shell, char *command)
 	char	*path;
 	char	*slash_cmd;
 
+	if (ft_strlen(command) == 0)
+		return (NULL);
 	i = 0;
 	while (shell->cmd_paths[i] != NULL)
 	{

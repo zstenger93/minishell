@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:20:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 14:20:29 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 08:25:22 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,16 @@ void	cd_home(t_shell *shell)
 void	cd_oldpwd(t_shell *shell)
 {
 	t_env	*old_pwd;
+	t_env	*curr_pwd;
 
 	if (shell->prev_prompt == NULL)
 	{
-		write(1, "", 1);
+		if (shell->print == TRUE)
+		{
+			curr_pwd = find_env_var(shell->env_head, "PWD");
+			printf("%s\n", curr_pwd->content);
+			return ;
+		}
 		return ;
 	}
 	old_pwd = find_env_var(shell->env_head, "OLDPWD");
@@ -65,11 +71,11 @@ void	cd_oldpwd(t_shell *shell)
 		shell->exit_code = 1;
 		p_err("%scd: %s: %s\n", SHELL, "OLDPWD", strerror(errno));
 	}
-	if (old_pwd->content == NULL)
+	else if (old_pwd->content == NULL)
 		printf("\n");
 	else if (chdir(old_pwd->content) == -1)
 		p_err("%scd: %s: %s\n", SHELL, old_pwd->content, strerror(errno));
-	if (shell->print == TRUE)
+	else if (shell->print == TRUE)
 		printf("%s\n", old_pwd->content);
 }
 

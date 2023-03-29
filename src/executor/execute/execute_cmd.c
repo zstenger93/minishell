@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:34:04 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 09:09:01 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:36:49 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	execute_command(t_cmd_tbl *table, t_shell *shell)
 	{
 		cmd_path = extract_path(shell, table->cmd);
 		if (cmd_path == NULL)
-			clear_and_exit(shell, cmd_path);
+			clear_and_exit(shell, cmd_path, table);
 		else if (access(cmd_path, X_OK) == 0)
 			final_exec(cmd_path, table, shell);
 	}
@@ -41,6 +41,8 @@ void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell)
 	char	**env;
 	int		exit_code;
 
+	if (is_a_directory(shell, table->cmd) == TRUE)
+		child_exit(shell);
 	exit_code = shell->exit_code;
 	shell->cmd_has_been_executed = 1;
 	cmd_args = copy_2d_char_array(table->cmd_args);
@@ -54,4 +56,20 @@ void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell)
 		free_char_array(env);
 		exit(exit_code);
 	}
+}
+
+bool	is_a_directory(t_shell *shell, char *cmd)
+{
+	int	i;
+	int	len;
+	i = 0;
+	len = ft_strlen(cmd);
+
+	if (cmd[0] == '/' && cmd[len - 1] == '/')
+	{
+		p_err("%s%s: %s\n", SHELL, cmd, ISDIR);
+		shell->exit_code = 126;
+		return (TRUE);
+	}
+	return (FALSE);
 }

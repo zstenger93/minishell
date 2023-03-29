@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 14:16:09 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 09:22:15 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	exit_shell(t_shell *shell, char *cmd, char **args)
 			exit_code(shell, args);
 		else
 		{
-			p_err("exit: %s\n", TMA);
+			p_err("%s%s: %s\n", SHELL, cmd, TMA);
 			return ;
 		}
 	}
@@ -40,22 +40,51 @@ void	exit_code(t_shell *shell, char **args)
 	int		i;
 	int		len;
 	int		code;
-	char	*code_str;
 
 	i = 5;
 	len = ft_strlen(args[1]);
-	code_str = (char *)malloc(sizeof(char) * (len + 1));
-	if (code_str == NULL)
+	if (is_exit_code_correct(shell, args[1]))
+		code = shell->exit_code;
+	else
 	{
-		p_err("%s%s\n", SHELL, MALLOC_FAIL);
+		code = 255;
+		p_err("%s%s: %s", SHELL, args[0], NAR);
 		free_at_exit(shell);
-		exit(EXIT_FAILURE);
+		exit(code);
 	}
-	strcpy(code_str, args[1]);
-	code = ft_atoi(code_str);
+	code = shell->exit_code;
 	free_at_exit(shell);
-	free(code_str);
 	exit(code);
+}
+
+bool	is_exit_code_correct(t_shell *shell, char *args)
+{
+	int	result;
+	int	sign;
+	int	i;
+
+	i = 0;
+	result = 0;
+	if (args[0] == '+')
+		i = 1;
+	if (args[0] == '-')
+	{
+		i = 1;
+		sign = -1;
+	}
+	while (args[i] != '\0')
+	{
+		if (args[i] < '0' || args[i] > '9')
+			return (FALSE);
+		result = (result * 10) + (args[i] - '0');
+		if (result > 255)
+			result %= 256;
+		i++;
+	}
+	if (sign == -1)
+		result = 256 - result;
+	shell->exit_code = result;
+	return (TRUE);
 }
 
 void	exit_code_on_pipe(t_shell *shell, char **args)

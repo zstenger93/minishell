@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:31:00 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 08:35:51 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 09:39:35 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	unset(t_shell *shell, char *cmd, char **args)
 {
-	if (ft_strcmp(cmd, "unset") == TRUE)
+	if (ft_strcmp(cmd, "unset") == TRUE && args[1] == NULL)
 		return ;
 	else
 		unset_all_vars(shell, args);
@@ -33,6 +33,12 @@ void	unset_all_vars(t_shell *shell, char **args)
 		{
 			delete_env_var(shell->env_head, env);
 			env = NULL;
+		}
+		else
+		{
+			shell->exit_code = 1;
+			if (shell->print == TRUE)
+				p_err("%s%s: `%s': %s\n", SHELL, args[0], args[i], NVI);
 		}
 		i++;
 	}

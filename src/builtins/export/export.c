@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:27:28 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 20:22:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 09:53:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,27 @@ void	export(t_shell *shell, char *cmd, char **args)
 		i = 0;
 		while (args[i] != NULL)
 		{
-			if (ft_pf_strchr(args[i], '=') != NULL)
+			if (is_valid_export(shell, args[i], i) == FALSE)
+				do_not_export(shell, args, i);
+			else if (ft_pf_strchr(args[i], '=') != NULL)
 				export_new_variables(shell, args);
 			i++;
 		}
 	}
+}
+
+bool	is_valid_export(t_shell *shell, char *args, int i)
+{
+	if (args[0] == '=' || ft_strlen(args) == 0)
+		return (false);
+	return (true);
+}
+
+void	do_not_export(t_shell *shell, char **args, int i)
+{
+	shell->exit_code = 1;
+	if (shell->print == TRUE)
+		p_err("%s%s: `%s': %s\n", SHELL, args[0], args[i], NVI);
 }
 
 void	export_new_variables(t_shell *shell, char **args)

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:54:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 09:11:30 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:49:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	exec_pipes(t_cmd_tbl *table, t_shell *shell)
 	pid = waitpid(0, &status, 0);
 	while (pid != -1)
 		pid = waitpid(0, &status, 0);
-	shell->exit_code = status;
 }
 
 void	pipe_child_process(t_cmd_tbl *table, t_shell *shell)
@@ -50,7 +49,6 @@ void	pipe_child_process(t_cmd_tbl *table, t_shell *shell)
 		execute_command(table, shell);
 	}
 	shell->print = FALSE;
-	waitpid_to_get_exit_status(pid, shell, &status);
 	builtins(shell, table->cmd, table->cmd_args);
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
@@ -75,6 +73,7 @@ void	exec_last_pipe(t_cmd_tbl *table, t_shell *shell)
 		handle_redirections(shell, table);
 		execute_command(table, shell);
 	}
+	waitpid_to_get_exit_status(pid, shell, &status);
 	dup2(shell->std_fds[0], STDIN_FILENO);
 	dup2(shell->std_fds[1], STDOUT_FILENO);
 	shell->print = FALSE;

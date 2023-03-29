@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:45:33 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 20:11:46 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:27:24 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,16 @@
 # define FORK_ERROR "fork faild, no child has been created, we used protection"
 # define UNAME_REMOVED "Username not found. Please stop f*ckin around."
 # define UFILE_DELETED "Open failed: Username cannot be extracted."
+# define PIPE_ERROR "pipe failed, the pipeline is broken"
 # define MALLOC_FAIL "memory allocation failed"
 # define CMD_NOT_FND "command not found"
 # define INVALID_CMD "command not found"
+# define NAR "numeric argument required"
+# define NVI "not a valid identifier"
 # define TMA "too many arguments"
-# define PIPE_ERROR "pipe failed, the pipeline is broken"
 # define HOMELESS "HOME not set"
 # define DNE "does not exist."
 # define PWNED "PWD not set"
+# define ISDIR "is a directory"
 
 #endif

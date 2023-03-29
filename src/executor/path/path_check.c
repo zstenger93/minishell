@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:27:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 07:25:31 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:34:44 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	path_check(char *cmd_path, t_shell *shell)
 {
 	if (cmd_path[0] == '.' || cmd_path[0] == '/')
 	{
+		if (cmd_path[0] == '.' && cmd_path[1] != '/')
+			return (invalid_command(shell, cmd_path), FALSE);
 		if (cmd_path[0] == '.')
 		{
 			if (cmd_path[0] == '.' && access(cmd_path, X_OK) == 0)
@@ -36,6 +38,6 @@ int	path_check(char *cmd_path, t_shell *shell)
 int	no_such_file_or_folder(char *command, t_shell *shell)
 {
 	p_err("%s%s: %s\n", SHELL, command, strerror(ENOENT));
-	shell->exit_code = 1;
+	shell->exit_code = 127;
 	return (FALSE);
 }

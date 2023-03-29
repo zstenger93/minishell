@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 08:40:41 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 08:43:54 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:13:41 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,15 @@ bool	builtins(t_shell *shell, char *cmd, char **args)
 	else if (ft_strcmp(cmd, "cd") == TRUE
 		&& shell->exec_on_pipe == FALSE)
 		return (cd(shell, cmd, args), TRUE);
-	else if ((convert_to_lower(cmd, 3) && ft_strcmp(cmd, "pwd") == TRUE)
-		&& shell->should_execute == TRUE)
+	else if (ft_strcmp(cmd, "pwd") == TRUE && shell->should_execute == TRUE)
 		return (pwd(shell, args), TRUE);
-	else if (convert_to_lower(cmd, 3) && ft_strcmp(cmd, "env") == TRUE
-		&& shell->should_execute == TRUE)
+	else if (ft_strcmp(cmd, "env") == TRUE && shell->should_execute == TRUE)
 		return (env(shell, args), TRUE);
 	else if (ft_strcmp(cmd, "exit") == TRUE)
 		return (exit_shell(shell, cmd, args), TRUE);
 	else if (ft_strcmp(cmd, "unset") == TRUE && shell->should_execute == TRUE)
 		return (unset(shell, cmd, args), TRUE);
-	else if (convert_to_lower(cmd, 4) && ft_strcmp(cmd, "echo") == TRUE
-		&& shell->should_execute == TRUE)
+	else if (ft_strcmp(cmd, "echo") == TRUE && shell->should_execute == TRUE)
 		return (call_echo(shell, cmd, args), TRUE);
 	return (FALSE);
 }
