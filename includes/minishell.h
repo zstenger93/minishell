@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 16:16:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:55:28 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ typedef struct s_cmd_tbl
 	char				*cmd;
 	t_token				*args;
 	struct s_cmd_tbl	*next;
+	int					index;
 	t_token				*redirs;
 	char				**cmd_args;
 	char				*heredoc_name;
-	int					index;
 }	t_cmd_tbl;
 
 typedef struct s_env
@@ -116,6 +116,7 @@ typedef struct s_shell
 	int			exec_on_pipe;
 	int			should_expand;
 	int			should_execute;
+	int			expand_heredoc;
 	char		*trimmed_prompt;
 	char		*terminal_prompt;
 	int			cmd_has_been_executed;
@@ -358,5 +359,8 @@ void		free_cmd_tbls(t_cmd_tbl *cmd_tbls);
 void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
+
+char	*stop_word(char *str, t_shell *shell);
+void	execute_only_heredocs(t_shell *shell, t_cmd_tbl *table, t_token *end);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 22:47:23 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 16:25:15 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:25:21 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,18 @@ bool	cmd_tbl_has_heredoc(t_cmd_tbl *cmd_tbl)
 void	execute_heredocs(t_cmd_tbl *cmd_tbl, t_shell *shell)
 {
 	t_token	*tk;
+	char	*tmp;
 
 	tk = cmd_tbl->redirs;
 	while (tk != NULL)
 	{
 		if (tk->type == HEREDOC)
+		{
+			tmp = stop_word(tk->next->content, shell);
+			free(tk->next->content);
+			tk->next->content = tmp;
 			cmd_tbl->heredoc_name = heredoc(cmd_tbl, tk->next->content, shell);
+		}
 		tk = tk->next;
 	}
 }
@@ -62,7 +68,7 @@ char	*heredoc(t_cmd_tbl *cmd_tbl, char *stop_word, t_shell *shell)
 	fd = open(cmd_tbl->heredoc_name, O_RDWR | O_CREAT | O_EXCL, 0600);
 	if (fd == -1)
 		p_err("%s%s\n", SHELL, strerror(errno));
-	write(2, "> ", 2);
+	write(0, "> ", 2);
 	while (1)
 	{
 		input_line = get_next_line(STDIN_FILENO);
@@ -73,10 +79,11 @@ char	*heredoc(t_cmd_tbl *cmd_tbl, char *stop_word, t_shell *shell)
 			break ;
 		}
 		shell->should_expand = TRUE;
-		expander(&input_line, shell);
+		if (shell->expand_heredoc == TRUE)
+			expander(&input_line, shell);
 		write(fd, input_line, ft_strlen(input_line));
 		free(input_line);
-		write(2, "> ", 2);
+		write(0, "> ", 2);
 	}
 	shell->should_expand = FALSE;
 	return (close(fd), cmd_tbl->heredoc_name);

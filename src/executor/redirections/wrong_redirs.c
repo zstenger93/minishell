@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 13:52:51 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/25 17:09:05 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:55:49 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,25 @@ bool	has_wrong_redir(t_shell *shell, t_token *token, t_cmd_tbl *table)
 	}
 	if (wrong == NULL)
 		return (false);
-	curr = token;
-	while (curr != wrong)
-	{
-		if (curr->type == HEREDOC)
-			heredoc(table, curr->next->content, shell);
-		curr = curr->next->next;
-	}
+	execute_only_heredocs(shell, table, wrong);
 	return (true);
+}
+
+void	execute_only_heredocs(t_shell *shell, t_cmd_tbl *table, t_token *end)
+{
+	t_token	*start;
+	char	*tmp;
+
+	start = table->redirs;
+	while (start != end && start != NULL)
+	{
+		if (start->type == HEREDOC)
+		{
+			tmp = stop_word(start->next->content, shell);
+			free(start->next->content);
+			start->next->content = tmp;
+			heredoc(table, start->next->content, shell);
+		}
+		start = start->next;
+	}
 }

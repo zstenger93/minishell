@@ -61,6 +61,7 @@ EXECUTOR		= executor/open/open \
 				  executor/execute/execute_cmd \
 				  executor/heredoc/open_heredoc \
 				  executor/execute/execute_utils \
+				  executor/heredoc/here_doc_utils \
 				  executor/redirections/wrong_redirs \
 				  executor/redirections/handle_redirs \
 				  executor/execute/execute_without_pipes \

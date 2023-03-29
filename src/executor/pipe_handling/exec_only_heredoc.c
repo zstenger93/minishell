@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:11:27 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 14:14:52 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:56:03 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ bool	has_heredoc_and_wrong_redir(t_token *token)
 void	run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *sh)
 {
 	t_token	*token;
+	char	*tmp;
 
 	while (start != last->next)
 	{
@@ -57,7 +58,12 @@ void	run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *sh)
 			if (is_redirection(token) && is_redirection(token->next))
 				return ;
 			if (token->type == HEREDOC)
+			{
+				tmp = stop_word(token->next->content, sh);
+				free(token->next->content);
+				token->next->content = tmp;
 				start->heredoc_name = heredoc(start, token->next->content, sh);
+			}
 			token = token->next;
 		}
 		start = start->next;

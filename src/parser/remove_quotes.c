@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:44:49 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 15:35:46 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:47:02 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ void	rm_quotes_tokens(t_token *tokens, t_shell *shell)
 
 	while (tokens != NULL)
 	{
+		if (tokens->type == HEREDOC)
+		{
+			tokens = tokens->next;
+			if (tokens != NULL)
+				tokens = tokens->next;
+			if (tokens == NULL)
+				return ;
+		}
 		tmp = rm_quotes(tokens->content);
 		free(tokens->content);
 		tokens->content = tmp;
