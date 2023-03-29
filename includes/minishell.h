@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 14:38:30 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:16:57 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 # include <signal.h>
 # include <limits.h>
 # include <termios.h>
+
 
 # define PIPE "|"
 # define OPERATORS "|><"
@@ -227,7 +228,9 @@ int			nb_esc_chars(char *str, int last_ind);
 char		*ft_strdup2(char *str, int start, int end);
 
 //PARSER
-void		parser(t_shell *shell);
+bool		parser(t_shell *shell);
+bool		table_check(t_cmd_tbl *tables);
+
 	//PIPE TOKENS
 int			count_pipes(char *str);
 int			skip_quotes(char *str, int index);

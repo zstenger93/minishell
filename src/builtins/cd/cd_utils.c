@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:44:38 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/08 19:38:43 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:38:47 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ bool	strcmp_2(char *str1, char *str2)
 	int		i;
 
 	i = 0;
+	if (str1 == NULL || str2 == NULL)
+		return (FALSE);
 	if (ft_strlen(str1) != ft_strlen(str2))
 		return (FALSE);
 	while (str1[i] != '\0' || str2[i] != '\0')

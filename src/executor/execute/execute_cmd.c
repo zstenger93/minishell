@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:34:04 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 14:36:49 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:23:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	execute_command(t_cmd_tbl *table, t_shell *shell)
 	char	*cmd_path;
 	int		exit_code;
 
+	if (table->cmd == NULL)
+		child_exit(shell);
 	if (builtins(shell, table->cmd, table->cmd_args) == TRUE)
 	{
 		exit_code = shell->exit_code;

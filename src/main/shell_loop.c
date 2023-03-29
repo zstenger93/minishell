@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 17:28:06 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:53:47 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ void	shell_loop(t_shell *shell)
 		if (read_line(shell) == NULL)
 			break ;
 		update_env(shell);
-		if (lexer(shell) == TRUE)
-		{
-			parser(shell);
+		if (lexer(shell) == TRUE && parser(shell) == TRUE)
 			execute(shell, shell->cmd_tbls);
-		}
 		addhistory(shell);
 	}
 }

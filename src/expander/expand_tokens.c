@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:27:32 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/28 16:25:04 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:30:18 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*expand_cmd(t_cmd_tbl *table, t_shell *shell)
 	int		i;
 
 	i = 0;
+	if (table->cmd == NULL)
+		return (NULL);
 	if (table->cmd[0] == '$')
 		expander(&table->cmd, shell);
 	result = ft_strdup(table->cmd);

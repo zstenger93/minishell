@@ -6,13 +6,13 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 16:58:17 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:00:52 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	parser(t_shell *shell)
+bool	parser(t_shell *shell)
 {
 	char	**tokens;
 	int		start;
@@ -25,6 +25,29 @@ void	parser(t_shell *shell)
 	tokens = split_with_pipes(shell->trimmed_prompt, start, end, index);
 	shell->cmd_tbls = create_cmd_table(tokens, shell);
 	free_char_array(tokens);
+	return (table_check(shell->cmd_tbls));
+}
+
+bool	table_check(t_cmd_tbl *tables)
+{
+	t_token	*token;
+	bool	result;
+
+	result = FALSE;
+	while (tables != NULL)
+	{
+		token = tables->redirs;
+		if (token == NULL)
+			result = TRUE;
+		while (token != NULL)
+		{
+			if (token->type == WORD)
+				return (TRUE);
+			token = token->next;
+		}
+		tables = tables->next;
+	}
+	return (result);
 }
 
 char	**split_with_pipes(char *str, int start, int end, int index)
