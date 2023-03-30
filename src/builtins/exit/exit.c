@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 19:56:42 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:04:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,16 @@ void	exit_shell(t_shell *shell, char *cmd, char **args)
 			exit_code(shell, args);
 		else if (shell->print == TRUE)
 		{
-			p_err("%s%s: %s\n", SHELL, cmd, TMA);
+			if (ft_isalpha(args[1][0]))
+			{
+				p_err("%s%s: %s\n", SHELL, args[1], NAR);
+				shell->exit_code = 255;
+			}
+			else
+			{
+				p_err("%s%s: %s\n", SHELL, cmd, TMA);
+				shell->exit_code = 1;
+			}
 			return ;
 		}
 	}

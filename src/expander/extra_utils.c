@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 02:47:04 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 11:25:21 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:50:52 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,24 @@
 
 bool	dont_expand(char *str, int i)
 {
-	int	sq;
-	int	dq;
+	int		j;
+	int		sq;
+	int		dq;
+	bool	go_back;
 
 	sq = 0;
 	dq = 0;
+	go_back = false;
 	if (i == 0)
 		return (FALSE);
-	if (str[i - 1] == SQUOTE)
+	j = i;
+	while (j != 0)
+	{
+		if (str[j] == SQUOTE || str[j] == DQUOTE)
+			go_back = true;
+		j--;
+	}
+	if (go_back == false)
 	{
 		while (i != -1)
 		{
@@ -31,14 +41,17 @@ bool	dont_expand(char *str, int i)
 				dq++;
 			i--;
 		}
+		if (sq == 1 && dq == 0)
+			return (TRUE);
+		else if (sq == 1 && dq == 1)
+			return (FALSE);
+		else if (sq == 2 && dq == 1)
+			return (FALSE);
+		else if (sq == 2 && dq == 2)
+			return (TRUE);
+		else if (sq == 4 && dq == 3)
+			return (TRUE);
 	}
-	if (sq == 1 && dq == 0)
-		return (TRUE);
-	else if (sq == 1 && dq == 1)
-		return (FALSE);
-	else if (sq == 2 && dq == 2)
-		return (TRUE);
-	else if (sq == 4 && dq == 3)
-		return (TRUE);
 	return (FALSE);
 }
+

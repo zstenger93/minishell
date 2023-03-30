@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:40:39 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 11:27:19 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:01:00 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	has_dollar(char *str, t_shell *shell)
 		else if (str[i] == '$' && ft_pf_strchr(SPACES, str[i + 1]) != NULL)
 		{
 			shell->cmd_has_been_executed = FALSE;
-			return (syntax_error(str[i]), FALSE);
+			return (FALSE);
 		}
 		else if (str[i] == '$'
 			&& ft_pf_strchr(SPACES, str[i + 1]) == NULL)

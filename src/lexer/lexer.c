@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:17:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 15:14:45 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:50:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,26 @@ int	lexer(t_shell *shell)
 {
 	if (ft_strlen(shell->trimmed_prompt) == 0)
 		return (FALSE);
-	if (shell->trimmed_prompt[0] == '|')
+	if (shell->trimmed_prompt[0] == DQUOTE
+		&& shell->trimmed_prompt[1] == DQUOTE
+		&& ft_strlen(shell->trimmed_prompt) == 2)
+	{
+		p_err("%s: %s\n", SHELL, CMD_NOT_FND);
+		shell->cmd_has_been_executed = FALSE;
+		shell->exit_code = 127;
+		return (FALSE);
+	}
+	else if (shell->trimmed_prompt[0] == '|')
 	{
 		shell->exit_code = 2;
 		return (syntax_error(shell->trimmed_prompt[0]), FALSE);
 	}
-	if (unclosed_quotes(shell->trimmed_prompt) == TRUE)
+	else if (unclosed_quotes(shell->trimmed_prompt) == TRUE)
 	{
 		shell->cmd_has_been_executed = FALSE;
 		return (FALSE);
 	}
-	if (wrong_operator_check(shell->trimmed_prompt) == TRUE)
+	else if (wrong_operator_check(shell->trimmed_prompt) == TRUE)
 	{
 		shell->exit_code = 2;
 		shell->cmd_has_been_executed = FALSE;

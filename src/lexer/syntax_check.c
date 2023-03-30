@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 12:47:49 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/21 16:47:52 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:40:09 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,4 @@ bool	redir_before(char *str, int i)
 		if (nb_esc_chars(str, i - 1) % 2 == 0)
 			return (true);
 	return (false);
-}
-
-bool	special_char_check(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		if (is_special_char(str[i]))
-			return (syntax_error(str[i]), TRUE);
-	return (FALSE);
 }
