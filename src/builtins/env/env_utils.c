@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:02:53 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/26 10:21:43 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:34:17 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// str is "USER=jergashe" || "a=" || "c"
 t_env	*init_env_node(char *str)
 {
 	char	**split;
@@ -38,6 +39,7 @@ void	add_back_env_node(t_env	*head, t_env *new)
 	curr->next = new;
 }
 
+// env is from main(argc, argv, env)
 t_env	*init_env(char **env)
 {
 	int		i;

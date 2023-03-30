@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 08:34:44 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:40:41 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_shell(t_shell *shell, char **env)
 		init_missing_environment(shell, env);
 	else
 	{
+		shell->color_codes = TRUE;
 		shell->env_head = init_env(env);
 		shell->user_name = getenv("USER");
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 06:59:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/08 09:37:19 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:18:14 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ char	*get_variable(char *prompt)
 	return (variable);
 }
 
+// full = "USER=jergashe"
+// || "b=" || "c"
+// var_name = "USER" || "b" || "c"
 char	*get_env_content(char *full, char *var_name)
 {
 	int		i;
@@ -50,7 +53,7 @@ char	*get_env_content(char *full, char *var_name)
 	int		var_name_len;
 
 	var_name_len = ft_strlen(var_name);
-	if (var_name_len == ft_strlen(full))
+	if (var_name_len == ft_strlen(full) || var_name_len + 1 == ft_strlen(full))
 		content = NULL;
 	else
 	{
