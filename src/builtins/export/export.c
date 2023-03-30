@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:27:28 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 09:53:45 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:01:35 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// cmd = "export"
+// args is cmd_args from table
 void	export(t_shell *shell, char *cmd, char **args)
 {
 	int	i;
@@ -48,6 +50,7 @@ void	do_not_export(t_shell *shell, char **args, int i)
 		p_err("%s%s: `%s': %s\n", SHELL, args[0], args[i], NVI);
 }
 
+// args is cmd_args from table
 void	export_new_variables(t_shell *shell, char **args)
 {
 	int		i;
@@ -82,6 +85,9 @@ void	replace_var_content(t_shell *shell, char *str, char *var)
 	}
 }
 
+// str is one arg from cmd_args
+// ex. export a=b c= d
+// it can be "a=b" || "c=" || d
 void	add_new_variable(t_shell *shell, char *str)
 {
 	t_env	*new;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:39:58 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/17 18:04:11 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:31:30 by jergashe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*expand_dollars(char *doll_to_exp, t_shell *shell)
 	else
 	{
 		variable = type_to_expand(doll_to_exp, shell);
-		if (ft_strlen(variable) == 0)
+		if (variable == NULL || *variable == '\0')
 			return (variable);
 		expanded_dollar = copy_variable(variable);
 	}
@@ -52,7 +52,7 @@ char	*type_to_expand(char *dollar_to_expand, t_shell *shell)
 		if (trimmed_dollar[i - 1] == ')')
 			expanded_dollar = replace_variable(trimmed_dollar, shell);
 		else
-			expanded_dollar = ft_strdup("");
+			expanded_dollar = variable_doesnt_exist();
 	}
 	else
 		expanded_dollar = replace_variable(trimmed_dollar, shell);
@@ -91,6 +91,7 @@ char	*variable_doesnt_exist(void)
 {
 	char	*space;
 
-	space = ft_strdup("");
+	space = malloc(sizeof(char));
+	space[0] = '\0';
 	return (space);
 }
