@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 17:55:28 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 08:42:09 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,6 +309,7 @@ bool		has_wrong_redir(t_shell *shell, t_token *token, t_cmd_tbl *table);
 bool		change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val);
 	//HEREDOC EXEC
 char		*filename(t_cmd_tbl *table);
+char		*stop_word(char *str, t_shell *shell);
 bool		cmd_tbl_has_heredoc(t_cmd_tbl *cmd_tbl);
 void		handle_heredocs(t_cmd_tbl *cmd_tbl, t_shell *shell);
 void		execute_heredocs(t_cmd_tbl *cmd_tbl, t_shell *shell);
@@ -321,6 +322,7 @@ int			open_heredoc(t_cmd_tbl *table, t_shell *shell, t_token *token);
 bool		has_heredoc_and_wrong_redir(t_token *token);
 bool		tables_have_wrong_redir(t_cmd_tbl *table, t_shell *shell);
 void		run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shll);
+void		execute_only_heredocs(t_shell *shell, t_cmd_tbl *table, t_token *end);
 		//EXEC PIPES
 bool		pipe_has_redirs(t_token *token);
 void		exec_pipes(t_cmd_tbl *table, t_shell *shell);
@@ -359,8 +361,5 @@ void		free_cmd_tbls(t_cmd_tbl *cmd_tbls);
 void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
-
-char	*stop_word(char *str, t_shell *shell);
-void	execute_only_heredocs(t_shell *shell, t_cmd_tbl *table, t_token *end);
 
 #endif

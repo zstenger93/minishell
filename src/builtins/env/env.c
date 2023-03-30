@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:54:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 08:51:36 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:53:56 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,13 @@ char	*get_full_env(t_env *env)
 	char	*result;
 
 	tmp = ft_nm_strjoin(env->var_name, "=");
-	result = ft_nm_strjoin(tmp, env->content);
-	free(tmp);
+	if (env->content != NULL)
+	{
+		result = ft_nm_strjoin(tmp, env->content);
+		free(tmp);
+	}
+	else
+		return(tmp);
 	return (result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:54:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 11:49:45 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 10:17:44 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	pipe_child_process(t_cmd_tbl *table, t_shell *shell)
 		execute_command(table, shell);
 	}
 	shell->print = FALSE;
-	builtins(shell, table->cmd, table->cmd_args);
+	if (table->cmd != NULL)
+		builtins(shell, table->cmd, table->cmd_args);
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
@@ -73,11 +74,12 @@ void	exec_last_pipe(t_cmd_tbl *table, t_shell *shell)
 		handle_redirections(shell, table);
 		execute_command(table, shell);
 	}
-	waitpid_to_get_exit_status(pid, shell, &status);
-	dup2(shell->std_fds[0], STDIN_FILENO);
-	dup2(shell->std_fds[1], STDOUT_FILENO);
 	shell->print = FALSE;
-	builtins(shell, table->cmd, table->cmd_args);
+	waitpid_to_get_exit_status(pid, shell, &status);
+	if (table->cmd != NULL)
+		builtins(shell, table->cmd, table->cmd_args);
+	if (has_wrong_redir(shell, table->redirs, table) == false)
+		close_and_dup(shell);
 }
 
 bool	pipe_has_redirs(t_token *token)

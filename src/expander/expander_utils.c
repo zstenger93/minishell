@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:40:39 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 14:11:06 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:27:19 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest)
 			free(doll);
 			free(s[0]);
 			*s = *bef_doll;
-			break ;
+			return ;
 		}
 	}
 }
