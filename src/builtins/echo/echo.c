@@ -6,11 +6,13 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:59:01 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 15:45:44 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:38:22 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+bool	space_filled_token(char *str);
 
 void	echo(t_shell *shell, char *cmd, char **args)
 {
@@ -92,11 +94,29 @@ void	simple_echo(t_shell *shell, char **args)
 	while (args[i] != NULL)
 	{
 		print_without_quotes(args[i]);
-		if (args[i + 1] != NULL)
+		if (args[i + 1] != NULL && space_filled_token(args[i]) != TRUE)
+			write(1, " ", 1);
+		else if (args[i + 1] != NULL && space_filled_token(args[i]) == TRUE
+			&& space_filled_token(args[i + 1]) == TRUE)
 			write(1, " ", 1);
 		i++;
 	}
 	write(1, "\n", 1);
+}
+
+bool	space_filled_token(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == DQUOTE || str[i] == SQUOTE || str[i] == ' ')
+			i++;
+		else
+			return (FALSE);
+	}
+	return (TRUE);
 }
 
 //MAYBE IMPROVE THIS BEAUTY OVER HERE
@@ -111,14 +131,14 @@ void	print_without_quotes(char *str)
 	quotes = has_quote_in_string(str);
 	while (str[i] != '\0')
 	{
-		if (str[i] == '\"')
+		if (str[i] == DQUOTE) 
 			dq = 1;
 		if (str[i] == ' ' && str[i + 1] == ' ' && quotes == FALSE)
 			while (str[i] == ' ')
 				i++;
-		if (str[i] != '\"' && str[i] != '\'')
+		if (str[i] != DQUOTE && str[i] != SQUOTE)
 			write(1, &str[i], 1);
-		else if (str[i] == '\'')
+		else if (str[i] == SQUOTE)
 			if (dq == 1)
 				write(1, &str[i], 1);
 		i++;

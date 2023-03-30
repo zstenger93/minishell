@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:20:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 08:25:22 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 20:35:06 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void	cd_back(char *dotdot, char *folder_path)
 		if (chdir(dotdot) == -1)
 			;
 	}
-	else if (chdir(folder_path) == -1)
+	else if (chdir(dotdot) == -1)
 		p_err("%scd: %s: %s\n", SHELL, folder_path, strerror(errno));
 }

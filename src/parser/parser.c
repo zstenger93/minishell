@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 18:37:08 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 20:57:59 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	**split_with_pipes(char *str, int start, int end, int index)
 	while (str[++end] != '\0')
 	{
 		end = skip_quotes(str, end);
-		if (str[end] == '|'
+		if (str[end] == '|' && str[end - 1] != SQUOTE
 			&& nb_esc_chars(str, end) % 2 == 0)
 		{
 			tmp = ft_strdup2(str, start, end);

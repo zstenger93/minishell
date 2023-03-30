@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:26:27 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/21 16:43:09 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 20:46:59 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ t_token	*add_new_token(t_token *token, char *str, t_type type)
 
 	if (token == NULL)
 		return (get_new_token(str, type));
+	// if (ft_strlen(str) == 2 && str[0] == str[1]
+	// 	&& (str[0] == SQUOTE || str[0] == DQUOTE))
+	// {
+	// 	free(str);
+	// 	return (token);
+	// }
 	curr = token;
 	while (curr->next != NULL)
 		curr = curr->next;

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:44:49 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 14:47:55 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 20:06:04 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,36 @@ char	*rm_quotes(char *str)
 	return (ft_strdup(str));
 }
 
+void	rm_quotes_tokenss(t_token *tokens, t_shell *shell, t_token *args)
+{
+	char	*tmp;
+
+	while (tokens != NULL)
+	{
+		if (tokens->type == HEREDOC)
+		{
+			// if (tokens->next->content[0] == SQUOTE && tokens->next->content[1] == SQUOTE)
+			// {
+			// 	tokens->next->content = args->content;
+			// 	return ;
+			// }
+			tokens = tokens->next;
+			if (tokens != NULL)
+				tokens = tokens->next;
+			if (tokens == NULL)
+				return ;
+		}
+		tmp = rm_quotes(tokens->content);
+		free(tokens->content);
+		tokens->content = tmp;
+		tokens = tokens->next;
+	}
+}
+
 void	rm_quotes_table(t_cmd_tbl *table, t_shell *shell)
 {
 	rm_quotes_tokens(table->args, shell);
-	rm_quotes_tokens(table->redirs, shell);
+	rm_quotes_tokenss(table->redirs, shell, table->args);
 }
 
 void	rm_quotes_tokens(t_token *tokens, t_shell *shell)

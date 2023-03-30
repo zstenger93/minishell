@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 22:47:23 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 18:25:21 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:35:26 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ char	*heredoc(t_cmd_tbl *cmd_tbl, char *stop_word, t_shell *shell)
 			free(input_line);
 			break ;
 		}
-		shell->should_expand = TRUE;
 		if (shell->expand_heredoc == TRUE)
 			expander(&input_line, shell);
 		write(fd, input_line, ft_strlen(input_line));

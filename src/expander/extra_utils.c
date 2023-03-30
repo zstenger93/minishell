@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 02:47:04 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 13:50:52 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:15:45 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ bool	dont_expand(char *str, int i)
 	if (i == 0)
 		return (FALSE);
 	j = i;
+	if (i > 0 && (str[i + 1] == DQUOTE || str[i + 1] == SQUOTE))	
+		return (TRUE);
 	while (j != 0)
 	{
 		if (str[j] == SQUOTE || str[j] == DQUOTE)

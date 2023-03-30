@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:31:00 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 09:39:35 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:08:16 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	unset_all_vars(t_shell *shell, char **args)
 			delete_env_var(shell->env_head, env);
 			env = NULL;
 		}
-		else
+		else if (ft_isalpha(args[i][0]) != TRUE)
 		{
 			shell->exit_code = 1;
 			if (shell->print == TRUE)
