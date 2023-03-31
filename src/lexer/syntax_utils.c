@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:41:43 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 11:24:28 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 21:58:35 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,20 @@
 
 int	nb_esc_chars(char *str, int last_ind)
 {
+	int	i;
 	int	count;
 
+	i = last_ind - 1;
 	count = 0;
-	while (--last_ind != -1)
+	while (str[i] != -1)
 	{
-		if (str[last_ind] == 92)
+		if (str[i] == 92)
 			count++;
-		if (str[last_ind] != 92)
+		else if (str[i] != 92)
 			return (count);
+		i--;
 	}
 	return (count);
-}
-
-bool	is_special_char(char c)
-{
-	return (ft_pf_strchr(SPECIAL_CHARSET, c));
 }
 
 bool	syntax_error(char c)

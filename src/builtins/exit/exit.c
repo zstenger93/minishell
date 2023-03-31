@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 14:04:23 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:05:06 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,37 @@ void	exit_shell(t_shell *shell, char *cmd, char **args)
 	if (shell->exec_on_pipe == FALSE)
 	{
 		if (ft_strcmp(cmd, "exit") == TRUE && args[1] == NULL)
-		{
-			free_at_exit(shell);
-			exit(0);
-		}
+			simple_exit(shell);
 		if (ft_strcmp(cmd, "exit") == TRUE && ft_strlen(args[1]) == 0)
-		{
-			if (shell->print == TRUE)
-				p_err("%s%s: %s\n", SHELL, cmd, TMA);
-			free_at_exit(shell);
-			exit(255);
-		}
-		else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL
-			&& args[1] != NULL)
+			exit_tma(shell, cmd);
+		else if (args[2] == NULL && args[1] != NULL)
 			exit_code(shell, args);
 		else if (shell->print == TRUE)
 		{
 			if (ft_isalpha(args[1][0]))
-			{
-				p_err("%s%s: %s\n", SHELL, args[1], NAR);
-				shell->exit_code = 255;
-			}
+				exit_error_msg(shell, cmd, args[1], 0);
 			else
-			{
-				p_err("%s%s: %s\n", SHELL, cmd, TMA);
-				shell->exit_code = 1;
-			}
+				exit_error_msg(shell, cmd, args[1], 1);
 			return ;
 		}
 	}
-	else if (ft_strcmp(cmd, "exit") == TRUE && args[2] == NULL
+	else if (args[2] == NULL
 		&& args[1] != NULL)
 		exit_code_on_pipe(shell, args);
+}
+
+void	simple_exit(t_shell *shell)
+{
+	free_at_exit(shell);
+	exit(0);
+}
+
+void	exit_tma(t_shell *shell, char *cmd)
+{
+	if (shell->print == TRUE)
+		p_err("%s%s: %s\n", SHELL, cmd, TMA);
+	free_at_exit(shell);
+	exit(255);
 }
 
 void	exit_code(t_shell *shell, char **args)
@@ -59,7 +58,7 @@ void	exit_code(t_shell *shell, char **args)
 
 	i = 5;
 	len = ft_strlen(args[1]);
-	if (is_exit_code_correct(shell, args[1]))
+	if (is_exit_code_correct(shell, args[1], 0))
 		code = shell->exit_code;
 	else
 	{
@@ -71,36 +70,6 @@ void	exit_code(t_shell *shell, char **args)
 	code = shell->exit_code;
 	free_at_exit(shell);
 	exit(code);
-}
-
-bool	is_exit_code_correct(t_shell *shell, char *args)
-{
-	int	result;
-	int	sign;
-	int	i;
-
-	i = 0;
-	result = 0;
-	if (args[0] == '+')
-		i = 1;
-	if (args[0] == '-')
-	{
-		i = 1;
-		sign = -1;
-	}
-	while (args[i] != '\0')
-	{
-		if (args[i] < '0' || args[i] > '9')
-			return (FALSE);
-		result = (result * 10) + (args[i] - '0');
-		if (result > 255)
-			result %= 256;
-		i++;
-	}
-	if (sign == -1)
-		result = 256 - result;
-	shell->exit_code = result;
-	return (TRUE);
 }
 
 void	exit_code_on_pipe(t_shell *shell, char **args)

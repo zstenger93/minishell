@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:34:04 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 08:40:04 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:35:57 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell)
 	shell->cmd_has_been_executed = 1;
 	cmd_args = copy_2d_char_array(table->cmd_args);
 	env = copy_2d_char_array(shell->env);
-	// free_at_child(shell);
 	if (execve(cmd_path, cmd_args, env) == -1)
 	{
 		p_err("%s%s\n", SHELL, strerror(errno));
@@ -64,9 +63,9 @@ bool	is_a_directory(t_shell *shell, char *cmd)
 {
 	int	i;
 	int	len;
+
 	i = 0;
 	len = ft_strlen(cmd);
-
 	if (cmd[0] == '/' && cmd[len - 1] == '/')
 	{
 		p_err("%s%s: %s\n", SHELL, cmd, ISDIR);

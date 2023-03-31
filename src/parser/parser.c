@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 20:57:59 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:57:50 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,10 @@ int	skip_quotes(char *str, int index)
 		return (index);
 	quote = str[index++];
 	while (str[index] != quote
-		&& nb_esc_chars(str, index) % 2 == 1)
+		&& nb_esc_chars(str, index) % 2 == 0
+		&& str[index] != '\0')
 		index++;
-	return (index - 1);
+	return (index);
 }
 
 int	count_pipes(char *str)
@@ -100,7 +101,8 @@ int	count_pipes(char *str)
 	{
 		i = skip_quotes(str, i);
 		if (str[i] == '|'
-			&& nb_esc_chars(str, i) % 2 == 0)
+			&& nb_esc_chars(str, i) % 2 == 0
+			&& str[i] != '\0')
 			count++;
 	}
 	return (count + 1);

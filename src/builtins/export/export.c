@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:27:28 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 11:45:08 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:38:18 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,6 @@ void	export(t_shell *shell, char *cmd, char **args)
 			i++;
 		}
 	}
-}
-
-bool	is_valid_export(t_shell *shell, char *args, int i)
-{
-	if (args[0] == '=' || ft_strlen(args) == 0)
-		return (false);
-	return (true);
-}
-
-void	do_not_export(t_shell *shell, char **args, int i)
-{
-	shell->exit_code = 1;
-	if (shell->print == TRUE)
-		p_err("%s%s: `%s': %s\n", SHELL, args[0], args[i], NVI);
 }
 
 // args is cmd_args from table
@@ -109,7 +95,7 @@ void	print_export(t_shell *shell)
 		else if (curr->content == NULL)
 			printf("declare -x %s\n", curr->var_name);
 		else if (curr->content != NULL && curr->content[0] == ' '
-				&& ft_strlen(curr->content) == 1)
+			&& ft_strlen(curr->content) == 1)
 			printf("declare -x %s=\"\"\n", curr->var_name);
 		else
 			printf("declare -x %s=\"%s\"\n", curr->var_name, curr->content);

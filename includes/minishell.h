@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 11:51:34 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 22:08:34 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@
 # include <signal.h>
 # include <limits.h>
 # include <termios.h>
-
 
 # define PIPE "|"
 # define OPERATORS "|><"
@@ -157,14 +156,14 @@ void		add_back_env_node(t_env	*head, t_env *new);
 char		*get_variable(char *prompt);
 void		print_export(t_shell *shell);
 int			count_equal_sign(t_shell *shell);
+char		*empty_content_allocate(char *content);
 void		add_new_variable(t_shell *shell, char *str);
 char		*get_env_content(char *full, char *var_name);
 void		export(t_shell *shell, char *cmd, char **args);
 void		export_new_variables(t_shell *shell, char **args);
+void		do_not_export(t_shell *shell, char **args, int i);
+bool		is_valid_export(t_shell *shell, char *args, int i);
 void		replace_var_content(t_shell *shell, char *str, char *var);
-
-bool	is_valid_export(t_shell *shell, char *args, int i);
-void	do_not_export(t_shell *shell, char **args, int i);
 
 //BUILTIN UNSET
 void		free_env_var(t_env *env);
@@ -177,10 +176,13 @@ void		unset(t_shell *shell, char *cmd, char **args);
 void		pwd(t_shell *shell, char **args);
 
 //BUILTIN EXIT
+void		simple_exit(t_shell *shell);
+void		exit_tma(t_shell *shell, char *cmd);
 void		exit_code(t_shell *shell, char **args);
 void		exit_code_on_pipe(t_shell *shell, char **args);
-bool		is_exit_code_correct(t_shell *shell, char *args);
+bool		is_exit_code_correct(t_shell *shell, char *args, int i);
 void		exit_shell(t_shell *shell, char *cmd, char **args);
+void		exit_error_msg(t_shell *shell, char *cmd, char *arg, int option);
 
 //BUILTIN CD
 void		cd_home(t_shell *shell);
@@ -197,11 +199,14 @@ void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
 //BUILTIN ECHO
 bool		is_in_dq(char *s, int i);
 bool		is_flag_valid(char *arg);
+void		handle_n_flag(char **args);
+bool		space_filled_token(char *str);
 bool		has_quote_in_string(char *str);
-void		print_without_quotes(char *str);
+void		print_without_quotes(char *str, int i, int k, int dq);
 int			echo_n_flag_validator(char **args);
 void		simple_echo(t_shell *shell, char **args);
 void		echo(t_shell *shell, char *cmd, char **args);
+int			write_escapes(char *str, int escp_nb, int i);
 
 //INITIALIZE
 char		*extract_user(t_shell *shell);
@@ -217,14 +222,11 @@ bool		is_space(char c);
 bool		is_operator(char c);
 int			lexer(t_shell *shell);
 bool		redir_check(char *str);
-bool		is_special_char(char c);
-bool		is_special_char(char c);
 bool		has_wrong_pipe(char *str);
-bool		special_char_check(char *str);
 bool		redir_after(char *str, int i);
-bool		special_char_check(char *str);
 bool		redir_before(char *str, int i);
 bool		wrong_operator_check(char *str);
+bool		is_empty_line_passed(t_shell *shll);
 char		count_quotes(char *s, int sq, int dq);
 int			nb_esc_chars(char *str, int last_ind);
 char		*ft_strdup2(char *str, int start, int end);
@@ -284,6 +286,7 @@ char		*expand_cmd(t_cmd_tbl *table, t_shell *shell);
 void		expand_tables(t_cmd_tbl *tables, t_shell *shell);
 char		*replace_variable(char *variable, t_shell *shell);
 char		*expand_dollars(char *doll_to_exp, t_shell *shell);
+bool		dont_expand_result(char *str, int i, int dq, int sq);
 char		*type_to_expand(char *dollar_to_expand, t_shell *shell);
 void		copy_dollar_from_string(char **dst, char **s, int index);
 void		extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest);
@@ -300,7 +303,10 @@ void		invalid_command(t_shell *shell, char *command);
 	//PATH CHECK
 bool		is_a_directory(t_shell *shell, char *cmd);
 int			path_check(char *cmd_path, t_shell *shell);
+int			dot_at_path_start(t_shell *shell, char *path);
+int			slash_at_path_start(t_shell *shell, char *path);
 int			no_such_file_or_folder(char *command, t_shell *shell);
+int			dot_dot_slash_at_path_start(t_shell *shell, char *path);
 	//HANDLE REDIRECTIONS
 t_token		*set_curr(t_token *curr);
 bool		is_good_redirection(t_token	*token);
@@ -323,7 +329,7 @@ int			open_heredoc(t_cmd_tbl *table, t_shell *shell, t_token *token);
 bool		has_heredoc_and_wrong_redir(t_token *token);
 bool		tables_have_wrong_redir(t_cmd_tbl *table, t_shell *shell);
 void		run_only_heredocs(t_cmd_tbl *start, t_cmd_tbl *last, t_shell *shll);
-void		execute_only_heredocs(t_shell *shell, t_cmd_tbl *table, t_token *end);
+void		execute_only_heredocs(t_shell *shll, t_cmd_tbl *tabl, t_token *end);
 		//EXEC PIPES
 bool		pipe_has_redirs(t_token *token);
 void		exec_pipes(t_cmd_tbl *table, t_shell *shell);

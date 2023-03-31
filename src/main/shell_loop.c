@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 15:01:37 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:23:27 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ void	shell_loop(t_shell *shell)
 
 int	*read_line(t_shell *shell)
 {
+	char	*line;
+
 	shell->exec_on_pipe = FALSE;
 	shell->should_execute = FALSE;
 	if (isatty(fileno(stdin)))
 		shell->prompt = readline(shell->terminal_prompt);
 	else
 	{
-		char *line;
 		line = get_next_line(fileno(stdin));
 		shell->prompt = ft_strtrim(line, "\n");
 		free(line);

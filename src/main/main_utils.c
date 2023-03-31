@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 11:21:18 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/28 16:42:13 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:52:58 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,6 @@ bool	add_history_if(char *prompt, char *prev_prompt)
 		return (TRUE);
 	}
 	return (FALSE);
-}
-
-void	ft_print_2d_char_array(char **array_2d)
-{
-	int	i;
-
-	if (array_2d == NULL)
-		return ;
-	i = 0;
-	while (array_2d[i] != NULL)
-		printf("%s\n", array_2d[i++]);
 }
 
 int	cmd(t_shell *shell, char *str, int s)

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:54:11 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 18:49:41 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:27:38 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ char	*stop_word(char *str, t_shell *shell)
 	shell->expand_heredoc = TRUE;
 	while (str[i] != '\0')
 	{
- 
-		if(str[i] == SQUOTE || str[i] == DQUOTE)
+		if (str[i] == SQUOTE || str[i] == DQUOTE)
 			shell->expand_heredoc = FALSE;
 		i++;
 	}

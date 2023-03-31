@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:17:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 09:55:14 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:45:41 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,8 @@ int	lexer(t_shell *shell)
 {
 	if (ft_strlen(shell->trimmed_prompt) == 0)
 		return (FALSE);
-	if (shell->trimmed_prompt[0] == DQUOTE
-		&& shell->trimmed_prompt[1] == DQUOTE
-		&& ft_strlen(shell->trimmed_prompt) == 2)
-	{
-		p_err("%s: %s\n", SHELL, CMD_NOT_FND);
-		shell->cmd_has_been_executed = FALSE;
-		shell->exit_code = 127;
+	if (is_empty_line_passed(shell) == TRUE)
 		return (FALSE);
-	}
 	else if (shell->trimmed_prompt[0] == '|')
 	{
 		shell->exit_code = 2;
@@ -41,6 +34,19 @@ int	lexer(t_shell *shell)
 		shell->cmd_has_been_executed = FALSE;
 	}
 	return (TRUE);
+}
+
+bool	is_empty_line_passed(t_shell *shll)
+{
+	if (shll->trimmed_prompt[0] == DQUOTE && shll->trimmed_prompt[1] == DQUOTE
+		&& ft_strlen(shll->trimmed_prompt) == 2)
+	{
+		p_err("%s: %s\n", SHELL, CMD_NOT_FND);
+		shll->cmd_has_been_executed = FALSE;
+		shll->exit_code = 127;
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
 bool	wrong_operator_check(char *str)

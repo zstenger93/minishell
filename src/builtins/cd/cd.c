@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:43:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 08:20:26 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:30:37 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	cd(t_shell *shell, char *cmd, char **args)
 		cd_tilde(shell, args[1]);
 	else if (strcmp_2(args[1], "-" ) == TRUE)
 		cd_oldpwd(shell);
-	else if (args[1] != NULL && ft_strcmp(args[1], "..") != 1 && args[1][0] != '-')
+	else if (args[1] != NULL && ft_strcmp(args[1], "..") != 1
+		&& args[1][0] != '-')
 		cd_forward(args[1]);
 	else if (ft_strcmp(args[1], "..") == TRUE
 		|| ft_strncmp(args[1], "../", 3) == 0)

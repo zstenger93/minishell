@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 06:59:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 11:08:13 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:12:40 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,7 @@ char	*get_env_content(char *full, char *var_name)
 
 	var_name_len = ft_strlen(var_name);
 	if (var_name_len + 1 == ft_strlen(full))
-	{
-		content = malloc(sizeof(char) * 2);
-		content[0] = ' ';
-		content[1] = '\0';
-	}
+		content = empty_content_allocate(content);
 	else if (var_name_len == ft_strlen(full))
 		content = NULL;
 	else
@@ -74,4 +70,18 @@ char	*get_env_content(char *full, char *var_name)
 		content[j] = '\0';
 	}
 	return (content);
+}
+
+bool	is_valid_export(t_shell *shell, char *args, int i)
+{
+	if (args[0] == '=' || ft_strlen(args) == 0)
+		return (false);
+	return (true);
+}
+
+void	do_not_export(t_shell *shell, char **args, int i)
+{
+	shell->exit_code = 1;
+	if (shell->print == TRUE)
+		p_err("%s%s: `%s': %s\n", SHELL, args[0], args[i], NVI);
 }

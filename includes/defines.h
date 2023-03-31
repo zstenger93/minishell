@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:45:33 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 07:05:06 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:56:09 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@
 # define NVI "not a valid identifier"
 # define TMA "too many arguments"
 # define HOMELESS "HOME not set"
-# define DNE "does not exist."
 # define PWNED "OLDPWD not set"
 # define ISDIR "is a directory"
+# define DNE "does not exist."
 
 #endif

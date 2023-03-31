@@ -29,6 +29,9 @@ BUILTINS		= builtins/cd/cd \
 				  builtins/cd/cd_options \
 				  builtins/export/export \
 				  builtins/env/env_utils \
+				  builtins/exit/exit_utils \
+				  builtins/echo/echo_utils \
+				  builtins/export/empty_cont \
 				  builtins/export/export_utils \
 
 INIT 			= init/init \
@@ -69,8 +72,7 @@ EXECUTOR		= executor/open/open \
 
 SIGNALS			= signals/signals \
 
-CLEANUP_TOOLS	= cleanup_tools/free/free \
-				  cleanup_tools/free_at_error/free_at_error \
+CLEANUP_TOOLS	= cleanup_tools/free \
 
 GENERAL_UTILS	= general_utils/error \
 				  general_utils/general_utils \
