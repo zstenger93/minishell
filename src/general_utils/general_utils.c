@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:44:08 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/22 17:58:06 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:57:54 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,24 @@ bool	convert_to_lower(char *str, int until)
 	return (TRUE);
 }
 
-bool	is_builtin(t_shell *shell)
-{
-	if (cmd(shell, "export", 6) == TRUE)
-		return (TRUE);
-	else if (cmd(shell, "cd", 2) == TRUE)
-		return (TRUE);
-	else if (convert_to_lower(shell->trimmed_prompt, 3)
-		&& cmd(shell, "pwd", 3) == TRUE)
-		return (TRUE);
-	else if (convert_to_lower(shell->trimmed_prompt, 3)
-		&& cmd(shell, "env", 3) == TRUE)
-		return (TRUE);
-	else if (cmd(shell, "exit", 4) == TRUE)
-		return (TRUE);
-	else if (cmd(shell, "unset", 5) == TRUE)
-		return (TRUE);
-	else if (convert_to_lower(shell->trimmed_prompt, 4)
-		&& cmd(shell, "echo", 4) == TRUE)
-		return (TRUE);
-	return (FALSE);
-}
+// bool	is_builtin(t_shell *shell)
+// {
+// 	if (cmd(shell, "export", 6) == TRUE)
+// 		return (TRUE);
+// 	else if (cmd(shell, "cd", 2) == TRUE)
+// 		return (TRUE);
+// 	else if (convert_to_lower(shell->trimmed_prompt, 3)
+// 		&& cmd(shell, "pwd", 3) == TRUE)
+// 		return (TRUE);
+// 	else if (convert_to_lower(shell->trimmed_prompt, 3)
+// 		&& cmd(shell, "env", 3) == TRUE)
+// 		return (TRUE);
+// 	else if (cmd(shell, "exit", 4) == TRUE)
+// 		return (TRUE);
+// 	else if (cmd(shell, "unset", 5) == TRUE)
+// 		return (TRUE);
+// 	else if (convert_to_lower(shell->trimmed_prompt, 4)
+// 		&& cmd(shell, "echo", 4) == TRUE)
+// 		return (TRUE);
+// 	return (FALSE);
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:27:28 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 15:01:35 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:45:08 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ void	print_export(t_shell *shell)
 			;
 		else if (curr->content == NULL)
 			printf("declare -x %s\n", curr->var_name);
+		else if (curr->content != NULL && curr->content[0] == ' '
+				&& ft_strlen(curr->content) == 1)
+			printf("declare -x %s=\"\"\n", curr->var_name);
 		else
 			printf("declare -x %s=\"%s\"\n", curr->var_name, curr->content);
 		curr = curr->next;

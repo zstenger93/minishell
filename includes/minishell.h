@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 07:45:22 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:51:34 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ bool		add_history_if(char *prompt, char *prev_prompt);
 int			*read_line(t_shell *shell);
 void		shell_loop(t_shell *shell);
 void		addhistory(t_shell *shell);
-bool		is_builtin(t_shell *shell);
+// bool		is_builtin(t_shell *shell);
 
 //PROMPT
 char		*get_curr_dir(t_shell *shell);

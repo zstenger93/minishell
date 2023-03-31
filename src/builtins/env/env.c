@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:54:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 14:38:11 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:41:59 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	env(t_shell *shell, char **args)
 	{
 		while (curr != NULL)
 		{
-			if (curr->content != NULL
+			if (curr->content != NULL && curr->content[0] == ' '
+				&& ft_strlen(curr->content) == 1)
+				printf("%s=\n", curr->var_name);
+			else if (curr->content != NULL
 					&& shell->color_codes == TRUE)
 				printf("%s=%s\n", curr->var_name, curr->content);
 			else if (curr->content != NULL

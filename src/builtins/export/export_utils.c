@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 06:59:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 15:18:14 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:08:13 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,13 @@ char	*get_env_content(char *full, char *var_name)
 	int		var_name_len;
 
 	var_name_len = ft_strlen(var_name);
-	if (var_name_len == ft_strlen(full) || var_name_len + 1 == ft_strlen(full))
+	if (var_name_len + 1 == ft_strlen(full))
+	{
+		content = malloc(sizeof(char) * 2);
+		content[0] = ' ';
+		content[1] = '\0';
+	}
+	else if (var_name_len == ft_strlen(full))
 		content = NULL;
 	else
 	{

@@ -6,11 +6,31 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:27:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 08:09:50 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:54:04 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+bool is_builtin(char *path)
+{
+	if (ft_strcmp(path, "export") == TRUE)
+		return (TRUE);
+	else if (ft_strcmp(path, "cd") == TRUE)
+		return (TRUE);
+	else if (ft_strcmp(path, "pwd") == TRUE)
+		return (TRUE);
+	else if (ft_strcmp(path, "env") == TRUE)
+		return (TRUE);
+	else if (ft_strcmp(path, "exit") == TRUE)
+		return (TRUE);
+	else if (ft_strcmp(path, "unset") == TRUE)
+		return (TRUE);
+	else if (ft_strcmp(path, "echo") == TRUE)
+		return (TRUE);
+	return (FALSE);
+}
+
 
 int	path_check(char *path, t_shell *shell)
 {

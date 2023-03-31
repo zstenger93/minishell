@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:39:58 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 15:31:30 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:46:42 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ char	*expand_dollars(char *doll_to_exp, t_shell *shell)
 		if (variable == NULL || *variable == '\0')
 			return (variable);
 		expanded_dollar = copy_variable(variable);
+		if (expanded_dollar[0] == ' ' && expanded_dollar[1] == '\0')
+		{
+			free(expanded_dollar);
+			expanded_dollar = variable_doesnt_exist();
+		}
 	}
 	return (expanded_dollar);
 }

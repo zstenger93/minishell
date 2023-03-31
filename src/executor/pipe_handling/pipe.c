@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:54:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 10:17:44 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:02:41 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	pipe_child_process(t_cmd_tbl *table, t_shell *shell)
 	if (pipe(fd) == -1)
 		p_err("%s%s\n", SHELL, PIPE_ERROR);
 	pid = fork();
+	shell->should_execute = TRUE;
 	if (pid <= -1)
 		p_err("%s%s\n", SHELL, FORK_ERROR);
 	else if (pid == 0)
