@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:20:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 20:35:06 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 08:33:12 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@ void	cd_tilde(t_shell *shell, char *folder_path)
 	char	*path;
 	char	*tilde_trimmed;
 
-	home = find_env_var(shell->env_head, "HOME");
-	tilde_trimmed = ft_strtrim(folder_path, "~");
-	path = ft_nm_strjoin(home->content, tilde_trimmed);
+	if (shell->envless == FALSE)
+	{
+		home = find_env_var(shell->env_head, "HOME");
+		tilde_trimmed = ft_strtrim(folder_path, "~");
+		path = ft_nm_strjoin(home->content, tilde_trimmed);
+	}
+	else
+		path = ft_nm_strjoin("/Users/", shell->user_name);
 	if (chdir(path) == -1)
 	{
 		p_err("%scd: %s: %s\n", SHELL, path, strerror(errno));
@@ -29,7 +34,8 @@ void	cd_tilde(t_shell *shell, char *folder_path)
 	}
 	else
 	{
-		free(tilde_trimmed);
+		if (shell->envless == FALSE)
+			free(tilde_trimmed);
 		free(path);
 	}
 }
@@ -42,7 +48,8 @@ void	cd_home(t_shell *shell)
 	if (!hdr)
 	{
 		shell->exit_code = 1;
-		p_err("%scd: %s\n", SHELL, HOMELESS);
+		if (shell->print == TRUE)
+			p_err("%scd: %s\n", SHELL, HOMELESS);
 	}
 	else if (ft_strlen(hdr->content) < 1)
 		printf("\n");
@@ -55,14 +62,14 @@ void	cd_oldpwd(t_shell *shell)
 	t_env	*old_pwd;
 	t_env	*curr_pwd;
 
-	if (shell->prev_prompt == NULL)
+	if (shell->prev_prompt == NULL || shell->envless == TRUE)
 	{
 		if (shell->print == TRUE)
-		{
-			curr_pwd = find_env_var(shell->env_head, "PWD");
-			printf("%s\n", curr_pwd->content);
-			return ;
-		}
+			p_err("%scd: %s\n", SHELL, PWNED);
+		if (shell->envless == TRUE)
+			shell->exit_code = 0;
+		else
+			shell->exit_code = 1;
 		return ;
 	}
 	old_pwd = find_env_var(shell->env_head, "OLDPWD");

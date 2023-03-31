@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jergashe <jergashe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 14:40:41 by jergashe         ###   ########.fr       */
+/*   Updated: 2023/03/31 07:46:58 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_shell(t_shell *shell, char **env)
 		init_missing_environment(shell, env);
 	else
 	{
+		shell->envless = FALSE;
 		shell->color_codes = TRUE;
 		shell->env_head = init_env(env);
 		shell->user_name = getenv("USER");
@@ -43,8 +44,9 @@ void	init_missing_environment(t_shell *shell, char **env)
 	char	path[PATH_MAX];
 
 	get_path = NULL;
-	get_path = getcwd(get_path, sizeof(path));
+	shell->envless = TRUE;
 	shell->color_codes = FALSE;
+	get_path = getcwd(get_path, sizeof(path));
 	shell->user_name = extract_user(shell);
 	env[0] = ft_nm_strjoin("PWD=", get_path);
 	env[1] = ft_strdup("SHLVL=1");

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:43:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 08:17:53 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 08:20:26 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	cd(t_shell *shell, char *cmd, char **args)
 
 	old_pwd = find_env_var(shell->env_head, "PWD");
 	old_pwd_content = old_pwd->content;
-	if (args[1] == NULL || (args[1][0] == '~' && ft_strlen(args[1]) == 1))
+	if (args[1] == NULL)
 		cd_home(shell);
 	else if (args[1][0] == '~')
 		cd_tilde(shell, args[1]);

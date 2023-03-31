@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:27:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 21:51:40 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 08:09:50 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ int	path_check(char *path, t_shell *shell)
 		}
 		else if (access(path, X_OK) == 0)
 			return (TRUE);
+		else if (shell->envless == TRUE)
+			return (no_such_file_or_folder(path, shell), FALSE);
 	}
 	return (FALSE);
 }
 
 int	no_such_file_or_folder(char *command, t_shell *shell)
 {
-	p_err("%s%s: %s\n", SHELL, command, strerror(ENOENT));
 	shell->exit_code = 127;
+	p_err("%s%s: %s\n", SHELL, command, strerror(ENOENT));
 	return (FALSE);
 }

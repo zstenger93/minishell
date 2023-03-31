@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 08:42:09 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/31 07:45:22 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_shell
 	int			print;
 	t_fds		*pipe;
 	char		**env;
+	int			envless;
 	char		*prompt;
 	char		*heredoc;
 	t_cmd_tbl	*cmd_tbls;
