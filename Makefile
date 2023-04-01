@@ -96,32 +96,32 @@ endif
 BREW			= /Users/$(USER)/.brew/bin
 READLINE		= /Users/$(USER)/.brew/opt/readline/include/readline
 
-# run: brew_check
-# 	@$(SLEEP)
-# 	@clear
-# 	@./$(NAME)
+run: brew_check
+	@$(SLEEP)
+	@clear
+	@./$(NAME)
 
-# brew_check:
-# 	@if [ -d $(BREW) ]; then \
-# 		echo "$(GREEN)BREW is already installed in $(BREW)$(DEF_COLOR)"; \
-# 	else \
-# 		{ \
-# 			echo "$(YELLOW)Installing Homebrew...$(DEF_COLOR)"; \
-# 			curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh; \
-# 		}; \
-# 	fi
-# 	@$(MAKE) readline_check
+brew_check:
+	@if [ -d $(BREW) ]; then \
+		echo "$(GREEN)BREW is already installed in $(BREW)$(DEF_COLOR)"; \
+	else \
+		{ \
+			echo "$(YELLOW)Installing Homebrew...$(DEF_COLOR)"; \
+			curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh; \
+		}; \
+	fi
+	@$(MAKE) readline_check
 
-# readline_check:
-# 	@if [ -d $(READLINE) ]; then \
-# 		echo "$(GREEN)READLINE is already installed in $(READLINE)$(DEF_COLOR)"; \
-# 	else \
-# 		{ \
-# 			echo "$(YELLOW)Installing Homebrew..."$(DEF_COLOR); \
-# 			$(INSTALL_READL) \
-# 		}; \
-# 	fi
-# 	@$(MAKE) all
+readline_check:
+	@if [ -d $(READLINE) ]; then \
+		echo "$(GREEN)READLINE is already installed in $(READLINE)$(DEF_COLOR)"; \
+	else \
+		{ \
+			echo "$(YELLOW)Installing Homebrew..."$(DEF_COLOR); \
+			$(INSTALL_READL) \
+		}; \
+	fi
+	@$(MAKE) all
 
 
 all: $(NAME)
@@ -197,10 +197,13 @@ tester:
 		cd 42_minishell_tester; \
 		bash tester.sh m ; \
 	else \
-		@git clone https://github.com/zstenger93/42_minishell_tester.git; \
+		git clone https://github.com/zstenger93/42_minishell_tester.git; \
 		cd 42_minishell_tester; \
 		bash tester.sh m; \
 	fi
+
+rt:
+	rm -rf 42_minishell_tester
 
 DEF_COLOR = \033[0;39m
 CYAN3 = \033[1;4;96m
@@ -212,4 +215,4 @@ GREEN = \033[4;92m
 CYAN2 = \x1B[1;36m
 CYAN = \033[1;96m
 
-.PHONY: brew_check readline_check all clean fclean re run r v vm vf ne tester
+.PHONY: brew_check readline_check all clean fclean re run r v vm vf ne tester rt
