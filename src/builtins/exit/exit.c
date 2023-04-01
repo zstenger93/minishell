@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:02:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 19:05:06 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 08:17:26 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	exit_code(t_shell *shell, char **args)
 	else
 	{
 		code = 255;
-		p_err("%s%s: %s", SHELL, args[0], NAR);
+		if (shell->print == TRUE)
+			p_err("%s%s: %s", SHELL, args[0], NAR);
 		free_at_exit(shell);
 		exit(code);
 	}
@@ -83,7 +84,8 @@ void	exit_code_on_pipe(t_shell *shell, char **args)
 	code_str = (char *)malloc(sizeof(char) * (len + 1));
 	if (code_str == NULL)
 	{
-		p_err("%s%s\n", SHELL, MALLOC_FAIL);
+		if (shell->print == TRUE)
+			p_err("%s%s\n", SHELL, MALLOC_FAIL);
 		free_at_exit(shell);
 		exit(EXIT_FAILURE);
 	}

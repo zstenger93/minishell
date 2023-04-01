@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 08:40:41 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 12:03:47 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:15:19 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	builtins(t_shell *shell, char *cmd, char **args)
 {
-	if (ft_strcmp(cmd, "/usr/bin/cd") == TRUE && shell->exec_on_pipe == FALSE)
+	if (ft_strcmp(cmd, C_D) == TRUE && shell->exec_on_pipe == FALSE)
 		return (cd(shell, cmd, args), TRUE);
 	else if (ft_strcmp(cmd, "export") == TRUE && shell->should_execute == TRUE)
 		return (export(shell, cmd, args), TRUE);

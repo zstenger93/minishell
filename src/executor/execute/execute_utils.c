@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 09:08:32 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 19:49:45 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:21:57 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	**copy_2d_char_array(char **array)
 	return (result);
 }
 
+//in case of  no path (path == null) return the correct error
 void	clear_and_exit(t_shell *shell, char *cmd_path, t_cmd_tbl *table)
 {
 	while (table->next != NULL)
@@ -43,12 +44,14 @@ void	clear_and_exit(t_shell *shell, char *cmd_path, t_cmd_tbl *table)
 	}
 	else if (cmd_path == NULL && ft_strlen(table->cmd) == 0)
 	{
-		p_err("%s%s: %s\n", SHELL, table->cmd, CMD_NOT_FND);
+		if (shell->print == TRUE)
+			p_err("%s%s: %s\n", SHELL, table->cmd, CMD_NOT_FND);
 		free(cmd_path);
 		free_at_child(shell);
 		exit(126);
 	}
-	p_err("%s%s: %s\n", SHELL, table->cmd, CMD_NOT_FND);
+	if (shell->print == TRUE)
+		p_err("%s%s: %s\n", SHELL, table->cmd, CMD_NOT_FND);
 	free(cmd_path);
 	free_at_child(shell);
 	exit(127);
@@ -59,15 +62,6 @@ void	waitpid_to_get_exit_status(pid_t pid, t_shell *shell, int *status)
 	shell->print = FALSE;
 	waitpid(pid, status, 0);
 	shell->exit_code = WEXITSTATUS(*status);
-}
-
-void	child_exit(t_shell *shell)
-{
-	int	code;
-
-	code = shell->exit_code;
-	free_at_child(shell);
-	exit(code);
 }
 
 void	close_and_dup(t_shell *shell)

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:31:00 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 16:08:16 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:14:10 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	unset(t_shell *shell, char *cmd, char **args)
 {
-	if (ft_strcmp(cmd, "unset") == TRUE && args[1] == NULL)
+	if (args[1] == NULL)
 		return ;
 	else
 		unset_all_vars(shell, args);

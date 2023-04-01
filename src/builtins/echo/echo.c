@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:59:01 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 22:10:22 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 10:55:43 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	echo(t_shell *shell, char *cmd, char **args)
 	{
 		if (ft_strcmp(cmd, "echo") == TRUE && args[1] == NULL)
 			write(1, "\n", 1);
-		else if (ft_strcmp(cmd, "echo") == TRUE
-			&& is_flag_valid(args[1]) == TRUE)
+		else if (is_flag_valid(args[1]) == TRUE)
 			handle_n_flag(args);
 		else
 			simple_echo(shell, args);
@@ -88,6 +87,10 @@ bool	is_flag_valid(char *arg)
 	return (FALSE);
 }
 
+/*
+writes the spaces between argumetns if they are not empty
+or there is more than one arg with spaces
+*/
 void	simple_echo(t_shell *shell, char **args)
 {
 	int	j;

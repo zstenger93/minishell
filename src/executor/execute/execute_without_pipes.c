@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 15:43:25 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 19:49:48 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 08:25:50 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,12 @@ void	exec_without_pipes(t_cmd_tbl *table, t_shell *shell)
 	shell->exec_on_pipe = FALSE;
 	shell->should_execute = TRUE;
 	if (pid == -1)
-		p_err("%s%s\n", SHELL, FORK_ERROR);
-	else if (pid == 0)
 	{
-		if (has_wrong_redir(shell, table->redirs, table) == false)
-		{
-			shell->print = TRUE;
-			handle_redirections(shell, table);
-			execute_command(table, shell);
-		}
-		child_exit(shell);
+		if (shell->print == TRUE)
+			p_err("%s%s\n", SHELL, FORK_ERROR);
 	}
+	else if (pid == 0)
+		simple_exec_in_child(shell, table);
 	waitpid_to_get_exit_status(pid, shell, &status);
 	if (table->cmd != NULL)
 		builtins(shell, table->cmd, table->cmd_args);
@@ -39,4 +34,15 @@ void	exec_without_pipes(t_cmd_tbl *table, t_shell *shell)
 		close_and_dup(shell);
 	else
 		shell->exit_code = 258;
+}
+
+void	simple_exec_in_child(t_shell *shell, t_cmd_tbl *table)
+{
+	if (has_wrong_redir(shell, table->redirs, table) == false)
+	{
+		shell->print = TRUE;
+		handle_redirections(shell, table);
+		execute_command(table, shell);
+	}
+	child_exit(shell);
 }

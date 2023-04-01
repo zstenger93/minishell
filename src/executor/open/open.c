@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 01:44:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/25 10:35:11 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 09:20:13 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	open_file(t_type type, char *file_name, t_shell *shell)
 		fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, GIVE_PERM_WTH_RW);
 	if (fd == -1)
 	{
-		p_err("%s%s: %s\n", SHELL, file_name, strerror(ENOENT));
+		if (shell->print == TRUE)
+			p_err("%s%s: %s\n", SHELL, file_name, strerror(ENOENT));
 		shell->exit_code = 1;
 	}
 	return (fd);

@@ -6,12 +6,17 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:54:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 18:33:37 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 10:58:00 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+/*
+don't try to print content if it's empty
+print all the variables in normal mode
+don't print term in no env mode
+*/
 void	env(t_shell *shell, char **args)
 {
 	t_env	*curr;

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:34:21 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 08:38:28 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 09:28:54 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*extract_path(t_shell *shell, char *command)
 
 void	invalid_command(t_shell *shell, char *command)
 {
-	p_err("%s%s: %s\n", SHELL, command, INVALID_CMD);
+	if (shell->print == TRUE)
+		p_err("%s%s: %s\n", SHELL, command, INVALID_CMD);
 	shell->exit_code = 127;
 }

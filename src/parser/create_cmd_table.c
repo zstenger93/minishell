@@ -6,13 +6,11 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:29:18 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/31 18:22:08 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 10:06:54 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	init_cmd_args(t_cmd_tbl *tables);
 
 t_cmd_tbl	*create_cmd_table(char **str_arr, t_shell *shell)
 {

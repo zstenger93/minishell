@@ -6,12 +6,18 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:16:07 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/31 15:52:25 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 10:12:03 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/* 
+split_elements_to_tokens takes one pipe (str) and token
+as input. Function takes token as argument to save space.
+Function uses i and old_i as indexes to create a new token
+from position old_i to i. And returns the head of token.
+ */
 t_token	*split_elements_to_tokens(char *str, t_token *token)
 {
 	int	i;

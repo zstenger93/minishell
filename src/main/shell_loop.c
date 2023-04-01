@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 18:23:27 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:35:43 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ void	addhistory(t_shell *shell)
 	if (add_history_if(shell->prompt, shell->prev_prompt) == TRUE)
 		shell->prev_prompt = shell->prompt;
 	else
+	{
+		shell->exit_code = 0;	
 		free(shell->prompt);
+	}
 	free(shell->trimmed_prompt);
+	if (shell->exit_code == 0)
+		shell->cmd_has_been_executed = TRUE;
+	else
+		shell->cmd_has_been_executed = FALSE;
 }

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:44:38 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 15:38:47 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 10:40:50 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,14 @@ void	add_oldpwd_to_env(t_shell *shell)
 {
 	if (find_env_var(shell->env_head, "OLDPWD") == 0)
 		add_new_variable(shell, "OLDPWD");
+}
+
+void	cd_slash_is_first_cmd(t_shell *shell)
+{
+	if (shell->print == TRUE)
+		p_err("%scd: %s\n", SHELL, PWNED);
+	if (shell->envless == TRUE)
+		shell->exit_code = 0;
+	else
+		shell->exit_code = 1;
 }

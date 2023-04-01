@@ -6,15 +6,20 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 16:57:50 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 10:05:53 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/*
+parser creates cmd_tbls for each pipe
+then checks cmd_tbls and returns 
+true/false depending the input is good/bad
+ */
 bool	parser(t_shell *shell)
 {
-	char	**tokens;
+	char	**pipes;
 	int		start;
 	int		end;
 	int		index;
@@ -22,12 +27,19 @@ bool	parser(t_shell *shell)
 	end = -1;
 	start = 0;
 	index = -1;
-	tokens = split_with_pipes(shell->trimmed_prompt, start, end, index);
-	shell->cmd_tbls = create_cmd_table(tokens, shell);
-	free_char_array(tokens);
+	pipes = split_with_pipes(shell->trimmed_prompt, start, end, index);
+	shell->cmd_tbls = create_cmd_table(pipes, shell);
+	free_char_array(pipes);
 	return (table_check(shell->cmd_tbls));
 }
 
+/* 
+table_check takes cmd_tbls as input
+goes through the tables and checks redirs
+if redirs have only redirection type tokens -> returns false;
+if there is at least one WORD type token (file name) it returns true.
+Double protection!
+ */
 bool	table_check(t_cmd_tbl *tables)
 {
 	t_token	*token;
@@ -50,6 +62,13 @@ bool	table_check(t_cmd_tbl *tables)
 	return (result);
 }
 
+/* 
+split_with_pipes gets trimmed prompt as input (str)
+and returns 2d array of chars. Each array is a separate pipe
+this function is called once for each prompt call
+We pass start, end and index to function to save space
+start = 0, end = -1, index = -1; By default
+ */
 char	**split_with_pipes(char *str, int start, int end, int index)
 {
 	char	**tokens;
@@ -76,6 +95,11 @@ char	**split_with_pipes(char *str, int start, int end, int index)
 	return (free(tmp), tokens);
 }
 
+/* 
+skip_quotes takes a trimmed prompt and index as input.
+if str[index] is quote then it returns the index of
+closing quote in the string
+ */
 int	skip_quotes(char *str, int index)
 {
 	int	quote;
@@ -90,6 +114,11 @@ int	skip_quotes(char *str, int index)
 	return (index);
 }
 
+/* 
+count_pipes takes trimmed prompt
+and counts pipes inside it and returns the count of pipes.
+The function is needed to create 2d array of pipes
+ */
 int	count_pipes(char *str)
 {
 	int	i;

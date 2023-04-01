@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:34:04 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 18:35:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:19:04 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,11 @@
 void	execute_command(t_cmd_tbl *table, t_shell *shell)
 {
 	char	*cmd_path;
-	int		exit_code;
 
 	if (table->cmd == NULL)
 		child_exit(shell);
 	if (builtins(shell, table->cmd, table->cmd_args) == TRUE)
-	{
-		exit_code = shell->exit_code;
-		free_at_child(shell);
-		exit(exit_code);
-	}
+		exit_after_builtin(shell);
 	else if (path_check(table->cmd, shell) == TRUE)
 		final_exec(table->cmd, table, shell);
 	else if (table->cmd[0] != '.' && table->cmd[0] != '/')
@@ -35,6 +30,15 @@ void	execute_command(t_cmd_tbl *table, t_shell *shell)
 		else if (access(cmd_path, X_OK) == 0)
 			final_exec(cmd_path, table, shell);
 	}
+}
+
+void	exit_after_builtin(t_shell *shell)
+{
+	int		exit_code;
+
+	exit_code = shell->exit_code;
+	free_at_child(shell);
+	exit(exit_code);
 }
 
 void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell)
@@ -51,7 +55,8 @@ void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell)
 	env = copy_2d_char_array(shell->env);
 	if (execve(cmd_path, cmd_args, env) == -1)
 	{
-		p_err("%s%s\n", SHELL, strerror(errno));
+		if (shell->print == TRUE)
+			p_err("%s%s\n", SHELL, strerror(errno));
 		free(cmd_path);
 		free_char_array(cmd_args);
 		free_char_array(env);
@@ -59,6 +64,7 @@ void	final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell)
 	}
 }
 
+//check if the cmd is a directory
 bool	is_a_directory(t_shell *shell, char *cmd)
 {
 	int	i;
@@ -68,9 +74,19 @@ bool	is_a_directory(t_shell *shell, char *cmd)
 	len = ft_strlen(cmd);
 	if (cmd[0] == '/' && cmd[len - 1] == '/')
 	{
-		p_err("%s%s: %s\n", SHELL, cmd, ISDIR);
+		if (shell->print == TRUE)
+			p_err("%s%s: %s\n", SHELL, cmd, ISDIR);
 		shell->exit_code = 126;
 		return (TRUE);
 	}
 	return (FALSE);
+}
+
+void	child_exit(t_shell *shell)
+{
+	int	code;
+
+	code = shell->exit_code;
+	free_at_child(shell);
+	exit(code);
 }

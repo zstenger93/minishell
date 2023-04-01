@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:54:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 19:49:51 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 09:30:40 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,35 @@ void	pipe_child_process(t_cmd_tbl *table, t_shell *shell)
 	int		fd[2];
 
 	if (pipe(fd) == -1)
-		p_err("%s%s\n", SHELL, PIPE_ERROR);
+	{
+		if (shell->print == TRUE)
+			p_err("%s%s\n", SHELL, PIPE_ERROR);
+	}
 	pid = fork();
 	shell->should_execute = TRUE;
 	if (pid <= -1)
-		p_err("%s%s\n", SHELL, FORK_ERROR);
-	else if (pid == 0)
 	{
-		shell->print = TRUE;
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
-		handle_redirections(shell, table);
-		execute_command(table, shell);
+		if (shell->print == TRUE)
+			p_err("%s%s\n", SHELL, FORK_ERROR);
 	}
+	else if (pid == 0)
+		pipe_exec_in_child(table, shell, fd[0], fd[1]);
 	shell->print = FALSE;
 	if (table->cmd != NULL)
 		builtins(shell, table->cmd, table->cmd_args);
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
+}
+
+void	pipe_exec_in_child(t_cmd_tbl *t, t_shell *s, int fd_in, int fd_out)
+{
+	s->print = TRUE;
+	close(fd_in);
+	dup2(fd_out, STDOUT_FILENO);
+	close(fd_out);
+	handle_redirections(s, t);
+	execute_command(t, s);
 }
 
 void	exec_last_pipe(t_cmd_tbl *table, t_shell *shell)
@@ -66,7 +75,10 @@ void	exec_last_pipe(t_cmd_tbl *table, t_shell *shell)
 	pid = fork();
 	shell->should_execute = TRUE;
 	if (pid == -1)
-		p_err("%s%s\n", SHELL, FORK_ERROR);
+	{
+		if (shell->print == TRUE)
+			p_err("%s%s\n", SHELL, FORK_ERROR);
+	}
 	else if (pid == 0)
 	{
 		shell->print = TRUE;

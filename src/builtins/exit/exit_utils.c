@@ -6,12 +6,17 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 18:58:28 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 19:04:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:07:22 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+/*
+calculating and checking the exit code
+if its bigger than 255, then the exit code = code % 256
+if it is negative exit code = 256 - code
+*/
 bool	is_exit_code_correct(t_shell *shell, char *args, int i)
 {
 	int	result;

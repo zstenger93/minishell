@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:12:52 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/27 18:57:34 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 09:33:54 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,16 @@ bool	change_stdin_out(t_type type, int fd, t_shell *shell, int ret_val)
 		close(fd);
 	}
 	if (ret_val == -1)
-	{
-		shell->exit_code = errno;
+		if (std_out_error(shell) == TRUE)
+			return (free_at_child(shell), FALSE);
+	return (TRUE);
+}
+
+bool	std_out_error(t_shell *shell)
+{
+	shell->exit_code = errno;
+	if (shell->print == TRUE)
 		p_err("%s%s\n", SHELL, strerror(errno));
-		return (free_at_child(shell), FALSE);
-	}
 	return (TRUE);
 }
 

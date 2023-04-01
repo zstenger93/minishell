@@ -6,23 +6,24 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:27:28 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 18:38:18 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:13:07 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// cmd = "export"
-// args is cmd_args from table
+/*
+export -> print
+else error for wrong arg like no var name, empty string
+else export variables
+*/
 void	export(t_shell *shell, char *cmd, char **args)
 {
 	int	i;
 
-	if (ft_strcmp(cmd, "export") == TRUE && args[1] == NULL
-		&& shell->print == TRUE)
+	if (args[1] == NULL && shell->print == TRUE)
 		print_export(shell);
-	else if (ft_strcmp(cmd, "export") == TRUE && args[1] != NULL
-		&& shell->exec_on_pipe == FALSE)
+	else if (args[1] != NULL && shell->exec_on_pipe == FALSE)
 	{
 		i = 0;
 		while (args[i] != NULL)

@@ -6,12 +6,15 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 08:26:27 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/31 18:22:22 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 09:48:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/*
+
+*/
 t_token	*get_new_token(char *str, t_type type)
 {
 	t_token	*token;

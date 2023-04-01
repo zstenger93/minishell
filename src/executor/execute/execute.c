@@ -6,12 +6,23 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:22:11 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/29 15:40:51 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:28:59 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+/*
+table has wrong redir:
+	exec heredocs but only until the point of the error
+	delete the tmp files, nothing else executes
+	exit
+handle heredocs:
+	execute all heredocs
+	save the filenames in array
+execute a simple command
+execute commands on a pipeline
+*/
 void	execute(t_shell *shell, t_cmd_tbl *table)
 {
 	if (tables_have_wrong_redir(table, shell) == true)

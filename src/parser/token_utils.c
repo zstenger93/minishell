@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_utils_2.c                                    :+:      :+:    :+:   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 07:59:18 by jergashe          #+#    #+#             */
-/*   Updated: 2023/03/20 17:36:40 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:05:57 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_type	get_redirection_type(char *str, int start, int end)
 			return (OUTPUT);
 		return (INPUT);
 	}
-	return (UKNOWN);
+	return (UNKNOWN);
 }
 
 bool	is_redirection(t_token *token)

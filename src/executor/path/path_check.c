@@ -6,12 +6,22 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:27:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 19:38:09 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:25:16 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+/*
+checks for:
+../
+./
+.
+/
+and last check if we are in the folder of the executable
+else
+error
+*/
 int	path_check(char *path, t_shell *shell)
 {
 	if (path[0] == '.' && path[1] == '.' && path[2] == '/'
@@ -38,7 +48,8 @@ int	path_check(char *path, t_shell *shell)
 int	no_such_file_or_folder(char *command, t_shell *shell)
 {
 	shell->exit_code = 127;
-	p_err("%s%s: %s\n", SHELL, command, strerror(ENOENT));
+	if (shell->print == TRUE)
+		p_err("%s%s: %s\n", SHELL, command, strerror(ENOENT));
 	return (FALSE);
 }
 

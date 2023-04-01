@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 22:08:34 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:06:54 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,10 @@
 # define MINISHELL_H
 
 //OWN HEADERS
-# include "lexer.h"
-# include "error.h"
-# include "parser.h"
 # include "colors.h"
 # include "defines.h"
-# include "cleanup.h"
-# include "builtins.h"
-# include "executor.h"
-# include "expander.h"
-# include "general_utils.h"
+# include "structs.h"
 # include "../libft/includes/libft.h"
-
-//READLINE
-# if defined (__APPLE__)
-#  include <readline/history.h>
-#  include <readline/readline.h>
-# else
-#  include <sys/wait.h>
-#  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/history.h>
-#  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/readline.h>
-# endif
 
 //STANDARD HEADERS
 # include <errno.h>
@@ -48,79 +31,15 @@
 # include <limits.h>
 # include <termios.h>
 
-# define PIPE "|"
-# define OPERATORS "|><"
-# define REDIRECTIONS "><"
-# define SPACES " \t\n\v\r\f"
-# define SPECIAL_CHARSET "*()#@:;%`&{}"
-
-typedef enum e_type
-{
-	WORD,
-	HEREDOC,
-	OUTPUT,
-	APPEND,
-	INPUT,
-	UKNOWN
-}	t_type;
-
-typedef struct s_token
-{
-	t_type			type;
-	struct s_token	*next;
-	struct s_token	*prev;
-	char			*content;
-}	t_token;
-
-typedef struct s_cmd_tbl
-{
-	char				*cmd;
-	t_token				*args;
-	struct s_cmd_tbl	*next;
-	int					index;
-	t_token				*redirs;
-	char				**cmd_args;
-	char				*heredoc_name;
-}	t_cmd_tbl;
-
-typedef struct s_env
-{
-	struct s_env	*next;
-	char			*content;
-	char			*var_name;
-}	t_env;
-
-typedef struct s_fds
-{
-	int				fd[2];
-	struct s_fds	*prev;
-	struct s_fds	*next;
-}	t_fds;
-
-typedef struct s_shell
-{
-	int			print;
-	t_fds		*pipe;
-	char		**env;
-	int			envless;
-	char		*prompt;
-	char		*heredoc;
-	t_cmd_tbl	*cmd_tbls;
-	t_env		*env_head;
-	int			exit_code;
-	int			std_fds[2];
-	char		*user_name;
-	int			color_codes;
-	char		**cmd_paths;
-	char		*prev_prompt;
-	int			exec_on_pipe;
-	int			should_expand;
-	int			should_execute;
-	int			expand_heredoc;
-	char		*trimmed_prompt;
-	char		*terminal_prompt;
-	int			cmd_has_been_executed;
-}	t_shell;
+//READLINE
+# if defined (__APPLE__)
+#  include <readline/history.h>
+#  include <readline/readline.h>
+# else
+#  include <sys/wait.h>
+#  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/history.h>
+#  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/readline.h>
+# endif
 
 //MAIN UTILS
 int			cmd(t_shell *shell, char *str, int s);
@@ -187,14 +106,15 @@ void		exit_error_msg(t_shell *shell, char *cmd, char *arg, int option);
 //BUILTIN CD
 void		cd_home(t_shell *shell);
 void		cd_oldpwd(t_shell *shell);
-void		cd_forward(char *folder_path);
 bool		strcmp_2(char *str1, char *str2);
 void		add_oldpwd_to_env(t_shell *shell);
 int			nb_delimited_words(char *s, char c);
-void		cd_back(char *dotdot, char *folder_path);
+void		cd_slash_is_first_cmd(t_shell *shell);
 void		cd(t_shell *shell, char *cmd, char **args);
 void		cd_tilde(t_shell *shell, char *folder_path);
+void		cd_forward(t_shell *shell, char *folder_path);
 void		update_pwd_and_oldpwd(t_shell *shell, char *old_pwd);
+void		cd_back(t_shell *shell, char *dotdot, char *folder_path);
 
 //BUILTIN ECHO
 bool		is_in_dq(char *s, int i);
@@ -241,6 +161,7 @@ int			skip_quotes(char *str, int index);
 char		**split_with_pipes(char *str, int start, int end, int index);
 	//COMMAND TABLE
 char		*rm_quotes(char *str);
+void		init_cmd_args(t_cmd_tbl *tables);
 void		cmd_to_lover_case(t_cmd_tbl *table);
 void		rm_quotes_table(t_cmd_tbl *table, t_shell *shell);
 void		rm_quotes_tokens(t_token *tokens, t_shell *shell);
@@ -295,8 +216,11 @@ void		extract_dollar(char **s, t_shell *sh, char **bef_doll, char **rest);
 int			table_size(t_cmd_tbl *table);
 void		execute(t_shell *shell, t_cmd_tbl *table);
 void		exec_without_pipes(t_cmd_tbl *table, t_shell *shell);
+void		simple_exec_in_child(t_shell *shell, t_cmd_tbl *table);
 	//EXECUTE CMD
+void		exit_after_builtin(t_shell *shell);
 void		execute_command(t_cmd_tbl *table, t_shell *shell);
+void		final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell);
 	//COMMAND HANDLING
 char		*extract_path(t_shell *shell, char *command);
 void		invalid_command(t_shell *shell, char *command);
@@ -309,6 +233,7 @@ int			no_such_file_or_folder(char *command, t_shell *shell);
 int			dot_dot_slash_at_path_start(t_shell *shell, char *path);
 	//HANDLE REDIRECTIONS
 t_token		*set_curr(t_token *curr);
+bool		std_out_error(t_shell *shell);
 bool		is_good_redirection(t_token	*token);
 void		handle_redirections(t_shell *shell, t_cmd_tbl *table);
 int			open_file(t_type type, char *file_name, t_shell *shell);
@@ -335,7 +260,7 @@ bool		pipe_has_redirs(t_token *token);
 void		exec_pipes(t_cmd_tbl *table, t_shell *shell);
 void		exec_last_pipe(t_cmd_tbl *table, t_shell *shell);
 void		pipe_child_process(t_cmd_tbl *table, t_shell *shell);
-void		final_exec(char *cmd_path, t_cmd_tbl *table, t_shell *shell);
+void		pipe_exec_in_child(t_cmd_tbl *t, t_shell *s, int fd_in, int fd_out);
 	//EXEC UTILS
 void		child_exit(t_shell *shell);
 void		close_and_dup(t_shell *shell);

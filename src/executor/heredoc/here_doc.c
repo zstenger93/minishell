@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 22:47:23 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/30 19:35:26 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 09:19:33 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	handle_heredocs(t_cmd_tbl *cmd_tbl, t_shell *shell)
 	while (cmd_tbl != NULL)
 	{
 		if (cmd_tbl_has_heredoc(cmd_tbl) == true)
-		{
 			execute_heredocs(cmd_tbl, shell);
-		}
 		cmd_tbl = cmd_tbl->next;
 	}
 }

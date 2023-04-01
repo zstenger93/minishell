@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:45:33 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 19:56:09 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:04:20 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,15 @@
 //OPERATORS
 # define SQUOTE 39
 # define DQUOTE 34
+# define PIPE "|"
+# define OPERATORS "|><"
+# define REDIRECTIONS "><"
+# define SPACES " \t\n\v\r\f"
 
 //OPEN
 # define GIVE_PERM_WTH_RW 0644
 
+//TMP HEREDOC FILES
 # define TMP_S "/tmp/heredoc"
 # define TMP_E ".XXXXXX"
 
@@ -60,5 +65,6 @@
 # define PWNED "OLDPWD not set"
 # define ISDIR "is a directory"
 # define DNE "does not exist."
+# define C_D "/usr/bin/cd"
 
 #endif

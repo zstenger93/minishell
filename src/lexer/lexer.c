@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:17:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 19:45:41 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 10:43:24 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	lexer(t_shell *shell)
 	return (TRUE);
 }
 
+// eg prompt -> ""
 bool	is_empty_line_passed(t_shell *shll)
 {
 	if (shll->trimmed_prompt[0] == DQUOTE && shll->trimmed_prompt[1] == DQUOTE
@@ -49,6 +50,10 @@ bool	is_empty_line_passed(t_shell *shll)
 	return (FALSE);
 }
 
+/*
+checks if there is only space between operators and if so,
+returns syntax error at the index of it's occourance
+*/
 bool	wrong_operator_check(char *str)
 {
 	int	i;
