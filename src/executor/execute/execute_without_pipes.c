@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 15:43:25 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 08:25:50 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 16:12:46 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	exec_without_pipes(t_cmd_tbl *table, t_shell *shell)
 
 void	simple_exec_in_child(t_shell *shell, t_cmd_tbl *table)
 {
+	signals_child(&shell->mirror_termios);
 	if (has_wrong_redir(shell, table->redirs, table) == false)
 	{
 		shell->print = TRUE;

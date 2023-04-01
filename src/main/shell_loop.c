@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:51:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 11:35:43 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:47:56 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	shell_loop(t_shell *shell)
 {
 	while (TRUE)
 	{
+		signals(&shell->mirror_termios);
 		terminal_prompt(shell);
 		if (read_line(shell) == NULL)
 			break ;
@@ -61,7 +62,7 @@ void	addhistory(t_shell *shell)
 		shell->prev_prompt = shell->prompt;
 	else
 	{
-		shell->exit_code = 0;	
+		shell->exit_code = 0;
 		free(shell->prompt);
 	}
 	free(shell->trimmed_prompt);

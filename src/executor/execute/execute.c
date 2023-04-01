@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:22:11 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 11:28:59 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 20:17:32 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ void	execute(t_shell *shell, t_cmd_tbl *table)
 		return ;
 	}
 	handle_heredocs(table, shell);
-	if (table != NULL && table->next == NULL && table_size(table) == 1)
+	if (g_ctrl_c == FALSE && table != NULL
+		&& table->next == NULL && table_size(table) == 1)
 		exec_without_pipes(table, shell);
-	else if (table != NULL && table->next != NULL)
+	else if (g_ctrl_c == FALSE
+		&& table != NULL && table->next != NULL)
 	{
 		shell->exec_on_pipe = TRUE;
 		exec_pipes(table, shell);

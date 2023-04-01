@@ -71,6 +71,8 @@ EXECUTOR		= executor/open/open \
 				  executor/pipe_handling/exec_only_heredoc \
 
 SIGNALS			= signals/signals \
+				  signals/signals_child \
+				  signals/signals_parent \
 
 CLEANUP_TOOLS	= cleanup_tools/free \
 
@@ -190,6 +192,16 @@ vf:
 ne:
 	env -i ./minishell
 
+tester:
+	@if [ -d 42_minishell_tester ]; then \
+		cd 42_minishell_tester; \
+		bash tester.sh m ; \
+	else \
+		@git clone https://github.com/zstenger93/42_minishell_tester.git; \
+		cd 42_minishell_tester; \
+		bash tester.sh m; \
+	fi
+
 DEF_COLOR = \033[0;39m
 CYAN3 = \033[1;4;96m
 YELLOW = \033[1;33m
@@ -200,4 +212,4 @@ GREEN = \033[4;92m
 CYAN2 = \x1B[1;36m
 CYAN = \033[1;96m
 
-.PHONY: brew_check readline_check all clean fclean re run r v vm vf ne
+.PHONY: brew_check readline_check all clean fclean re run r v vm vf ne tester

@@ -6,7 +6,9 @@
 		"ioctl.h": "c",
 		"system_error": "c",
 		"__locale": "c",
-		"locale": "c"
+		"locale": "c",
+		"termios.h": "c",
+		"ostream": "c"
 	},
 	"editor.insertSpaces": false,
 	"editor.suggest.showStatusBar": true,

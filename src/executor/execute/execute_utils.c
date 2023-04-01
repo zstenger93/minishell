@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 09:08:32 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 11:21:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 16:12:35 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	clear_and_exit(t_shell *shell, char *cmd_path, t_cmd_tbl *table)
 
 void	waitpid_to_get_exit_status(pid_t pid, t_shell *shell, int *status)
 {
+	signals_parent();
 	shell->print = FALSE;
 	waitpid(pid, status, 0);
 	shell->exit_code = WEXITSTATUS(*status);

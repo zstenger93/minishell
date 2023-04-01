@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 12:06:54 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 20:07:55 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,16 @@ void		init_shell(t_shell *shell, char **env);
 void		init_missing_environment(t_shell *shell, char **env);
 
 //SIGNALS
-void		signals(void);
+void		signal_ctrl_c(void);
+void		signals_parent(void);
+void		signal_ctrl_c_child(void);
+void		signal_ctrl_c_parent(void);
+void		signal_ctrl_backslash(void);
 void		handle_sigint(int sig_num);
+void		signal_ctrl_backslash_child(void);
+void		signals(struct termios *mirror_termios);
+void		signals_child(struct termios *mirror_termios);
+void		save_settings_and_remove_c(struct termios *mirror_termios);
 
 //LEXER
 bool		is_space(char c);
@@ -293,5 +301,7 @@ void		free_cmd_tbls(t_cmd_tbl *cmd_tbls);
 void		print_tokens(t_token *lexer);
 void		print_cmd_tbl(t_cmd_tbl *cmd_tbl);
 void		ft_print_2d_char_array(char **array_2d);
+
+int	g_ctrl_c;
 
 #endif

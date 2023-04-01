@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 22:47:23 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 09:19:33 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 20:26:55 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,30 @@ void	execute_heredocs(t_cmd_tbl *cmd_tbl, t_shell *shell)
 	}
 }
 
-char	*heredoc(t_cmd_tbl *cmd_tbl, char *stop_word, t_shell *shell)
+char	*heredoc(t_cmd_tbl *cmd_tbl, char *s_w, t_shell *shell)
 {
 	int		fd;
-	char	*input_line;
+	char	*input;
 
 	cmd_tbl->heredoc_name = filename(cmd_tbl);
 	fd = open(cmd_tbl->heredoc_name, O_RDWR | O_CREAT | O_EXCL, 0600);
 	if (fd == -1)
 		p_err("%s%s\n", SHELL, strerror(errno));
-	write(0, "> ", 2);
 	while (1)
 	{
-		input_line = get_next_line(STDIN_FILENO);
-		if (ft_strncmp(input_line, stop_word, ft_strlen(stop_word)) == 0
-			&& ((ft_strlen(input_line) - 1) == ft_strlen(stop_word)))
+		write(0, "> ", 2);
+		input = get_next_line(STDIN_FILENO);
+		if (g_ctrl_c == TRUE || input == NULL
+			|| (ft_strncmp(input, s_w, ft_strlen(s_w)) == 0
+				&& ((ft_strlen(input) - 1) == ft_strlen(s_w))))
 		{
-			free(input_line);
+			free(input);
 			break ;
 		}
 		if (shell->expand_heredoc == TRUE)
-			expander(&input_line, shell);
-		write(fd, input_line, ft_strlen(input_line));
-		free(input_line);
-		write(0, "> ", 2);
+			expander(&input, shell);
+		write(fd, input, ft_strlen(input));
+		free(input);
 	}
 	shell->should_expand = FALSE;
 	return (close(fd), cmd_tbl->heredoc_name);

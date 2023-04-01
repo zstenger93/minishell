@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:54:56 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 09:30:40 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/01 16:12:42 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	pipe_child_process(t_cmd_tbl *table, t_shell *shell)
 
 void	pipe_exec_in_child(t_cmd_tbl *t, t_shell *s, int fd_in, int fd_out)
 {
+	signals_child(&s->mirror_termios);
 	s->print = TRUE;
 	close(fd_in);
 	dup2(fd_out, STDOUT_FILENO);
@@ -81,6 +82,7 @@ void	exec_last_pipe(t_cmd_tbl *table, t_shell *shell)
 	}
 	else if (pid == 0)
 	{
+		signals_child(&shell->mirror_termios);
 		shell->print = TRUE;
 		if (pipe_has_redirs(table->redirs) == false)
 			dup2(shell->std_fds[1], STDOUT_FILENO);
