@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 20:07:55 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 09:01:33 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,6 @@ char		*ft_strdup2(char *str, int start, int end);
 //PARSER
 bool		parser(t_shell *shell);
 bool		table_check(t_cmd_tbl *tables);
-
 	//PIPE TOKENS
 int			count_pipes(char *str);
 int			skip_quotes(char *str, int index);

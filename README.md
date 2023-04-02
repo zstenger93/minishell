@@ -80,19 +80,19 @@
 
 <h3>Getting a headache from deciding who does what :white_check_mark:</h3>
 
-<h3>check for leaks :x:</h3>
+<h3>check for leaks :white_check_mark:</h3>
 <h3>builtins executed in child process :white_check_mark:</h3>
-<h3>delete unused code :x:</h3>
-<h3>fix norm :x:</h3>
+<h3>delete unused code :white_check_mark:</h3>
+<h3>fix norm :white_check_mark:</h3>
 
 <h3>check redirections at start :white_check_mark:</h3>
 <h3>check how is awk being splitted for args :white_check_mark:</h3>
-<h3>assign the correct exit codes :x:</h3>
+<h3>assign the correct exit codes :white_check_mark:</h3>
 <h3>wexitstatus function for exit code :white_check_mark:</h3>
 <h3>fix segfault problems with first cmd :white_check_mark:</h3>
-<h3>set the executed variable for prompt at executions :x:</h3>
+<h3>set the executed variable for prompt at executions :white_check_mark:</h3>
 <h3>make sure special chars are being ignored or causing errors when its needed :white_check_mark:</h3>
-<h3>check thru while running wtihout env :x:</h3>
+<h3>check thru while running wtihout env :white_check_mark:</h3>
 <h3>when no env, might store the user in struct and not in ENV :white_check_mark:</h3>
 <h3>execute builtins in child if they are called in pipes :white_check_mark:</h3>
 
@@ -137,7 +137,7 @@
 	<h3>arguments for the command with type and content option :white_check_mark:</h3>
 	<h3>arguments converted to **char for execve :white_check_mark:</h3>
 	<h3>redirections with type and content option :white_check_mark:</h3>
-	<h3>check for edge, error cases and what we dont have to handle :x:</h3>
+	<h3>check for edge, error cases and what we dont have to handle :white_check_mark:</h3>
 <h3>EXECUTOR:</h3>
 	<h3>turn builtins which accepted with uppercase letters as well into lowercase :white_check_mark:</h3>
 	<h3>split redir args for execute :white_check_mark:</h3>
