@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 21:34:21 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 09:28:54 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 13:43:20 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*extract_path(t_shell *shell, char *command)
 
 	if (ft_strlen(command) == 0)
 		return (NULL);
+	if (shell->cmd_paths == NULL)
+		child_exit(shell);
 	i = 0;
 	while (shell->cmd_paths[i] != NULL)
 	{
@@ -36,8 +38,6 @@ char	*extract_path(t_shell *shell, char *command)
 		free(path);
 		i++;
 	}
-	if (shell->cmd_paths[0] == NULL)
-		invalid_command(shell, command);
 	return (NULL);
 }
 

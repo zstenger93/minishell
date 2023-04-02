@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:38:18 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 08:18:49 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:00:38 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	pwd(t_shell *shell, char **args)
 		if (ft_strncmp(curr->var_name, "PWD", 3) == 0)
 		{
 			if (shell->print == TRUE)
+			{
+				shell->exit_code = 0;
 				printf("%s\n", curr->content);
+			}
 			return ;
 		}
 		else

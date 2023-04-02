@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:59:01 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 10:55:43 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:21:18 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	echo(t_shell *shell, char *cmd, char **args)
 {
 	if (shell->print == TRUE)
 	{
+		shell->exit_code = 0;
 		if (ft_strcmp(cmd, "echo") == TRUE && args[1] == NULL)
 			write(1, "\n", 1);
 		else if (is_flag_valid(args[1]) == TRUE)
@@ -95,6 +96,7 @@ void	simple_echo(t_shell *shell, char **args)
 {
 	int	j;
 
+	j = 1;
 	while (args[j] != NULL)
 	{
 		print_without_quotes(args[j], 0, 0, 0);

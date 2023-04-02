@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:27:28 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 11:13:07 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 14:56:28 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	export_new_variables(t_shell *shell, char **args)
 	i = 1;
 	while (args[i] != NULL)
 	{
+		shell->exit_code = 0;
 		split_var = ft_split(args[i], '=');
 		if (find_env_var(shell->env_head, split_var[0]) == NULL)
 			add_new_variable(shell, args[i]);
@@ -65,6 +66,7 @@ void	replace_var_content(t_shell *shell, char *str, char *var)
 	{
 		if (ft_strcmp(curr->var_name, var) == 1)
 		{
+			shell->exit_code = 0;
 			free(curr->content);
 			curr->content = get_env_content(str, var);
 		}
@@ -90,6 +92,7 @@ void	print_export(t_shell *shell)
 	curr = shell->env_head;
 	while (curr != NULL)
 	{
+		shell->exit_code = 0;
 		if (ft_strcmp(curr->var_name, "TERM") == TRUE
 			&& shell->color_codes == FALSE)
 			;

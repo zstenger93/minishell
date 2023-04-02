@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:44:38 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 10:40:50 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:04:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,5 @@ void	cd_slash_is_first_cmd(t_shell *shell)
 {
 	if (shell->print == TRUE)
 		p_err("%scd: %s\n", SHELL, PWNED);
-	if (shell->envless == TRUE)
-		shell->exit_code = 0;
-	else
-		shell->exit_code = 1;
+	shell->exit_code = 1;
 }

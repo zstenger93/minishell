@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:43:20 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 08:08:05 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 14:39:51 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	cd(t_shell *shell, char *cmd, char **args)
 {
 	t_env	*old_pwd;
 	char	*old_pwd_content;
-
+	
 	old_pwd = find_env_var(shell->env_head, "PWD");
 	old_pwd_content = old_pwd->content;
 	if (args[1] == NULL)
