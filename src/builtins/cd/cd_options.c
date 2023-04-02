@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:20:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 10:49:49 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:14:26 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,11 @@ void	cd_oldpwd(t_shell *shell)
 void	cd_forward(t_shell *shell, char *folder_path)
 {
 	if (chdir(folder_path) == -1)
+	{
+		shell->exit_code = 1;
 		if (shell->print == TRUE)
 			p_err("%scd: %s: %s\n", SHELL, folder_path, strerror(errno));
+	}
 }
 
 void	cd_back(t_shell *shell, char *dotdot, char *folder_path)

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 17:08:03 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/02 14:27:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 18:39:49 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,21 @@ void	free_env(t_env *head)
 
 void	free_cmd_tbls(t_cmd_tbl *cmd_tbls)
 {
-	t_cmd_tbl	*curr;
+	t_cmd_tbl	*tmp;
 
-	curr = cmd_tbls;
-	while (curr != NULL)
+	tmp = NULL;
+	if (cmd_tbls == NULL)
+		return ;
+	while (cmd_tbls != NULL)
 	{
-		free_tokens(curr->args);
-		free_tokens(curr->redirs);
-		free_char_array(curr->cmd_args);
-		free(curr->cmd);
-		curr = curr->next;
+		free_tokens(cmd_tbls->args);
+		free_tokens(cmd_tbls->redirs);
+		free_char_array(cmd_tbls->cmd_args);
+		free(cmd_tbls->cmd);
 		free(cmd_tbls->heredoc_name);
+		tmp = cmd_tbls->next;
 		free(cmd_tbls);
-		cmd_tbls = curr;
+		cmd_tbls = tmp;
 	}
 }
 

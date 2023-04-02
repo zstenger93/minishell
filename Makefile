@@ -31,6 +31,7 @@ BUILTINS		= builtins/cd/cd \
 				  builtins/env/env_utils \
 				  builtins/exit/exit_utils \
 				  builtins/echo/echo_utils \
+				  builtins/unset/unset_utils \
 				  builtins/export/empty_cont \
 				  builtins/export/export_utils \
 

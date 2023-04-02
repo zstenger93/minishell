@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:41:43 by zstenger          #+#    #+#             */
-/*   Updated: 2023/03/31 21:58:35 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:46:04 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	nb_esc_chars(char *str, int last_ind)
 
 	i = last_ind - 1;
 	count = 0;
+	if (last_ind <= 0)
+		return (count);
 	while (str[i] != -1)
 	{
 		if (str[i] == 92)

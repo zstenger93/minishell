@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 07:59:18 by jergashe          #+#    #+#             */
-/*   Updated: 2023/04/01 12:05:57 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 18:40:16 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void	free_tokens(t_token *token)
 {
 	t_token	*next;
 
+	next = NULL;
+	if (token == NULL)
+		return ;
 	while (token != NULL)
 	{
 		next = token->next;

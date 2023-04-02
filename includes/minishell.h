@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/02 09:01:33 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 21:37:31 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,11 @@ bool		is_valid_export(t_shell *shell, char *args, int i);
 void		replace_var_content(t_shell *shell, char *str, char *var);
 
 //BUILTIN UNSET
+bool		has_plus(char *str);
 void		free_env_var(t_env *env);
+bool		has_invalid_chars(char *str);
 void		delete_env_var(t_env *head, t_env *del);
+bool		unset_special(t_shell *shell, char **args);
 t_env		*find_env_var(t_env *head, char *var_name);
 void		unset_all_vars(t_shell *shell, char **args);
 void		unset(t_shell *shell, char *cmd, char **args);

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:31:00 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/02 15:14:18 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 21:38:55 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	unset(t_shell *shell, char *cmd, char **args)
 {
 	if (args[1] == NULL)
+		return ;
+	if (unset_special(shell, args) == TRUE)
 		return ;
 	else
 		unset_all_vars(shell, args);
@@ -35,7 +37,10 @@ void	unset_all_vars(t_shell *shell, char **args)
 			delete_env_var(shell->env_head, env);
 			env = NULL;
 		}
-		else if (ft_isalpha(args[i][0]) != TRUE)
+		else if (args[i][0] == '-')
+			shell->exit_code = 2;
+		else if (ft_pf_strchr(args[i], '=') || ft_pf_strchr(args[i], '\\')
+			|| has_invalid_chars(args[i]) == TRUE)
 		{
 			shell->exit_code = 1;
 			if (shell->print == TRUE)

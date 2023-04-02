@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:54:54 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/02 15:17:06 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 22:07:06 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void	env(t_shell *shell, char **args)
 			if (curr->content != NULL && curr->content[0] == ' '
 				&& ft_strlen(curr->content) == 1)
 				printf("%s=\n", curr->var_name);
-			else if (curr->content != NULL
-				&& shell->color_codes == TRUE)
+			else if (curr->content != NULL && shell->color_codes == TRUE)
 				printf("%s=%s\n", curr->var_name, curr->content);
 			else if (curr->content != NULL
 				&& strcmp_2(curr->var_name, "TERM") == FALSE
