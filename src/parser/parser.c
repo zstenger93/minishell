@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:15:57 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/02 18:33:48 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 18:38:20 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,16 @@ char	**split_with_pipes(char *str, int start, int end, int index)
 	char	**tokens;
 	char	*tmp;
 
+	if (str == NULL)
+		return (NULL);
 	tokens = malloc(sizeof(char *) * (count_pipes(str) + 1));
 	if (tokens == NULL)
 		return (p_err("%s%s\n", SHELL, MALLOC_FAIL), NULL);
 	while (str[++end] != '\0')
 	{
 		end = skip_quotes(str, end);
-		if (str[end] == '|' && str[end - 1] != SQUOTE
+		if (ft_strlen(str) > end && str[end] != '\0'
+			&& str[end] == '|' && str[end - 1] != SQUOTE
 			&& nb_esc_chars(str, end) % 2 == 0)
 		{
 			tmp = ft_strdup2(str, start, end);
@@ -108,9 +111,12 @@ int	skip_quotes(char *str, int index)
 		return (index);
 	quote = str[index++];
 	while (str[index] != quote
-		&& nb_esc_chars(str, index) % 2 == 0
-		&& str[index] != '\0')
+		&& nb_esc_chars(str, index) % 2 == 0)
+	{
+		if (str[index] == '\0')
+			return (index);
 		index++;
+	}
 	return (index);
 }
 
@@ -126,12 +132,15 @@ int	count_pipes(char *str)
 
 	count = 0;
 	i = -1;
+	if (str == NULL)
+		return (1);
 	while (str[++i] != '\0')
 	{
 		i = skip_quotes(str, i);
-		if (str[i] == '|'
-			&& nb_esc_chars(str, i) % 2 == 0
-			&& str[i] != '\0')
+		if (ft_strlen(str) > i
+			&& str[i] != '\0'
+			&& str[i] == '|'
+			&& nb_esc_chars(str, i) % 2 == 0)
 			count++;
 	}
 	return (count + 1);

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:44:38 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/03 11:11:52 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:04:23 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,13 @@ void	update_pwd_and_oldpwd(t_shell *shell, char *old_pwd)
 	char	*pwd_join;
 	char	*old_pwd_join;
 	char	path[PATH_MAX];
-	int		save_code;
 
 	add_oldpwd_to_env(shell);
-	save_code = shell->exit_code;
 	new_pwd = getcwd(NULL, sizeof(path));
 	pwd_join = ft_nm_strjoin("PWD=", new_pwd);
 	old_pwd_join = ft_nm_strjoin("OLDPWD=", old_pwd);
 	replace_var_content(shell, old_pwd_join, "OLDPWD");
 	replace_var_content(shell, pwd_join, "PWD");
-	shell->exit_code = save_code;
 	free(old_pwd_join);
 	free(pwd_join);
 	free(new_pwd);

@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 15:43:25 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/03 11:16:12 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:36:05 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ void	exec_without_pipes(t_cmd_tbl *table, t_shell *shell)
 		close_and_dup(shell);
 	else
 		shell->exit_code = 258;
+
 }
 
 void	simple_exec_in_child(t_shell *shell, t_cmd_tbl *table)
 {
-	signals_child(&shell->mirror_termios);
+	// signals_child(&shell->mirror_termios);
 	if (has_wrong_redir(shell, table->redirs, table) == false)
 	{
 		shell->print = TRUE;

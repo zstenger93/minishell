@@ -6,11 +6,29 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:27:28 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/02 21:19:10 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 21:10:18 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+bool	has_plus(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '+')
+		{
+			if (str[i + 1] == '=')
+				return (FALSE);
+			return (TRUE);
+		}
+		i++;
+	}
+	return (FALSE);
+}
 
 /*
 export -> print
@@ -45,6 +63,7 @@ void	export(t_shell *shell, char *cmd, char **args)
 		}
 	}
 }
+
 
 // args is cmd_args from table
 void	export_new_variables(t_shell *shell, char **args)

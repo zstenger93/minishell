@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 12:47:49 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/03 09:40:46 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:40:09 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,29 @@ bool	has_wrong_pipe(char *str)
 	{
 		if (str[i] == '|')
 		{
+			if (redir_after(str, i))
+				return (true);
 			if (redir_before(str, i))
-				return (syntax_error(str[i]), true);
+				return (true);
 		}
 	}
 	return (false);
 }
 
+// have redirection after pipe but no escape before pipe -> WRONG
+// have redirection after pipe and escape before pipe -> WRONG
+bool	redir_after(char *str, int i)
+{
+	if (ft_pf_strchr(REDIRECTIONS, str[i + 1]) && str[i - 1] != 92)
+		return (true);
+	if (ft_pf_strchr(REDIRECTIONS, str[i + 1]) && str[i - 1] == 92)
+		if (nb_esc_chars(str, i) % 2 == 0)
+			return (true);
+	return (false);
+}
+
+// redirection before pipe but no escape before redirection -> WRONG
+// redirection before pipe and not escaped escape before redirection -> WRONG
 bool	redir_before(char *str, int i)
 {
 	if (ft_pf_strchr(REDIRECTIONS, str[i - 1]) && str[i - 2] != 92)

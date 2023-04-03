@@ -6,16 +6,33 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:17:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/03 09:43:19 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:33:15 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+bool	bad_pipe(t_shell *shell)
+{
+	int	len;
+
+	len = ft_strlen(shell->trimmed_prompt) - 1;
+	if (shell->trimmed_prompt[0] == '|')
+	{
+		shell->exit_code = 2;
+		return (syntax_error(shell->trimmed_prompt[0]), TRUE);
+	}
+	else if (shell->trimmed_prompt[len] == '|')
+	{
+		shell->exit_code = 2;
+		return (syntax_error_newline(), TRUE);
+	}
+	return (FALSE);
+}
+
 int	lexer(t_shell *shell)
 {
-	if (ft_strlen(shell->trimmed_prompt) == 0
-		|| is_empty_line_passed(shell) == TRUE)
+	if (is_empty_line_passed(shell) == TRUE || ft_strlen(shell->trimmed_prompt) == 0)
 		return (FALSE);
 	else if (bad_pipe(shell) == TRUE)
 		return (FALSE);
@@ -33,26 +50,26 @@ int	lexer(t_shell *shell)
 }
 
 // eg prompt -> ""
-bool	is_empty_line_passed(t_shell *s)
+bool	is_empty_line_passed(t_shell *shll)
 {
-	if (s->trimmed_prompt[0] == '~' && ft_strlen(s->trimmed_prompt) == 1)
+	if (shll->trimmed_prompt[0] == '~' && ft_strlen(shll->trimmed_prompt) == 1)
 	{
-		s->exit_code = 126;
+		shll->exit_code = 126;
 		return (p_err("%s: %s: %s\n", SHELL, "~", ISDIR), TRUE);
 	}
-	if ((s->trimmed_prompt[0] == '>' && s->trimmed_prompt[1] == '>'
-			&& s->trimmed_prompt[2] == '>') || (s->trimmed_prompt[0] == '<'
-			&& s->trimmed_prompt[1] == '<' && s->trimmed_prompt[2] == '<'))
+	if ((shll->trimmed_prompt[0] == '>' && shll->trimmed_prompt[1] == '>'
+		&& shll->trimmed_prompt[2] == '>') || (shll->trimmed_prompt[0] == '<'
+		&& shll->trimmed_prompt[1] == '<' && shll->trimmed_prompt[2] == '<'))
 	{
-		s->exit_code = 2;
-		return (syntax_error(s->trimmed_prompt[0]), TRUE);
+		shll->exit_code = 2;
+		return (syntax_error(shll->trimmed_prompt[0]), TRUE);
 	}
-	if (s->trimmed_prompt[0] == DQUOTE && s->trimmed_prompt[1] == DQUOTE
-		&& ft_strlen(s->trimmed_prompt) == 2)
+	if (shll->trimmed_prompt[0] == DQUOTE && shll->trimmed_prompt[1] == DQUOTE
+		&& ft_strlen(shll->trimmed_prompt) == 2)
 	{
 		p_err("%s: %s\n", SHELL, CMD_NOT_FND);
-		s->cmd_has_been_executed = FALSE;
-		s->exit_code = 127;
+		shll->cmd_has_been_executed = FALSE;
+		shll->exit_code = 127;
 		return (TRUE);
 	}
 	return (FALSE);
@@ -68,7 +85,7 @@ bool	wrong_operator_check(char *str)
 
 	i = 0;
 	if (has_wrong_pipe(str))
-		return (TRUE);
+		p_err("%s%s\n", SHELL, PIPE_ERROR);
 	while (str[++i])
 	{
 		if (is_operator(str[i - 1]) && is_space(str[i]))
@@ -85,23 +102,5 @@ bool	wrong_operator_check(char *str)
 	}
 	if (is_operator(str[ft_strlen(str) - 1]))
 		return (syntax_error_newline(), TRUE);
-	return (FALSE);
-}
-
-bool	bad_pipe(t_shell *shell)
-{
-	int	len;
-
-	len = ft_strlen(shell->trimmed_prompt) - 1;
-	if (shell->trimmed_prompt[0] == '|')
-	{
-		shell->exit_code = 2;
-		return (syntax_error(shell->trimmed_prompt[0]), TRUE);
-	}
-	else if (shell->trimmed_prompt[len] == '|')
-	{
-		shell->exit_code = 2;
-		return (syntax_error_newline(), TRUE);
-	}
 	return (FALSE);
 }

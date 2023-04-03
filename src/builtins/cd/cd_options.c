@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:20:09 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/02 17:14:26 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:01:56 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	cd_forward(t_shell *shell, char *folder_path)
 		shell->exit_code = 1;
 		if (shell->print == TRUE)
 			p_err("%scd: %s: %s\n", SHELL, folder_path, strerror(errno));
+		exit(1);
 	}
 }
 

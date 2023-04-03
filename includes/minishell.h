@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 08:46:37 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/03 09:41:12 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 19:45:26 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,9 @@ bool		is_valid_export(t_shell *shell, char *args, int i);
 void		replace_var_content(t_shell *shell, char *str, char *var);
 
 //BUILTIN UNSET
-bool		has_plus(char *str);
 void		free_env_var(t_env *env);
 bool		has_invalid_chars(char *str);
 void		delete_env_var(t_env *head, t_env *del);
-bool		unset_special(t_shell *shell, char **args);
 t_env		*find_env_var(t_env *head, char *var_name);
 void		unset_all_vars(t_shell *shell, char **args);
 void		unset(t_shell *shell, char *cmd, char **args);
@@ -125,11 +123,11 @@ bool		is_flag_valid(char *arg);
 void		handle_n_flag(char **args);
 bool		space_filled_token(char *str);
 bool		has_quote_in_string(char *str);
+void		print_without_quotes(char *str, int i, int k, int dq);
 int			echo_n_flag_validator(char **args);
 void		simple_echo(t_shell *shell, char **args);
 void		echo(t_shell *shell, char *cmd, char **args);
 int			write_escapes(char *str, int escp_nb, int i);
-void		print_without_quotes(char *str, int i, int k, int dq);
 
 //INITIALIZE
 char		*extract_user(t_shell *shell);
@@ -153,8 +151,8 @@ bool		is_space(char c);
 bool		is_operator(char c);
 int			lexer(t_shell *shell);
 bool		redir_check(char *str);
-bool		bad_pipe(t_shell *shell);
 bool		has_wrong_pipe(char *str);
+bool		redir_after(char *str, int i);
 bool		redir_before(char *str, int i);
 bool		wrong_operator_check(char *str);
 bool		is_empty_line_passed(t_shell *shll);

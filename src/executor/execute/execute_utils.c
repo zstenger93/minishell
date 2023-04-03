@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 09:08:32 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/03 11:16:15 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:00:04 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	**copy_2d_char_array(char **array)
 	char	**result;
 
 	i = 0;
+	if (array == NULL)
+		return (NULL);
 	while (array[i] != NULL)
 		i++;
 	result = malloc(sizeof(char *) * (i + 1));

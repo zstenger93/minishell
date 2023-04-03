@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:17:42 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/02 18:38:55 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 18:09:03 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	init_shell(t_shell *shell, char **env)
 		shell->cmd_paths = ft_split(get_path(env), ':');
 	}
 	shell->env = NULL;
+	shell->cmd_tbls = NULL;
 	shell->exit_code = 0;
 	shell->print = FALSE;
 	shell->heredoc = NULL;
-	shell->cmd_tbls = NULL;
 	shell->prev_prompt = NULL;
 	shell->trimmed_prompt = NULL;
 	shell->terminal_prompt = NULL;

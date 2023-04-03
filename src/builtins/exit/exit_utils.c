@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 18:58:28 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/01 11:07:22 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 18:03:37 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ bool	is_exit_code_correct(t_shell *shell, char *args, int i)
 	int	result;
 	int	sign;
 
+	sign = 0;
 	result = 0;
 	if (args[0] == '+')
 		i = 1;

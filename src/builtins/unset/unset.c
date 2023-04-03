@@ -6,17 +6,17 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:31:00 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/02 21:38:55 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/02 21:04:35 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+bool	has_invalid_chars(char *str);
+
 void	unset(t_shell *shell, char *cmd, char **args)
 {
 	if (args[1] == NULL)
-		return ;
-	if (unset_special(shell, args) == TRUE)
 		return ;
 	else
 		unset_all_vars(shell, args);
@@ -48,6 +48,34 @@ void	unset_all_vars(t_shell *shell, char **args)
 		}
 		i++;
 	}
+}
+
+bool	has_invalid_chars(char *str)
+{
+	int	i;
+
+	i = 1;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '^')
+			return (TRUE);
+		if (str[i] == 43 || str[i] == 61 || str[i] == 95 || (str[i] >= 65
+			&& 122 >= str[i]) || (str[i] >= 48 && 57 >= str[i]))
+		{
+			if (str[i] == 43)
+			{
+				if (str[i + 1] == 61)
+					return (FALSE);
+				return (TRUE);
+			}
+			else if (str[i] == 61)
+				return (FALSE);
+			i++;
+		}
+		else
+			return (TRUE);
+	}
+	return (FALSE);
 }
 
 t_env	*find_env_var(t_env *head, char *var_name)
