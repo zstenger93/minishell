@@ -6,6 +6,7 @@
 </h2>
 <img src="https://www.freeiconspng.com/uploads/hd-pepe-png-transparent-background-4.png" width="350" alt="Hd Pepe Png Transparent Background" />
 
+---
 
 <div align=center>
 <h1 align="center">Allowed Functions</h1>
@@ -32,6 +33,8 @@
 | **errno**				| `man errno`		| `<errno.h>`		| number of last error
 | **access**			| `man access`		| `<unistd.h>`		| checks the access permissions
 | **perror**			| `man perror`		| `<stdio.h>`		| look up the error message string corresponding to an error
+
+---
 
 <h2>New Functions</h2>
 
@@ -73,21 +76,28 @@
 | **rl_redisplay**		| 					| `<stdio.h>` `<readline/readline.h>` `<readline/history.h>`| Change what’s displayed on the screen to reflect the current contents of rl_line_buffer
 | **add_history**		|					| `<stdio.h>` `<readline/readline.h>` `<readline/history.h>`| Saving the line into the history
 
+---
+
 <div align=center>
 <h1 align=center> </h1>
 <h1 align=center>Our approach to the project</h1>
 <h1 align=center>Input</h1>
 <h3 align=center>Check for valid input, and if so we return our beautiful error message and how to use the program</h3>
 
+---
+
 <h1 align=center>Init</h1>
 <h3>Initialize everything what's needed in normal mode</h3>
 <h3>Or initialize the envless mode and extract the username</h3>
+
+---
 
 <h1 align=center>Signals</h1>
 <h3>We have signals in the main loop for interactive mode</h3>
 <h3>Signals in parent</h3>
 <h3>Signals in child</h3>
 
+---
 
 <h1 align=center>Prompt</h1>
 <h2 align=center>Normal mode</h2>
@@ -97,6 +107,8 @@
 <h3>Folder name which always showing the current folder where you are</h3>
 <h3>The green X sign at the end</h3>
 
+---
+
 <h2 align=center>No env</h2>
 <h3>Works the same way except one thing which is the username</h3>
 <h3>Since we don't have User in this case in out env</h3>
@@ -105,17 +117,21 @@
 <h3>In case you try to delete the username from the file to break it, the prompt will change to a message</h3>
 <h3>If you try to delete the file itself, it changes to another message as well ^^</h3>
 
-
+---
 
 <h1 align=center>Readline</h1>
 <h3>After reading the input we trim the spaces from start-end and pass it to lexer</h3>
 <h3>If the input is not empty, or not the exact same as the previous one then we store it in the history</h3>
+
+---
 
 <h1 align=center>Lexer</h1>
 <h3>Since we kinda mixed lexer with the parser we have barely left with some checks at our lexer part</h3>
 <h3>We look for wrong chars at line[0] like pipe or at the very end</h3>
 <h3>Checks for wrong redirs right before pipes and if the last char is redir</h3>
 <h3>A few other basic check, like empty imput or empty strings etc</h3>
+
+---
 
 <h1 align=center>Parser</h1>
 <h3>First we did split with pipes int tokens and assign them to different types</h3>
@@ -128,6 +144,7 @@
 <h3>heredoc filename</h3>
 <h3>**char for comamnd arguments</h3>
 
+---
 
 <h1 align=center>Executor</h1>
 <h3>First we look for wrong redirections again and heredocs on the main process</h3>
@@ -146,7 +163,7 @@
 <h3>Waiting untill the last child process is going to finish and get it's exit status</h3>
 <h3>Exec builtins to update structs/path if it is necessary</h3>
 
-
+---
 
 </div>
 <h1 align=center>TO DO</h1>
