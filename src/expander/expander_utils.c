@@ -6,7 +6,7 @@
 /*   By: zstenger <zstenger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:40:39 by zstenger          #+#    #+#             */
-/*   Updated: 2023/04/02 17:28:00 by zstenger         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:55:11 by zstenger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	copy_dollar_from_string(char **dst, char **s, int index)
 			delimeter = '\'';
 		if (index > 0 && s[0][index - 1] == '\"' )
 			delimeter = '\"';
-		while (s[0][i] != 47 && s[0][i] != '\0' && s[0][i] != delimeter
-			&& s[0][doll] >= 40 && 122 >= s[0][doll])
+		while (s[0][i] != '\0' && s[0][i] != delimeter && ((s[0][doll] >= 48
+			&& 57 >= s[0][doll]) || (s[0][doll] >= 65 && 122 >= s[0][doll])))
 		{
 			i++;
 			doll++;
