@@ -8,6 +8,10 @@
 
 ---
 
+<img align=center src="https://github.com/zstenger93/minishell/blob/master/mindmap.png">
+
+---
+
 <div align=center>
 <h1 align="center">Allowed Functions</h1>
 <h2>Used previously</h2>
